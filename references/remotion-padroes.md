@@ -70,6 +70,21 @@ marca troca de bloco com a faixa de luz. Em textos, `*trecho*` sai no acento.
 
 Todos aceitam `id`, `inicio`, `rotulo`, `wipe`.
 
+Duração de cena de texto: o intervalo entre duas mudanças na tela (início da cena,
+cada `em`/`risco`/`ate`/`escreveEm`) não passa de ~2,5 s; a cena inteira de texto
+idealmente fica em ~1,5-2 s quando há orador filmado. Cena longa vira várias cenas
+curtas intercaladas com o orador. Cena sob medida que mostra o orador: use um tipo
+`filmagem`/`orador`/`video` ou marque `"orador": true` para o validador:
+
+```bash
+python -I <skill>/scripts/cenas_check.py --projeto <pasta-do-video> --orador filmagem --limite 2.5
+```
+
+Saída: tabela por cena (duração, maior trecho parado, status), AVISO para frase sobre o
+orador que fica mais que o limite, card de texto acima de 2x o limite e trecho de mais
+de 6 s só de texto num vídeo com orador; ERRO (código 1) para texto parado acima do
+limite. Precisão ~0,2 s.
+
 ## 4. `prints.json`
 
 ```json
@@ -153,7 +168,10 @@ export const Comparacao: React.FC<PropsCena<any>> = ({def, ini}) => {
 Registre em `Video.tsx` (acrescente `comparacao: Comparacao` no objeto `REGISTRO`), adicione o tipo em
 `cenas/tipos.ts` se quiser checagem, e use `{"tipo": "comparacao", ...}` no `cenas.json`.
 Para um vídeo de fundo (talking head, screencast), use `<OffthreadVideo src={staticFile(...)} />`
-com `startFrom` em frames.
+com `startFrom` em frames. Para alternar frase e orador sem perder a sincronia labial,
+corte o vídeo com os mesmos trechos da voz (`blocos.json`, mesmo `tempo`) para que o
+frame N do arquivo seja o frame N da timeline, e comece cada cena do orador no frame
+absoluto dela (`ini`).
 
 ## 7. Comandos
 

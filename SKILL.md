@@ -43,7 +43,7 @@ Detecte o insumo e o objetivo antes de qualquer coisa:
 |---|---|---|
 | ideia/texto | só descrição ou roteiro | fase 1C |
 | áudio | m4a, mp3, wav, ogg | fase 1A |
-| vídeo | mp4, mov, webm (talking head, screencast) | fase 1A (extrai o áudio) + decide se o vídeo aparece |
+| vídeo | mp4, mov, webm (talking head, screencast) | fase 1A (extrai o áudio) + decide se o vídeo aparece; com orador filmado, pergunta de presença do orador obrigatória |
 | projeto/produto | pasta de código, URL, app, README | fase 1B (e 1A/1C para a voz) |
 
 Objetivo: plataforma, formato (9:16 Reels/TikTok/Shorts, 16:9 YouTube, 1:1 feed),
@@ -51,6 +51,21 @@ duração alvo, idioma, marca (logo, site, cores), CTA. Infira o que der do pedi
 arquivos. Pergunte **só o que for impossível inferir**, de uma vez, com AskUserQuestion e
 uma opção recomendada em cada pergunta. Padrões quando não houver pista: 9:16, 45-90 s,
 variante escura, legenda ligada, idioma da fala.
+
+**Presença do orador (obrigatória quando há filmagem dele: talking head, palestra,
+entrevista).** É gosto do cliente e não dá para inferir: pergunte sempre, no mesmo
+AskUserQuestion das outras perguntas desta fase (lição real, mesmo feedback da regra de
+texto de tela da fase 3):
+
+1. **Mais orador**: a pessoa aparece a maior parte do tempo; o motion entra pontual,
+   como destaque curto por cima ou num corte rápido.
+2. **Frase e volta (recomendado)**: frase-chave grande por ~1,5-2 s e volta para o
+   orador, alternância contínua. Foi o que funcionou no feedback real.
+3. **Mais texto para ler**: cenas de motion e texto mais longas, orador em menos
+   momentos. Mesmo assim nenhum texto fica parado mais de ~2,5 s: o texto muda (palavra
+   por palavra, punch-in, ícone que reage), não congela.
+
+Sem vídeo do orador (só áudio, ideia ou produto), a pergunta não se aplica.
 
 ### 1. Entender o conteúdo
 
@@ -96,6 +111,13 @@ halo da cor de acento), variante escura ou clara. **Um** acento por vídeo. Tipo
 gradiente arco-íris, sem roxo-azul genérico, título com peso moderado (500-600). A paleta
 vem da marca do usuário (extraia dos pixels da logo/site) ou da pesquisa do nicho.
 
+**Texto de tela (lição real: card parado cansa e compete com a fala):** fora a legenda,
+nenhum texto fica parado mais de ~2,5 s. Texto de tela é frase-chave curta (2-6
+palavras), grande, no centro, entrando no marco da palavra falada. Com filmagem do
+orador (talking head, palestra), o padrão é alternar frase-chave (~1,5-2 s) e volta ao
+orador enquanto ele desenvolve: frase, orador, frase, orador. Nada de card pequeno com
+tela vazia em volta, nem texto repetindo por segundos o que a legenda já mostra.
+
 Tokens, variantes e regras: [references/direcao-visual.md](references/direcao-visual.md).
 
 ### 4. Roteiro e storyboard
@@ -103,6 +125,10 @@ Tokens, variantes e regras: [references/direcao-visual.md](references/direcao-vi
 Grave `storyboard.md`: blocos com tempo, o que aparece em cada cena, qual palavra dispara
 qual animação, onde entram prints, números, CTA e as instruções extraídas na fase 1.
 Os blocos do storyboard viram os `bloco` do `cortes.json` e os `id` de `cenas.json`.
+Cada cena de texto declara a duração; acima de 2,5 s ela precisa mudar (nova palavra,
+punch-in, troca para o orador). Com filmagem, registre no topo o parâmetro escolhido na
+fase 0 (`presença do orador: mais orador | frase e volta | mais texto`) e marque onde a
+tela volta para o orador.
 
 ### 5. Assets
 
@@ -148,6 +174,11 @@ digitando, tipografia cinética, CTA, transições curtas (blur/wipe). As cenas 
 declaradas em `src/data/cenas.json` e ancoradas em tempos da fala (`"marco"`,
 `"bloco:nome"`, `"marco+200"`), nunca em frame escrito à mão. Nada linear seco: spring
 ou easing em tudo. Cena sob medida: crie em `src/cenas/` e registre em `Video.tsx`.
+Depois de montar `cenas.json`, meça o texto parado (sai com erro acima de 2,5 s):
+
+```bash
+python -I <skill>/scripts/cenas_check.py --projeto <pasta-do-video> --orador filmagem
+```
 
 API dos componentes, tipos de cena e padrões: [references/remotion-padroes.md](references/remotion-padroes.md).
 Áreas seguras e specs: [references/formatos-plataformas.md](references/formatos-plataformas.md).
@@ -188,12 +219,15 @@ para compartilhar: `python -I <skill>/scripts/comprimir.py out/video.mp4 out/vid
 ### 10. QA obrigatório antes de entregar
 
 ```bash
+python -I <skill>/scripts/cenas_check.py --orador filmagem
 python -I <skill>/scripts/frames_check.py out/video.mp4 --n 18
 python -I <skill>/scripts/transcrever.py out/video.mp4 work/qa_final.json
 ```
 
-Abra (Read) **cada** frame e a folha de contato: texto cortado, sobreposição, contraste,
-legenda e conteúdo dentro da área segura, dado sensível visível. Compare a transcrição
+`cenas_check.py` sem ERRO: nenhum texto de tela parado mais de ~2,5 s. Abra (Read)
+**cada** frame e a folha de contato: texto cortado, sobreposição, contraste,
+legenda e conteúdo dentro da área segura, dado sensível visível. Nos trechos de
+filmagem, confira a sincronia labial (boca bate com a voz editada). Compare a transcrição
 do MP4 com o roteiro: nenhum trecho cortado voltou, a voz é inteligível com a música.
 LUFS -14 +-1, true peak <= -1. Corrija e re-renderize até passar. Checklist completo:
 [references/qa.md](references/qa.md).
@@ -222,6 +256,8 @@ O usuário vai pedir ajustes. Tudo é parametrizado para refazer sem reescrever 
 | tirar/voltar um trecho | `cortes.json` -> `manter`/`remover` | idem |
 | mais/menos prints, zoom, destaque | `src/data/prints.json`, `cenas.json` | render |
 | trocar cena, texto, ordem | `src/data/cenas.json` | render |
+| texto parado demais / cansativo de ler | `cenas.json`: quebre o card em frases-chave de ~1,5-2 s e intercale cenas do orador | cenas_check -> stills -> render |
+| quer ver mais a pessoa / menos texto | presença do orador no `storyboard.md` (vai para "mais orador"); em `cenas.json`, encurte as cenas de texto e amplie as do orador | cenas_check -> stills -> render |
 | outra trilha, volume da música | `public/musica/` + flags do `mixar.py` | mixar -> render |
 | SFX demais/de menos | `src/data/sfx.json` | gerar_sfx -> mixar -> render |
 | cor, fonte, variante, formato | `src/data/config.json`, `src/theme.ts` | render |
@@ -244,6 +280,7 @@ inteira daquela linha (marcos mudam de tempo). Rode `npx tsc --noEmit` e stills
 | `borrar.py` | borra/pixeliza/tampa regiões sensíveis de prints |
 | `analisa_musica.py` | BPM, batidas, loudness da trilha; perfil de SFX (`--sfx`) |
 | `gerar_sfx.py` | valida densidade do plano de SFX e resolve tempos |
+| `cenas_check.py` | mede o texto parado por cena no `cenas.json` (máx. ~2,5 s) e a alternância com o orador |
 | `mixar.py` | voz + trilha (ducking) + SFX -> mix.wav (-14 LUFS) |
 | `frames_check.py` | ffprobe, LUFS, N frames + folha de contato com área segura |
 | `comprimir.py` | versão leve 2 passadas com +faststart |

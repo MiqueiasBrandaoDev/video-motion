@@ -79,6 +79,7 @@ e os pesos/subsets em `theme.ts`.
 | brilho, partícula, lens flare decorativo | profundidade por vidro, sombra, halo discreto |
 | mockup inventado do produto | print real, com dado sensível borrado |
 | texto longo na tela | 2-6 palavras por elemento; o resto é fala/legenda |
+| card pequeno parado 5-8 s com tela vazia em volta | frase-chave grande no centro por ~1,5-2 s, depois muda ou volta ao orador |
 
 ## Composição
 
@@ -87,3 +88,21 @@ e os pesos/subsets em `theme.ts`.
 - 9:16: coluna única, margem lateral 64 px. 16:9: aproveite a horizontal (print + coluna).
 - Hierarquia: rótulo mono pequeno em acento -> título/elemento principal -> apoio.
 - Movimento de câmera em print (zoom + Ken Burns) substitui corte quando a cena é longa.
+
+## Texto de tela
+
+Lição real (reel de palestra): cards "não interessa X (riscado) / interessa Y" ficaram
+5-8 s parados, pequenos e com espaço vazio no meio, enquanto o orador seguia falando.
+Feedback do espectador: dá preguiça, a pessoa lê a mesma coisa várias vezes e não presta
+atenção nem no texto nem na fala. A correção que funcionou: frase curta e grande por
+~1,5-2 s e volta para o orador.
+
+| Regra | Valor |
+|---|---|
+| tempo máximo de um texto parado (fora a legenda) | ~2,5 s; depois muda (nova palavra, punch-in, ícone que reage) ou sai |
+| frase-chave | 2-6 palavras, grande (ocupa a largura útil), no centro, entra no marco da palavra falada |
+| com filmagem do orador | alterna frase-chave (~1,5-2 s) e orador; a dosagem vem da "presença do orador" escolhida na fase 0 |
+| texto x legenda | o texto de tela destaca a ideia; não repete por segundos o que a legenda já mostra |
+| espaço vazio | nada de card pequeno no meio de tela vazia: ou a frase ocupa a tela, ou a tela é do orador |
+
+`scripts/cenas_check.py` mede isso no `cenas.json` antes do render.

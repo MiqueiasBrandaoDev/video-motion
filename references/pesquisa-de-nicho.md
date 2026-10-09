@@ -37,6 +37,8 @@ Abra (WebFetch) as melhores. Quando houver vídeo de referência, descreva o que
 - Gancho: o que acontece nos 2 primeiros segundos (texto na tela? pergunta? número? movimento?)
 - Ritmo: duração média de cada plano/corte; quando há respiro
 - Legenda: palavras por página, posição, destaque da palavra ativa, caixa/sem caixa
+- Texto de tela: quanto tempo cada frase fica parada, tamanho, se alterna com o orador
+  (referência para a regra de ~2,5 s; ver direcao-visual.md, "Texto de tela")
 - Tipografia: família (serifa/grotesca/mono), peso, tamanho relativo, caixa alta ou não
 - Paleta típica do nicho e o que destoa (o que faria o vídeo se destacar sem fugir do nicho)
 - Motion: tipos de transição, uso de zoom em print, cursor, contadores, 3D, grão, etc.
