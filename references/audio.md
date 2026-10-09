@@ -1,0 +1,150 @@
+# Áudio da voz (fases 1 e 6)
+
+## Índice
+1. Transcrição (OpenAI ou local)
+2. Classificar trechos: LOCUÇÃO / INSTRUÇÃO / DESCARTE
+3. Plano de cortes (`cortes.json`)
+4. O que o `cortar.py` faz (e comandos ffmpeg equivalentes)
+5. Retranscrição, legendas e marcos
+6. Voz por TTS e vídeo sem voz
+7. Vídeo de entrada (talking head, screencast)
+
+## 1. Transcrição
+
+```bash
+python -I <skill>/scripts/transcrever.py <entrada> work/transcricao.json --idioma pt --vocab "Marca, Nome Próprio, termo"
+```
+
+| Motor | Quando | Custo | Observação |
+|---|---|---|---|
+| `openai` (whisper-1) | `OPENAI_API_KEY` definida | ~US$ 0,006/min (conferir preço) | melhor tempo por palavra; `--vocab` vira prompt de grafia |
+| `local` (faster-whisper) | sem chave, ou dado que não pode sair da máquina | gratuito | `pip install faster-whisper`; `--modelo-local small` (bom), `medium` (melhor, mais lento); CPU por padrão (`--dispositivo cuda` só com CUDA 12 + cuBLAS) |
+
+Alternativa local em Node: pacote `@remotion/install-whisper-cpp` (mesma versão do
+Remotion), com `installWhisperCpp()`, `downloadWhisperModel()` e `transcribe()` com
+`tokenLevelTimestamps: true`; converta a saída para o mesmo formato
+(`words[{word,start,end}]` em segundos) antes do `legendas.py`.
+
+Se o download do modelo local ficou incompleto (`model.bin is incomplete`), use
+`--pasta-modelos <pasta nova>` para baixar de novo sem mexer no cache existente.
+
+Modelos `gpt-4o-transcribe` não devolvem tempo por palavra: use `whisper-1`.
+
+## 2. Classificar trechos
+
+```bash
+python -I <skill>/scripts/trechos.py work/transcricao.json --palavras --saida work/trechos.json
+```
+
+As pistas (`[INSTRUÇÃO?]`, `[REPETE?]`, `[HESITA?]`, `[PAUSA]`) são só pistas. Leia o texto:
+
+| Classe | Exemplos | Ação |
+|---|---|---|
+| LOCUÇÃO | a fala que conta a história | `manter` |
+| INSTRUÇÃO PARA O AGENTE | "aqui coloca o print do painel", "nessa parte mostra o número grande", "corta isso", "deixa a música mais alta no final" | vira requisito no storyboard; trecho vai para `remover` |
+| DESCARTE | frase recomeçada (fica a última tentativa completa), "é... então...", tosse, silêncio > 0,7 s, erro factual que o usuário corrigiu falando | `remover` ou fora das janelas `manter` |
+
+Use `--palavras` para achar o ponto exato de corte (início da primeira palavra mantida,
+fim da última). Corte entre palavras, nunca no meio.
+
+## 3. `cortes.json`
+
+```json
+{
+  "tempo": 1.2, "pausa_max": 0.28, "pos": 0.12, "pre": 0.08, "fade": 0.012,
+  "silencio_db": -36, "silencio_min_s": 0.22,
+  "manter": [
+    {"ini": 0.85, "fim": 8.0, "bloco": "gancho"},
+    {"ini": 9.3, "fim": 26.8, "bloco": "dor"}
+  ],
+  "remover": [
+    {"ini": 14.31, "fim": 16.48, "gap": 0.14, "motivo": "tropeço: recomeçou a frase"}
+  ]
+}
+```
+
+- Tempos sempre do **original**. Nunca acelere em cima de um arquivo já acelerado:
+  mude `tempo` e rode de novo a partir do original.
+- `tempo`: 1,2-1,25 é o padrão para fala de vídeo curto (mais denso, tom preservado pelo
+  atempo). Acima de 1,3 começa a soar artificial. Voz TTS: 1,0-1,1.
+- `pausa_max`: pausas naturais até esse valor ficam; maiores viram `pos + pre` (~0,2 s
+  antes do atempo, ~0,17 s depois).
+- `silencio_db`: -36 dB serve para gravação limpa; se a sala tiver ruído, suba para -32;
+  se a voz for baixa e as sílabas finais sumirem, desça para -40.
+- `bloco`: o nome do bloco do storyboard. O `blocos.json` gerado traz o início de cada
+  bloco na timeline final, usado pelas cenas como `"bloco:nome"`.
+
+## 4. O que o `cortar.py` faz
+
+```bash
+python -I <skill>/scripts/cortar.py --entrada gravacao.m4a [--projeto .] [--plano cortes.json]
+```
+
+1. `ffmpeg -i entrada -vn -ac 1 -ar 48000 -c:a pcm_s16le work/orig.wav`
+2. `silencedetect=noise=-36dB:d=0.22` -> ilhas de fala; recorta pelas janelas `manter`
+3. Tira `remover`, junta pausas curtas, põe respiro
+4. Grafo: `atrim` + `asetpts` + `afade` in/out (12 ms) por trecho -> `concat` -> `atempo=1.2` -> `highpass=f=80`
+   (o grafo vai para `work/cortes_grafo.txt` e é lido com `-/filter_complex` no ffmpeg 7+)
+5. `loudnorm` 2 passadas: mede (`print_format=json`) e aplica com `measured_*` e `linear=true`,
+   alvo `I=-14:TP=-1:LRA=11`
+6. Grava `public/voz.wav` (48 kHz mono) e `src/data/blocos.json` (duração, blocos, mapa de trechos)
+
+Comandos úteis à parte:
+
+```bash
+# ouvir/conferir um trecho do original
+ffmpeg -ss 14.0 -to 17.0 -i gravacao.m4a -c copy work/trecho.m4a
+# medir loudness
+ffmpeg -i public/voz.wav -af ebur128=peak=true -f null -
+# remover ruído de fundo leve (só se precisar; teste antes)
+ffmpeg -i entrada.wav -af "afftdn=nf=-25" saida.wav
+```
+
+## 5. Retranscrição, legendas e marcos
+
+Os tempos mudam depois de cortar e acelerar. Retranscreva a voz final:
+
+```bash
+python -I <skill>/scripts/transcrever.py public/voz.wav work/voz_final.json --vocab "Marca, Nome"
+python -I <skill>/scripts/legendas.py --palavras work/voz_final.json --listar     # ver palavras e tempos
+python -I <skill>/scripts/legendas.py --palavras work/voz_final.json --marcos-spec marcos.spec.json --correcoes correcoes.json
+```
+
+`marcos.spec.json` liga nomes a palavras (as âncoras das animações):
+
+```json
+{"gancho": "perde",
+ "custo": {"palavra": "custo", "depois_de": "gancho"},
+ "valor": {"palavra": "4,79", "ocorrencia": 1},
+ "fimLink": {"palavra": "link", "borda": "fim"}}
+```
+
+`correcoes.json` só corrige grafia ou erro evidente do Whisper (marca escrita errada,
+número quebrado em palavras). Na dúvida, ouça o trecho isolado antes de corrigir.
+
+```json
+{"trocas": {"Cloud": "Claude"},
+ "sequencias": [{"de": ["4", "e", "79", "dólares"], "para": ["4,79", "dólares"]}]}
+```
+
+## 6. TTS e vídeo sem voz
+
+```bash
+python -I <skill>/scripts/tts.py --texto roteiro.txt --saida work/voz_tts.wav --voz alloy \
+  --instrucoes "tom de conversa, ritmo ágil, pt-BR natural"
+```
+
+Depois trate como gravação: `cortar.py` com `tempo` 1,0-1,1 e `manter` cobrindo tudo.
+Avise que a voz é sintética; várias plataformas pedem sinalizar conteúdo gerado por IA.
+
+Sem voz: tipografia cinética + música. Use `config.duracao_s`, `legendas: false`,
+`marcos.json` escrito à mão a partir do roteiro (ritmo de leitura ~3 palavras/s, frase
+na tela por 1,2-2 s) e `mixar.py --sem-voz --duracao <s>`.
+
+## 7. Vídeo de entrada
+
+Talking head: o áudio segue o fluxo acima. Para manter o rosto no vídeo, corte o vídeo
+com os mesmos `trechos` do `blocos.json` (atrim/trim + setpts/asetpts, `setpts=PTS/1.2`
+junto do `atempo`) e use `<OffthreadVideo>` do Remotion como camada de fundo ou em
+janela. Screencast: extraia frames-chave como prints (`ffmpeg -ss t -i tela.mp4 -frames:v 1 print.png`)
+ou use o trecho em `<OffthreadVideo>` dentro de uma janela de vidro, com zoom por região.

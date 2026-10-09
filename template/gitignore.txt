@@ -1,0 +1,9 @@
+node_modules/
+out/
+work/
+qa/
+.remotion/
+# prints originais com dados sensíveis nunca entram no vídeo nem no git
+public/prints/*-raw.png
+# downloads de música/SFX ainda não escolhidos (não confiáveis)
+downloads/

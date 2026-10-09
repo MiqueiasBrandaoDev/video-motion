@@ -1,0 +1,45 @@
+{
+  "_como_usar": "Lista de cenas na ordem. inicio/em aceitam: número (ms na timeline final), nome de marco (marcos.json), 'bloco:nome' (blocos.json) e deslocamento opcional, ex.: 'comando-200' ou 'bloco:cta+150'. A cena dura até o início da próxima. Tipos prontos: titulo, numeros, print, terminal, pills, cta. Em textos, *palavra* sai na cor de acento. wipe: true marca troca de bloco (faixa de luz).",
+  "cenas": [
+    {
+      "id": "gancho",
+      "tipo": "titulo",
+      "inicio": 0,
+      "rotulo": "rotina · automação",
+      "linhas": [
+        {"texto": "Você perde", "em": "voce"},
+        {"texto": "*horas*", "em": "horas-150", "tam": 1.3}
+      ]
+    },
+    {
+      "id": "prova",
+      "tipo": "numeros",
+      "inicio": "bloco:prova",
+      "wipe": true,
+      "rotulo": "resultado medido",
+      "itens": [
+        {"valor": 14, "sufixo": "min", "rotulo": "duração", "icone": "clock", "em": "bloco:prova+150"},
+        {"valor": 4.79, "casas": 2, "prefixo": "US$", "rotulo": "custo", "icone": "dollar", "em": "bloco:prova+450"}
+      ]
+    },
+    {
+      "id": "demo",
+      "tipo": "print",
+      "inicio": "bloco:demo",
+      "rotulo": "o painel",
+      "apoio": [
+        {"rotulo": "um comando", "icone": "terminal", "em": "comando"},
+        {"rotulo": "pronto", "icone": "check", "em": "pronto"}
+      ]
+    },
+    {
+      "id": "cta",
+      "tipo": "cta",
+      "inicio": "bloco:cta",
+      "wipe": true,
+      "rotulo": "próximo passo",
+      "principal": "Segue pra *mais*",
+      "pill": {"texto": "link na bio", "icone": "arrowRight", "em": "segue+300"}
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+[
+  {"text": "Você", "startMs": 300, "endMs": 560, "timestampMs": null, "confidence": null},
+  {"text": " perde", "startMs": 560, "endMs": 820, "timestampMs": null, "confidence": null},
+  {"text": " horas", "startMs": 820, "endMs": 1100, "timestampMs": null, "confidence": null, "pageBreakAfter": true},
+  {"text": " com", "startMs": 1100, "endMs": 1250, "timestampMs": null, "confidence": null},
+  {"text": " isso", "startMs": 1250, "endMs": 1550, "timestampMs": null, "confidence": null, "pageBreakAfter": true},
+  {"text": " em", "startMs": 1700, "endMs": 1850, "timestampMs": null, "confidence": null},
+  {"text": " 14", "startMs": 1850, "endMs": 2150, "timestampMs": null, "confidence": null},
+  {"text": " minutos", "startMs": 2150, "endMs": 2500, "timestampMs": null, "confidence": null, "pageBreakAfter": true},
+  {"text": " um", "startMs": 2600, "endMs": 2700, "timestampMs": null, "confidence": null},
+  {"text": " comando", "startMs": 2700, "endMs": 3100, "timestampMs": null, "confidence": null},
+  {"text": " pronto", "startMs": 3400, "endMs": 3700, "timestampMs": null, "confidence": null, "pageBreakAfter": true},
+  {"text": " segue", "startMs": 3900, "endMs": 4200, "timestampMs": null, "confidence": null},
+  {"text": " pra", "startMs": 4200, "endMs": 4350, "timestampMs": null, "confidence": null},
+  {"text": " mais", "startMs": 4350, "endMs": 4700, "timestampMs": null, "confidence": null, "pageBreakAfter": true}
+]

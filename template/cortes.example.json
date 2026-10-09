@@ -1,0 +1,19 @@
+{
+  "_como_usar": "Plano de edição da voz, lido por scripts/cortar.py. Tempos em segundos do ÁUDIO ORIGINAL (nunca do acelerado). manter = janelas de LOCUÇÃO com o bloco do roteiro. remover = trechos dentro de uma janela mantida que saem (tropeço, repetição, instrução falada para o agente); gap = silêncio que fica no lugar. tempo = aceleração por atempo (tom preservado). pausa_max = pausa natural que fica como está; maior que isso é apertada para pos+pre. silencio_db e silencio_min_s = detecção de silêncio.",
+  "tempo": 1.2,
+  "pausa_max": 0.28,
+  "pos": 0.12,
+  "pre": 0.08,
+  "fade": 0.012,
+  "silencio_db": -36,
+  "silencio_min_s": 0.22,
+  "manter": [
+    {"ini": 0.0, "fim": 6.5, "bloco": "gancho"},
+    {"ini": 7.2, "fim": 21.0, "bloco": "prova"},
+    {"ini": 24.0, "fim": 40.0, "bloco": "demo"},
+    {"ini": 41.0, "fim": 46.0, "bloco": "cta"}
+  ],
+  "remover": [
+    {"ini": 30.1, "fim": 33.4, "gap": 0.14, "motivo": "instrução para o agente: 'aqui coloca o print do painel'"}
+  ]
+}

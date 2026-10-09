@@ -1,0 +1,12 @@
+{
+  "_como_usar": "Parâmetros globais do vídeo. formato: 9:16 | 16:9 | 1:1. variante: escura | clara. acento: UMA cor hex por vídeo (vem da marca ou da pesquisa do nicho). duracao_s: usada quando não há blocos.json com duração (vídeo sem voz ou teste). audio: arquivo em public/ (ex.: mix.wav) ou vazio. puxar_para_batida: encaixa o início das cenas na batida anterior (até 0,3 s) usando batidas.json.",
+  "titulo": "Exemplo",
+  "formato": "9:16",
+  "fps": 30,
+  "variante": "escura",
+  "acento": "#F2A33A",
+  "duracao_s": 5,
+  "audio": "",
+  "puxar_para_batida": false,
+  "legendas": true
+}

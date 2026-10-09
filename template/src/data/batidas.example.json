@@ -1,0 +1,6 @@
+{
+  "_como_usar": "Gerado por scripts/analisa_musica.py --offset <s> --saida-batidas. batidas_s = batidas da trilha na timeline do vídeo (s).",
+  "bpm": 0,
+  "offset_musica_s": 0,
+  "batidas_s": []
+}

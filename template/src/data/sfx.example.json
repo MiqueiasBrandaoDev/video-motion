@@ -1,0 +1,11 @@
+{
+  "_como_usar": "Plano de efeitos sonoros. Valide e resolva com: python -I <skill>/scripts/gerar_sfx.py --projeto . (gera work/sfx_resolvido.json, que o mixar.py usa). em: referência de tempo do PICO do efeito (mesma sintaxe das cenas). rel_db: pico do efeito relativo ao pico da voz (-18 a -24). semitons: variação leve de pitch (-2 a +2). respiros: trechos [ini, fim] (refs) onde nenhum efeito pode cair.",
+  "pasta": "public/sfx",
+  "respiros": [],
+  "eventos": [
+    {"em": "bloco:prova-150", "arquivo": "whoosh.ogg", "rel_db": -20, "semitons": 0, "evento": "troca de bloco: gancho -> prova"},
+    {"em": "bloco:prova+450", "arquivo": "punch.ogg", "rel_db": -20, "semitons": 0, "evento": "punch-in do custo"},
+    {"em": "pronto", "arquivo": "clique.ogg", "rel_db": -21, "semitons": 0, "evento": "clique do cursor"},
+    {"em": "bloco:cta-150", "arquivo": "whoosh.ogg", "rel_db": -21, "semitons": -1, "evento": "troca de bloco: CTA"}
+  ]
+}

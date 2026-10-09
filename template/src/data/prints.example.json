@@ -1,0 +1,17 @@
+{
+  "_como_usar": "Uma janela por chave (a cena tipo print usa a chave igual ao seu id, ou 'janela'). Cada janela tem 'planos': um PNG de public/prints a partir de 'desde' ('inicio' = começo da cena, ou uma referência de tempo). 'zooms' movem a câmera para 'regiao' [x, y, largura, altura] normalizada 0-1 sobre o PNG no instante 'em'; 'destaque' desenha o contorno de acento. 'vista' = enquadramento inicial. 'aspecto' = largura/altura do PNG (padrão 1.6). 'ocultar' = regiões borradas no vídeo (reforço; o PNG já deve vir borrado por scripts/borrar.py). 'tampar' = regiões cobertas por card opaco (ex.: número que não bate com a fala). 'clique' = cursor vai até 'ponto' e clica em 'em'. PNG ausente vira placeholder com o nome do arquivo.",
+  "demo": {
+    "titulo": "app · painel",
+    "planos": [
+      {
+        "arquivo": "exemplo.png",
+        "desde": "inicio",
+        "aspecto": 1.6,
+        "zooms": [
+          {"em": "comando", "regiao": [0.18, 0.11, 0.27, 0.24], "destaque": true}
+        ],
+        "clique": {"em": "pronto", "ponto": [0.45, 0.24]}
+      }
+    ]
+  }
+}
