@@ -12,13 +12,13 @@ import {alfa, cor, H, VARIANTE, W} from '../theme';
  * (para montar e conferir o layout antes do recorte existir).
  */
 
-const existe = (arq?: string) => Boolean(arq) && getStaticFiles().some((f) => f.name === arq);
+export const existe = (arq?: string) => Boolean(arq) && getStaticFiles().some((f) => f.name === arq);
 
 /** Silhueta de marcação (cabeça + ombros), só para layout. */
-const Silhueta: React.FC = () => {
+export const Silhueta: React.FC = () => {
 	const c = VARIANTE === 'escura' ? '#26252C' : '#C9C6BE';
 	return (
-		<svg width={W} height={H} viewBox={`0 0 ${W} ${H}`} style={{position: 'absolute', inset: 0}}>
+		<svg width="100%" height="100%" viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="xMidYMid slice" style={{position: 'absolute', inset: 0}}>
 			<defs>
 				<linearGradient id="sil" x1="0" x2="0" y1="0" y2="1">
 					<stop offset="0" stopColor={c} />

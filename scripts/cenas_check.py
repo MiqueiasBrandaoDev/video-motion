@@ -17,6 +17,9 @@ Categorias:
           (da primeira até o fim da cena) > limite = AVISO
   print   (tipo "print") mudanças vêm de prints.json (desde, zooms, clique); a câmera
           anda sozinha (Ken Burns), então > limite = AVISO
+Cena orador com "sobre" (talking head): cada sobreposição de texto (titulo, riscado, numero,
+chips, comando, cards) é medida do seu "em" até o "ate" (ou o fim da cena); trecho parado acima
+do limite = AVISO. HUD (rec, objecoes, pill, final) e passos (muda por item) ficam de fora.
 AVISO também para card de texto que fica mais de 2x o limite na tela (mesmo mudando, o
 texto acumula). Na última cena, o fecho parado até o fim (CTA) é tolerado até 2x o
 limite. Se o vídeo tem cena de orador, também avisa quando há mais de 6 s seguidos só de cenas
@@ -35,7 +38,8 @@ import os
 import re
 import sys
 
-CHAVES_TEMPO = {"em", "risco", "ate", "escreveEm", "desde", "ateEm", "explodeEm", "juntaEm", "planaEm", "rotuloEm"}
+SOBRE_HUD = {"rec", "objecoes", "pill", "final", "passos"}
+CHAVES_TEMPO = {"em", "risco", "ate", "escreveEm", "desde", "ateEm", "explodeEm", "juntaEm", "planaEm", "rotuloEm", "riscaEm", "feitoEm", "editadoEm", "checks"}
 IGNORAR = {"id", "tipo", "inicio", "wipe", "rotulo", "chaves", "_como_usar", "cameraInicial"}
 
 
@@ -86,7 +90,7 @@ def main():
     ap.add_argument("--projeto", default=".")
     ap.add_argument("--cenas", default=os.path.join("src", "data", "cenas.json"))
     ap.add_argument("--limite", type=float, default=2.5, help="máximo de texto parado (s)")
-    ap.add_argument("--orador", default="filmagem,orador,video,recorte", help="tipos de cena que mostram o orador")
+    ap.add_argument("--orador", default="filmagem,orador,video,recorte,duelo,letterbox", help="tipos de cena que mostram o orador")
     a = ap.parse_args()
 
     raiz = os.path.abspath(a.projeto)
@@ -168,6 +172,22 @@ def main():
                                   f"({de / 1000:.2f}-{ate / 1000:.2f}s). Tire a frase após ~2 s e deixe o orador com a legenda.")
             else:
                 parado = 0.0
+            for it in c.get("sobre", []) or []:
+                if it.get("tipo") in SOBRE_HUD:
+                    continue
+                try:
+                    a0 = max(ini, ms(it["em"]))
+                    a1 = min(fim, ms(it["ate"])) if "ate" in it else fim
+                    mud = sorted({a0, a1, *[t for t in (ms(r) for r in refs_de({k: v for k, v in it.items() if k not in ("em", "ate")})) if a0 < t < a1]})
+                except (ValueError, KeyError) as e:
+                    erros.append(f"cena {c.get('id')}: sobre {it.get('tipo')}: {e}")
+                    continue
+                gap = max((y - x for x, y in zip(mud, mud[1:])), default=0)
+                parado = max(parado, gap)
+                if gap > a.limite * 1000:
+                    status = "AVISO"
+                    avisos.append(f"{c.get('id')}: sobre '{it.get('tipo')}' parado {gap / 1000:.1f}s ({a0 / 1000:.2f}-{a1 / 1000:.2f}s). "
+                                  f"Ponha um 'ate', troque o texto ou faça punch-in.")
             seq_texto = []
         else:
             if parado > a.limite * 1000:

@@ -35,8 +35,12 @@ export const f = (v: number) => Math.round((v / 1000) * FPS);
 /** Ref -> frame absoluto */
 export const fr = (ref: Ref) => f(ms(ref));
 
-/** Duração total: voz editada (blocos.json) ou config.duracao_s (vídeo sem voz / teste). */
-export const DURACAO_S = (blocosJson as {duracao_s?: number}).duracao_s || config.duracao_s || 10;
+/**
+ * Duração total: voz editada (blocos.json) ou config.duracao_s (vídeo sem voz / teste),
+ * mais config.extra_fim_s (card final depois da última palavra; o orador.mp4 acaba antes).
+ */
+export const DURACAO_S =
+	((blocosJson as {duracao_s?: number}).duracao_s || config.duracao_s || 10) + ((config as {extra_fim_s?: number}).extra_fim_s ?? 0);
 export const DURACAO_FRAMES = Math.ceil(DURACAO_S * FPS);
 
 // Batidas da trilha (scripts/analisa_musica.py). Puxa a troca de cena para a batida

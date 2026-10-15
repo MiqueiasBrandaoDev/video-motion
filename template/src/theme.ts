@@ -30,10 +30,16 @@ export type ConfigVideo = {
 	acento2?: string;
 	problema?: string;
 	duracao_s?: number;
+	/** Segundos a mais depois da voz (card final). */
+	extra_fim_s?: number;
 	audio?: string;
+	/** Padrões do talking head: vídeo cortado, recorte com alfa e enquadramento usados pelas cenas orador/duelo/letterbox. */
+	orador?: {video?: string; recorte?: string; enquadramento?: {x?: number; y?: number; zoom?: number; foco?: number}};
 	puxar_para_batida?: boolean;
 	legendas?: boolean;
-	legenda_estilo?: 'caixa' | 'grande';
+	legenda_estilo?: 'caixa' | 'grande' | 'fantasma';
+	/** Palavras que acendem no acento na legenda fantasma (além das marcadas com "destaque" no legendas.json). */
+	legenda_destaques?: string[];
 	fundo?: {chao?: boolean; grao?: boolean; halos?: boolean; vinheta?: boolean};
 	hud?: {capitulos?: Capitulo[]; titulo?: string; quadro45?: boolean};
 };
@@ -200,15 +206,16 @@ export const FPS = CFG.fps || 30;
 /** Tamanho tipográfico escalado pelo formato (valores pensados para 9:16). */
 export const px = (v: number) => Math.round(v * ESCALA);
 
-/** Legenda em caixa (padrão) ou grande (variante clássica). */
-export const LEGENDA_ESTILO: 'caixa' | 'grande' = CFG.legenda_estilo === 'grande' ? 'grande' : 'caixa';
+/** Legenda em caixa (padrão do motion puro), grande (variante clássica) ou fantasma (padrão do talking head). */
+export const LEGENDA_ESTILO: 'caixa' | 'grande' | 'fantasma' =
+	CFG.legenda_estilo === 'grande' ? 'grande' : CFG.legenda_estilo === 'fantasma' ? 'fantasma' : 'caixa';
 /** Quadro 4:5 seguro dentro do 9:16 (sobrevive ao corte do feed). */
 export const QUADRO45 = FORMATO === '9:16' && Boolean(CFG.hud?.quadro45);
 const Q45_TOPO = Math.round((H - (W * 5) / 4) / 2); // 285 no 9:16
 const Q45_BASE = H - Q45_TOPO; // 1635
 
 /** Altura reservada para a legenda (acima da área segura de baixo). */
-export const ZONA_LEGENDA = CFG.legendas ? (LEGENDA_ESTILO === 'caixa' ? px(190) : px(300)) : 0;
+export const ZONA_LEGENDA = CFG.legendas ? (LEGENDA_ESTILO === 'caixa' ? px(190) : LEGENDA_ESTILO === 'fantasma' ? px(150) : px(300)) : 0;
 /** Base (y) da faixa da legenda. */
 export const BASE_LEGENDA = QUADRO45 ? Math.min(H - SEGURO_BASE, Q45_BASE) : H - SEGURO_BASE;
 /** Coordenada Y máxima para conteúdo de cena: nada passa daqui (legenda + interface da plataforma). */
@@ -235,6 +242,8 @@ export const suaviza = Easing.bezier(0.16, 1, 0.3, 1);
 export const suaviza2 = Easing.bezier(0.23, 1, 0.32, 1);
 /** Easing do encaixe (elemento vira parte da próxima tela). */
 export const easingEncaixe = Easing.bezier(0.2, 0, 0, 1);
+/** Easing do número que rola (antigo sai, novo entra em 6 frames). */
+export const easingRola = Easing.bezier(0.2, 0, 0, 1);
 
 /** Progresso 0..1 com easing a partir de `ini`, durando `dur` frames. Nunca linear seco. */
 export const prog = (frame: number, ini: number, dur = 18, ease = suaviza) =>
@@ -256,6 +265,19 @@ export const MOLAS = {
 	camera: {config: {damping: 200, mass: 1.2}, durationInFrames: 16},
 	/** camadas 3D explodindo/juntando: ~6-8 frames */
 	camadas: {config: {damping: 200}, durationInFrames: 8},
+	// ---- talking head (anúncios analisados em out/2026) ----
+	/** palavra da legenda fantasma acendendo: 3 frames, sem overshoot */
+	legenda: {config: {damping: 200}, durationInFrames: 3},
+	/** check de objeção / chip: pop firme */
+	check: {config: {damping: 12, stiffness: 260}},
+	/** card flutuante ao lado da cabeça */
+	card: {config: {damping: 16, stiffness: 180}},
+	/** orador encolhendo para card (e voltando): 10 frames */
+	encolhe: {config: {damping: 200}, durationInFrames: 10},
+	/** painel em perspectiva endireitando (rotateY 28° -> 0): 18 frames */
+	perspectiva: {config: {damping: 200, mass: 1.2}, durationInFrames: 18},
+	/** punch-in suave do orador numa palavra-chave */
+	punch: {config: {damping: 200}, durationInFrames: 12},
 } as const;
 export const molaKit = (frame: number, ini: number, tipo: keyof typeof MOLAS) =>
 	spring({frame: frame - ini, fps: FPS, ...MOLAS[tipo]});

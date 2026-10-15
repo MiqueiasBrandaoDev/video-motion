@@ -25,7 +25,7 @@
         "cor": "problema"
       },
       {
-        "inicio": "bloco:apagao",
+        "inicio": "bloco:planilha",
         "cor": "problema"
       },
       {
@@ -49,7 +49,7 @@
         "cor": "solucao"
       }
     ],
-    "titulo": "O *SISTEMA* QUE|NUNCA _dorme_",
+    "titulo": "ESTOQUE *SEM*|_planilha_",
     "quadro45": false
   }
 }

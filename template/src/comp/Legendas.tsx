@@ -2,9 +2,21 @@ import React, {useMemo} from 'react';
 import {createTikTokStyleCaptions, type Caption} from '@remotion/captions';
 import {AbsoluteFill, interpolate, spring, useCurrentFrame, useVideoConfig} from 'remotion';
 import legendasJson from '../data/legendas.json';
-import {alfa, BASE_LEGENDA, cor, fonte, H, papel, px, SEGURO_BASE, VARIANTE, W, ZONA_LEGENDA} from '../theme';
+import {alfa, BASE_LEGENDA, CFG, cor, fonte, H, MOLAS, papel, px, SEGURO_BASE, SEGURO_LADO, tonalidade, VARIANTE, W, ZONA_LEGENDA} from '../theme';
+import type {PosLegenda} from './Orador';
 
 const legendas = legendasJson as Caption[];
+
+/** Palavra sem pontuação/acentos, minúscula (para casar com config.legenda_destaques). */
+const norm = (t: string) =>
+	t
+		.trim()
+		.toLowerCase()
+		.normalize('NFD')
+		.replace(/\p{M}/gu, '')
+		.replace(/[^\p{L}\p{N}%]/gu, '');
+const DESTAQUE_MS = new Set(legendas.filter((c) => (c as Caption & {destaque?: boolean}).destaque).map((c) => c.startMs));
+const DESTAQUE_PALAVRAS = new Set((CFG.legenda_destaques ?? []).map(norm));
 
 /** Página de legenda ativa no instante `ms` (ou null). */
 const usePagina = () => {
@@ -204,3 +216,63 @@ export const VeuLegenda: React.FC = () => (
 		}}
 	/>
 );
+
+/**
+ * Legenda fantasma (padrão do talking head): a frase inteira da página já está na tela a ~15%
+ * de opacidade e cada palavra acende quando é dita (opacidade .15 -> 1, sobe 12 px, blur 4 -> 0,
+ * spring damping 200 em 3 frames). Palavra de destaque no acento (config.legenda_destaques ou
+ * "destaque": true no legendas.json, via legendas.py --destaques). Plus Jakarta Sans 800,
+ * ~3,3% da altura, sombra suave, sem caixa.
+ * Posição (por cena, ver Video.tsx): "rosto" (y 60%, centro), "base" (acima da área segura),
+ * "esquerda" (y 61%, alinhada à esquerda, para o layout com o orador em card), "oculta" ou y (0-1).
+ */
+export const LegendaFantasma: React.FC<{pos?: PosLegenda; tam?: number}> = ({pos = 'rosto', tam = px(62)}) => {
+	const pg = usePagina();
+	if (!pg || pos === 'oculta') return null;
+	const {pagina, someEm, ms, frame, fps} = pg;
+	const sai = interpolate(ms, [someEm - 80, someEm], [1, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+	const esquerda = pos === 'esquerda';
+	const centroY = typeof pos === 'number' ? pos * H : pos === 'base' ? BASE_LEGENDA - ZONA_LEGENDA / 2 : esquerda ? H * 0.615 : H * 0.6;
+	const corDestaque = tonalidade(cor.acento, 0.38);
+	return (
+		<AbsoluteFill style={{pointerEvents: 'none'}}>
+			<div
+				style={{
+					position: 'absolute',
+					left: esquerda ? SEGURO_LADO * 0.8 : px(70),
+					right: esquerda ? W * 0.47 : px(70),
+					top: centroY,
+					transform: 'translateY(-50%)',
+					display: 'flex',
+					justifyContent: esquerda ? 'flex-start' : 'center',
+					opacity: sai,
+				}}
+			>
+				<div style={{...papel.frase, fontSize: tam, lineHeight: 1.12, letterSpacing: '-.025em', textAlign: esquerda ? 'left' : 'center', filter: 'drop-shadow(0 3px 14px rgba(0,0,0,.55))'}}>
+					{pagina.tokens.map((t, i) => {
+						const t0 = Math.round(((t.fromMs - 40) / 1000) * fps);
+						const on = frame >= t0;
+						const p = on ? spring({frame: frame - t0, fps, ...MOLAS.legenda}) : 0;
+						const destaque = DESTAQUE_MS.has(t.fromMs) || DESTAQUE_PALAVRAS.has(norm(t.text));
+						return (
+							<span
+								key={`${t.fromMs}-${i}`}
+								style={{
+									display: 'inline-block',
+									marginLeft: i > 0 ? '0.24em' : 0,
+									color: destaque ? corDestaque : '#FFFFFF',
+									opacity: on ? 0.15 + 0.85 * p : 0.15,
+									transform: `translateY(${(1 - p) * px(12)}px)`,
+									filter: p > 0 && p < 0.98 ? `blur(${(1 - p) * 4}px)` : undefined,
+									textShadow: destaque && on ? `0 0 18px ${alfa(cor.acento, 0.6)}` : undefined,
+								}}
+							>
+								{t.text.trim()}
+							</span>
+						);
+					})}
+				</div>
+			</div>
+		</AbsoluteFill>
+	);
+};

@@ -4,16 +4,16 @@
   "respiros": [
     [
       "passos",
-      "mapeia+300"
+      "cadastra+300"
     ]
   ],
   "eventos": [
     {
-      "em": "bloco:apagao-150",
+      "em": "bloco:planilha-150",
       "arquivo": "whoosh-a.ogg",
       "rel_db": -21,
       "semitons": 0,
-      "evento": "troca de bloco: gancho -> apagão"
+      "evento": "troca de bloco: gancho -> planilha"
     },
     {
       "em": "ninguem",
@@ -21,7 +21,7 @@
       "categoria": "impacto",
       "rel_db": -14,
       "semitons": 0,
-      "evento": "carimbo NINGUÉM RESPONDEU + flash"
+      "evento": "carimbo NINGUÉM DEU BAIXA + flash"
     },
     {
       "em": "bloco:camadas-150",

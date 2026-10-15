@@ -5,6 +5,8 @@ import type {DefGradeBento} from '../comp/GradeBento';
 import type {ChaveCamera, DefCarimbo} from '../comp/Palco';
 import type {ItemPill} from '../comp/Pill';
 import type {DefTelaViva} from '../comp/TelaViva';
+import type {CardOrador, Enquadramento, PosLegenda, PunchIn, TrechoPB} from '../comp/Orador';
+import type {ItemSobre} from '../comp/Sobre';
 import type {LinhaTerminal} from '../comp/Terminal';
 import type {Entrada} from '../comp/Tipografia';
 import type {Papel} from '../theme';
@@ -14,7 +16,16 @@ import type {Ref} from '../tempo';
  * Campos comuns a toda cena de src/data/cenas.json.
  * transicao: "corte" (seco, padrão do estilo novo) ou "suave" (cross-fade com blur, padrão das cenas clássicas).
  */
-type Base = {id: string; inicio: Ref; rotulo?: string; wipe?: boolean; transicao?: 'corte' | 'suave'; orador?: boolean};
+type Base = {
+	id: string;
+	inicio: Ref;
+	rotulo?: string;
+	wipe?: boolean;
+	transicao?: 'corte' | 'suave';
+	orador?: boolean;
+	/** Posição da legenda nesta cena (fixa ou trocando por marco). Padrão por tipo: orador = rosto, duelo/letterbox = sobre o vídeo, resto = base. */
+	legenda?: PosLegenda | Array<{em: Ref; pos: PosLegenda}>;
+};
 
 /** Campos das cenas do estilo padrão: câmera virtual, carimbos, motion blur. */
 export type BaseKit = Base & {
@@ -74,7 +85,7 @@ export type CenaLinha = BaseKit & {
 	linhas?: LinhaFrase[];
 };
 export type CenaRecorte = BaseKit & {
-	tipo: 'recorte' | 'orador';
+	tipo: 'recorte';
 	video?: string;
 	recorte?: string;
 	de?: number;
@@ -83,6 +94,40 @@ export type CenaRecorte = BaseKit & {
 	linhas?: LinhaFrase[];
 	letreiro?: {texto: string; texto2?: string; em?: Ref};
 };
+// ---------- talking head ----------
+/** Itens `sobre` (sobreposições no marco da fala): titulo, riscado, numero, chips, objecoes, comando, rec, passos, cards, pill, final. */
+export type CenaOrador = BaseKit & {
+	tipo: 'orador';
+	video?: string;
+	recorte?: string;
+	de?: number;
+	deRecorte?: number;
+	zoom?: number;
+	enquadramento?: Enquadramento;
+	punch?: PunchIn[];
+	pb?: TrechoPB[];
+	card?: CardOrador;
+	raw?: {em: Ref; editadoEm?: Ref; rotulo?: string; rotuloFinal?: string; moldura?: {x: number; y: number; w: number; h: number}};
+	escurecer?: number;
+	sobre?: ItemSobre[];
+	linhas?: LinhaFrase[];
+	letreiro?: {texto: string; texto2?: string; em?: Ref};
+};
+export type LadoDuelo = {rotulo: string; icone?: string; cor?: string; video?: string; de?: number; enquadramento?: Enquadramento; pb?: boolean; legenda?: string};
+export type CenaDuelo = BaseKit & {tipo: 'duelo'; titulo: string; lados: LadoDuelo[]; placar?: Array<{em: Ref; lado: number}>; claro?: boolean};
+export type CenaLetterbox = BaseKit & {
+	tipo: 'letterbox';
+	titulo: string;
+	selo?: {texto: string; icone?: string};
+	video?: string;
+	de?: number;
+	enquadramento?: Enquadramento;
+	punch?: PunchIn[];
+	rodape?: string;
+	claro?: boolean;
+	sobre?: ItemSobre[];
+};
+
 /** Plano da rajada: qualquer cena (sem id/inicio) com `em` opcional. */
 export type PlanoRajada = {tipo: string; em?: Ref; [campo: string]: unknown};
 export type CenaRajada = BaseKit & {tipo: 'rajada'; passo_ms?: number; planos: PlanoRajada[]};
@@ -101,10 +146,13 @@ export type CenaDef =
 	| CenaLetreiro
 	| CenaLinha
 	| CenaRecorte
+	| CenaOrador
+	| CenaDuelo
+	| CenaLetterbox
 	| CenaRajada;
 
 /** Tipos do estilo padrão: transição em corte seco (as próprias cenas animam a entrada). */
-export const TIPOS_KIT = new Set(['frase', 'telaViva', 'camadas', 'bento', 'letreiro', 'linha', 'recorte', 'orador', 'rajada']);
+export const TIPOS_KIT = new Set(['frase', 'telaViva', 'camadas', 'bento', 'letreiro', 'linha', 'recorte', 'orador', 'duelo', 'letterbox', 'rajada']);
 
 /** Props que toda cena recebe: a definição e o frame absoluto em que o Sequence começa. */
 export type PropsCena<T extends CenaDef = CenaDef> = {def: T; ini: number; dur: number};

@@ -1,0 +1,38 @@
+{
+ "_como_usar": "TALKING HEAD (novo_projeto.py --modelo orador). legenda_estilo: fantasma (frase inteira a ~15%, palavra acende quando dita; destaque no acento por legendas.py --destaques ou legenda_destaques). orador: video (public/orador.mp4, saída do scripts/cortar_video.py: frame N = frame N da timeline), recorte (public/orador-alfa.webm, opcional, scripts/recortar_orador.py: texto atrás da pessoa), enquadramento {x: posição horizontal do recorte 0-1, zoom: 1 = só cobre a tela, foco: altura do rosto 0-1 (origem do zoom/punch-in), desce: abre espaço acima da cabeça (fração da altura) quando a fonte 16:9 não tem respiro}. extra_fim_s: segundos depois da voz para o card final. Som: sem trilha; mixar.py só com voz + impactos (sfx.json perfil orador). Sem os vídeos, as cenas desenham uma silhueta de marcação.",
+ "titulo": "Exemplo talking head",
+ "formato": "9:16",
+ "fps": 30,
+ "variante": "escura",
+ "acento": "#8B6CF6",
+ "acento2": "#C9B6FF",
+ "problema": "#FF5A7A",
+ "duracao_s": 0,
+ "extra_fim_s": 1.2,
+ "audio": "",
+ "puxar_para_batida": false,
+ "legendas": true,
+ "legenda_estilo": "fantasma",
+ "legenda_destaques": [],
+ "orador": {
+  "video": "orador.mp4",
+  "recorte": "orador-alfa.webm",
+  "enquadramento": {
+   "x": 0.53,
+   "zoom": 1.1,
+   "foco": 0.0,
+   "desce": 0.12
+  }
+ },
+ "fundo": {
+  "halos": true,
+  "chao": false,
+  "vinheta": true,
+  "grao": false
+ },
+ "hud": {
+  "capitulos": [],
+  "titulo": "",
+  "quadro45": false
+ }
+}

@@ -73,38 +73,16 @@ def loudnorm_2p(entrada, saida, alvo=-14.0, tp=-1.0):
     return (float(integ[-1]) if integ else None, float(pico[-1]) if pico else None)
 
 
-def main():
-    sys.stdout.reconfigure(encoding="utf-8")
-    sys.stderr.reconfigure(encoding="utf-8")
-    ap = argparse.ArgumentParser(description="Corta, aperta pausas, acelera (atempo) e normaliza a locução a partir de cortes.json.")
-    ap.add_argument("--entrada", required=True, help="gravação original (áudio ou vídeo)")
-    ap.add_argument("--projeto", default=".", help="raiz do projeto (padrão: pasta atual)")
-    ap.add_argument("--plano", default="cortes.json", help="plano de cortes, relativo ao projeto")
-    ap.add_argument("--saida", default=os.path.join("public", "voz.wav"), help="voz final, relativa ao projeto")
-    ap.add_argument("--blocos", default=os.path.join("src", "data", "blocos.json"), help="blocos.json, relativo ao projeto")
-    a = ap.parse_args()
+def planejar(orig, plano, total):
+    """Trechos do original que ficam (fala dentro de `manter`, sem `remover`, pausas apertadas).
 
-    raiz = os.path.abspath(a.projeto)
-    p = lambda x: x if os.path.isabs(x) else os.path.join(raiz, x)
-    plano = json.load(open(p(a.plano), encoding="utf-8"))
-    tempo = float(plano.get("tempo", 1.2))
+    Retorna [{"orig_ini", "orig_fim", "bloco"}] em segundos do original. Usado também por
+    cortar_video.py, para o vídeo e a voz saírem do MESMO plano.
+    """
     pausa_max = float(plano.get("pausa_max", 0.28))
     pos, pre, fade = float(plano.get("pos", 0.12)), float(plano.get("pre", 0.08)), float(plano.get("fade", 0.012))
-    if not 0.5 <= tempo <= 2.0:
-        sys.exit("tempo fora de 0,5-2,0. O padrão para fala é 1,2-1,25.")
     manter = sorted(plano["manter"], key=lambda j: j["ini"])
     remover = sorted(plano.get("remover", []), key=lambda j: j["ini"])
-
-    work = os.path.join(raiz, "work")
-    os.makedirs(work, exist_ok=True)
-    orig = os.path.join(work, "orig.wav")
-    entrada = a.entrada if os.path.exists(a.entrada) else p(a.entrada)
-    if not os.path.exists(entrada):
-        sys.exit(f"entrada não encontrada: {a.entrada}")
-    rodar(["ffmpeg", "-y", "-hide_banner", "-loglevel", "error", "-i", entrada,
-           "-vn", "-ac", "1", "-ar", "48000", "-c:a", "pcm_s16le", orig])
-    total = duracao(orig)
-
     # 1) ilhas de fala
     ilhas, t = [], 0.0
     for s, e in silencios(orig, plano.get("silencio_db", -36), plano.get("silencio_min_s", 0.22)):
@@ -161,6 +139,40 @@ def main():
             trechos.append({"orig_ini": round(ini, 3), "orig_fim": round(fim, 3), "bloco": s["bloco"]})
     if not trechos:
         sys.exit("nenhum trecho de fala dentro das janelas 'manter'. Confira os tempos do plano.")
+
+    return trechos
+
+
+def main():
+    sys.stdout.reconfigure(encoding="utf-8")
+    sys.stderr.reconfigure(encoding="utf-8")
+    ap = argparse.ArgumentParser(description="Corta, aperta pausas, acelera (atempo) e normaliza a locução a partir de cortes.json.")
+    ap.add_argument("--entrada", required=True, help="gravação original (áudio ou vídeo)")
+    ap.add_argument("--projeto", default=".", help="raiz do projeto (padrão: pasta atual)")
+    ap.add_argument("--plano", default="cortes.json", help="plano de cortes, relativo ao projeto")
+    ap.add_argument("--saida", default=os.path.join("public", "voz.wav"), help="voz final, relativa ao projeto")
+    ap.add_argument("--blocos", default=os.path.join("src", "data", "blocos.json"), help="blocos.json, relativo ao projeto")
+    a = ap.parse_args()
+
+    raiz = os.path.abspath(a.projeto)
+    p = lambda x: x if os.path.isabs(x) else os.path.join(raiz, x)
+    plano = json.load(open(p(a.plano), encoding="utf-8"))
+    tempo = float(plano.get("tempo", 1.2))
+    fade = float(plano.get("fade", 0.012))
+    if not 0.5 <= tempo <= 2.0:
+        sys.exit("tempo fora de 0,5-2,0. O padrão para fala é 1,2-1,25.")
+
+    work = os.path.join(raiz, "work")
+    os.makedirs(work, exist_ok=True)
+    orig = os.path.join(work, "orig.wav")
+    entrada = a.entrada if os.path.exists(a.entrada) else p(a.entrada)
+    if not os.path.exists(entrada):
+        sys.exit(f"entrada não encontrada: {a.entrada}")
+    rodar(["ffmpeg", "-y", "-hide_banner", "-loglevel", "error", "-i", entrada,
+           "-vn", "-ac", "1", "-ar", "48000", "-c:a", "pcm_s16le", orig])
+    total = duracao(orig)
+
+    trechos = planejar(orig, plano, total)
 
     # 6) grafo de filtros
     filtros, rot, t_novo = [], [], 0.0

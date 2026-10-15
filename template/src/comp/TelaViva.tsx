@@ -1,8 +1,9 @@
 import React from 'react';
 import {interpolate, spring, useCurrentFrame, Easing} from 'remotion';
-import {alfa, brilho, cor, corDe, corTextoDe, entraUI, fmt, FPS, molaKit, papel, prog, px, VARIANTE} from '../theme';
+import {alfa, brilho, cor, corDe, corTextoDe, entraUI, fmt, FPS, MOLAS, molaKit, papel, prog, px, VARIANTE} from '../theme';
 import {fr, type Ref} from '../tempo';
 import {Icone} from './Icone';
+import {CamadaVideo, type Enquadramento} from './Orador';
 
 /*
  * TelaViva: janela de app inventada, desenhada em código, cujos estados mudam no tempo da fala.
@@ -24,7 +25,10 @@ export type BlocoTela =
 	| {tipo: 'timeline'; rotulo?: string; trilhas: Array<{rotulo: string; blocos: number[][]; cor?: string}>; em: Ref; ateEm?: Ref}
 	| {tipo: 'fluxo'; rotulo?: string; nos: Array<{texto: string; icone?: string; em: Ref; decisao?: boolean}>}
 	| {tipo: 'kanban'; colunas: string[]; card: {texto: string; avatar?: string}; passos: Array<{em: Ref; coluna: number}>}
-	| {tipo: 'prompt'; rotulo?: string; texto: string; em: Ref; cps?: number};
+	| {tipo: 'prompt'; rotulo?: string; texto: string; em: Ref; cps?: number}
+	| {tipo: 'chat'; rotulo?: string; mensagens: Array<{texto: string; em: Ref; ok?: string; icone?: string}>; cps?: number}
+	| {tipo: 'video'; rotulo?: string; arquivo?: string; proporcao?: number; altura?: number; enquadramento?: Enquadramento; status?: string}
+	| {tipo: 'colunas'; blocos: BlocoTela[]; pesos?: number[]};
 
 export type DefTelaViva = {
 	titulo: string;
@@ -32,6 +36,8 @@ export type DefTelaViva = {
 	blocos: BlocoTela[];
 	alerta?: {em: Ref; cor?: string};
 	inclinar?: boolean;
+	/** Entra girada em 3D e endireita: rotateY 28° -> 0 (e rotateX 6° -> 0) em 18 frames, spring {damping 200, mass 1.2}. */
+	perspectiva?: {em?: Ref; rotY?: number; rotX?: number};
 };
 
 const corStatus = (s?: Status) =>
@@ -397,6 +403,96 @@ const BlocoPrompt: React.FC<{b: Extract<BlocoTela, {tipo: 'prompt'}>; ini: numbe
 	);
 };
 
+
+/** Chat de comandos: bolha do usuário (gradiente do acento) digitando + confirmação com ícone e check. */
+const BlocoChat: React.FC<{b: Extract<BlocoTela, {tipo: 'chat'}>; ini: number; at: number}> = ({b, ini, at}) => {
+	const frame = useCurrentFrame();
+	const cps = b.cps ?? 1.4;
+	const c = corDe('solucao');
+	return (
+		<div style={{...entraUI(frame, at)}}>
+			{b.rotulo ? <RotuloBloco>{b.rotulo}</RotuloBloco> : null}
+			<div style={{display: 'flex', flexDirection: 'column', gap: px(14)}}>
+				{b.mensagens.map((m, i) => {
+					const t = fr(m.em) - ini - 3;
+					if (frame < t) return null;
+					const n = Math.floor((frame - t) * cps);
+					const fim = n >= m.texto.length;
+					const tOk = t + Math.ceil(m.texto.length / cps) + 6;
+					return (
+						<div key={i} style={{display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: px(10)}}>
+							<div
+								style={{
+									maxWidth: '92%',
+									padding: `${px(14)}px ${px(22)}px`,
+									borderRadius: `${px(22)}px ${px(22)}px ${px(6)}px ${px(22)}px`,
+									background: `linear-gradient(135deg, ${cor.acento}, ${tonalidadeLocal(cor.acento)})`,
+									color: '#FFFFFF',
+									...papel.frase,
+									fontWeight: 700,
+									fontSize: px(34),
+									lineHeight: 1.15,
+									letterSpacing: '-.02em',
+									boxShadow: brilho(cor.acento, 0.5),
+									...entraUI(frame, t, 12),
+								}}
+							>
+								{m.texto.slice(0, n)}
+								{!fim ? <span style={{opacity: Math.floor(frame / 8) % 2 ? 0 : 1}}>|</span> : null}
+							</div>
+							{m.ok && frame >= tOk ? (
+								<div style={{display: 'flex', alignItems: 'center', gap: px(12), alignSelf: 'flex-start', ...entraUI(frame, tOk, 10)}}>
+									<div style={{width: px(40), height: px(40), borderRadius: px(10), background: alfa(cor.acento, 0.2), display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+										<Icone nome={m.icone ?? 'sparkles'} tam={px(22)} cor={cor.acentoClaro} />
+									</div>
+									<span style={{...papel.frase, fontWeight: 700, fontSize: px(27), color: cor.suave}}>{m.ok}</span>
+									<Icone nome="check" tam={px(26)} cor={c} espessura={3} />
+								</div>
+							) : null}
+						</div>
+					);
+				})}
+			</div>
+		</div>
+	);
+};
+const tonalidadeLocal = (c: string) => alfa(c, 0.72);
+
+/** Preview do vídeo do orador dentro da janela (o mesmo arquivo, no frame da timeline). */
+const BlocoVideo: React.FC<{b: Extract<BlocoTela, {tipo: 'video'}>; ini: number; at: number}> = ({b, ini, at}) => {
+	const frame = useCurrentFrame();
+	const alt = b.altura ?? px(560);
+	const larg = Math.round(alt * (b.proporcao ?? 9 / 16));
+	return (
+		<div style={{...entraUI(frame, at)}}>
+			{b.rotulo ? <RotuloBloco>{b.rotulo}</RotuloBloco> : null}
+			<div style={{position: 'relative', width: b.proporcao ? larg : '100%', height: alt, borderRadius: px(18), overflow: 'hidden', border: `1.5px solid ${alfa(cor.acentoClaro, 0.45)}`, boxShadow: `0 0 30px ${alfa(cor.acento, 0.25)}`}}>
+				<CamadaVideo arquivo={b.arquivo ?? 'orador.mp4'} de={ini} ret={{x: 0, y: 0, w: b.proporcao ? larg : 2000, h: alt}} enq={b.enquadramento} marcacao style={b.proporcao ? undefined : {width: '100%'}} />
+				{b.status ? (
+					<div style={{position: 'absolute', left: px(14), top: px(14), display: 'flex', alignItems: 'center', gap: px(8), ...papel.rotulo, fontSize: px(17), letterSpacing: '.16em', color: '#FFFFFF', padding: `${px(6)}px ${px(12)}px`, borderRadius: 99, background: 'rgba(0,0,0,.55)'}}>
+						<div style={{width: px(9), height: px(9), borderRadius: 99, background: corDe('problema'), opacity: 0.5 + 0.5 * Math.abs(Math.sin(frame / 6))}} />
+						{b.status}
+					</div>
+				) : null}
+			</div>
+		</div>
+	);
+};
+
+/** Blocos lado a lado (ex.: vídeo à esquerda, chat à direita). */
+const BlocoColunas: React.FC<{b: Extract<BlocoTela, {tipo: 'colunas'}>; ini: number; at: number}> = ({b, ini, at}) => (
+	<div style={{display: 'flex', gap: px(22), alignItems: 'flex-start'}}>
+		{b.blocos.map((x, i) => {
+			const Comp = BLOCOS[x.tipo];
+			return (
+				<div key={i} style={{flex: b.pesos?.[i] ?? 1, minWidth: 0}}>
+					<Comp b={x} ini={ini} at={at + i * 2} />
+				</div>
+			);
+		})}
+	</div>
+);
+
 const BLOCOS: Record<BlocoTela['tipo'], React.FC<{b: any; ini: number; at: number}>> = {
 	lista: BlocoLista,
 	checklist: BlocoChecklist,
@@ -406,6 +502,9 @@ const BLOCOS: Record<BlocoTela['tipo'], React.FC<{b: any; ini: number; at: numbe
 	fluxo: BlocoFluxo,
 	kanban: BlocoKanban,
 	prompt: BlocoPrompt,
+	chat: BlocoChat,
+	video: BlocoVideo,
+	colunas: BlocoColunas,
 };
 
 /** Janela da TelaViva. `ini` = frame absoluto do Sequence; `entra` = frame local de entrada. */
@@ -420,6 +519,11 @@ export const TelaViva: React.FC<{def: DefTelaViva; ini: number; entra?: number; 
 	const stCor = frame >= tFinal ? corStatus(final!.status ?? 'ok') : alerta > 0 ? cBorda : cor.acento;
 	const pisca = frame < tFinal ? 0.55 + 0.45 * Math.abs(Math.sin(frame / 6)) : 1;
 	const escura = VARIANTE === 'escura';
+	const persp = def.perspectiva;
+	const tPersp = persp ? (persp.em !== undefined ? fr(persp.em) - ini : entra) : 0;
+	const sP = persp ? (frame < tPersp ? 0 : spring({frame: frame - tPersp, fps: FPS, ...MOLAS.perspectiva})) : 1;
+	const giro = persp ? `rotateY(${(persp.rotY ?? 28) * (1 - sP)}deg) rotateX(${(persp.rotX ?? 6) * (1 - sP)}deg) ` : '';
+	const ent = entraUI(frame, entra);
 	return (
 		<div style={{width: largura, perspective: 1800, ...style}}>
 			<div
@@ -429,8 +533,9 @@ export const TelaViva: React.FC<{def: DefTelaViva; ini: number; entra?: number; 
 					background: escura ? `linear-gradient(180deg, ${alfa('#FFFFFF', 0.035)}, transparent 30%), ${cor.superficie}` : cor.superficie,
 					border: `1.5px solid ${alfa(cBorda, 0.4 + 0.35 * alerta)}`,
 					boxShadow: `${escura ? '0 30px 80px rgba(0,0,0,.6)' : '0 30px 70px rgba(20,20,20,.14)'}, 0 0 ${50 + 30 * alerta}px ${alfa(cBorda, (escura ? 0.22 : 0.14) + 0.25 * alerta)}, inset 0 1px 0 ${cor.brilhoInterno}`,
-					transform: def.inclinar ? 'rotateX(5deg) rotateY(-7deg)' : undefined,
-					...entraUI(frame, entra),
+					...ent,
+					transform: `${giro}${def.inclinar ? 'rotateX(5deg) rotateY(-7deg) ' : ''}${ent.transform ?? ''}`,
+					transformOrigin: '50% 50%',
 				}}
 			>
 				<div style={{display: 'flex', alignItems: 'center', gap: px(12), padding: `${px(22)}px ${px(28)}px`, borderBottom: `1px solid ${cor.linha}`}}>

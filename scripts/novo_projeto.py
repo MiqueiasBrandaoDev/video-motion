@@ -4,8 +4,13 @@ Copia <skill>/template para o destino, renomeia gitignore.txt -> .gitignore e
 cria os arquivos de dados reais a partir dos *.example.json (sem sobrescrever
 nada que já exista). Não instala dependências: rode `npm install` no destino.
 
+Modelos de dados de exemplo:
+  motion  (padrão) motion puro: frase, telaViva, camadas, bento, letreiro, rajada; legenda em caixa
+  orador  talking head: cena orador com sobreposições, legenda fantasma, sem trilha
+          (usa os *-orador.example.json no lugar dos de mesmo nome)
+
 Uso:
-  python -I scripts/novo_projeto.py <pasta-destino> [--formato 9:16|16:9|1:1]
+  python -I scripts/novo_projeto.py <pasta-destino> [--modelo motion|orador] [--formato 9:16|16:9|1:1]
          [--variante escura|clara] [--acento "#RRGGBB"] [--titulo "Nome"]
 """
 import argparse
@@ -28,6 +33,7 @@ def main():
     ap.add_argument("--variante", choices=["escura", "clara"], help="variante do fundo de grade")
     ap.add_argument("--acento", help="cor de acento hex, ex.: #F2A33A")
     ap.add_argument("--titulo", help="título interno do projeto")
+    ap.add_argument("--modelo", choices=["motion", "orador"], default="motion", help="dados de exemplo: motion puro ou talking head")
     ap.add_argument("--forcar", action="store_true", help="permite copiar sobre uma pasta que já tem package.json")
     a = ap.parse_args()
 
@@ -42,12 +48,19 @@ def main():
         rel = os.path.relpath(raiz, TEMPLATE)
         alvo_dir = os.path.join(destino, rel) if rel != "." else destino
         os.makedirs(alvo_dir, exist_ok=True)
+        variantes = {n.replace("-orador.example.json", ".example.json") for n in arqs if n.endswith("-orador.example.json")}
         for nome in arqs:
             origem = os.path.join(raiz, nome)
             final = nome
-            if nome == "gitignore.txt":
+            if nome.endswith("-orador.example.json"):
+                if a.modelo != "orador":
+                    continue
+                final = nome.replace("-orador.example.json", ".json")
+            elif nome == "gitignore.txt":
                 final = ".gitignore"
             elif nome.endswith(".example.json"):
+                if a.modelo == "orador" and nome in variantes:
+                    continue
                 final = nome.replace(".example.json", ".json")
             alvo = os.path.join(alvo_dir, final)
             if os.path.exists(alvo) and (final.endswith(".json") or final.endswith(".md")):
@@ -68,7 +81,7 @@ def main():
         os.makedirs(os.path.join(destino, pasta), exist_ok=True)
 
     print(f"projeto criado em {destino} ({len(criados)} arquivos)")
-    print(f"config: formato={cfg['formato']} variante={cfg['variante']} acento={cfg['acento']}")
+    print(f"modelo={a.modelo}  config: formato={cfg['formato']} variante={cfg['variante']} acento={cfg['acento']}")
     print("próximo passo: npm install && npx tsc --noEmit")
 
 

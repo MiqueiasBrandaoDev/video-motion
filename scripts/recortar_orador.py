@@ -18,10 +18,15 @@ quadros). Use GPU (pip install "rembg[gpu]") ou recorte só os trechos que terã
 Instalação (uma vez): pip install "rembg[cpu]"   (ou rembg[gpu])
 O modelo é baixado pelo rembg na primeira execução (~170 MB para birefnet-portrait).
 
+Gravação em fundo verde/azul (chroma key): use --chroma "#64DB08" (cor do fundo, amostre um
+pixel). Só ffmpeg (chromakey + despill), segundos em vez de minutos, sem rembg nem modelo.
+
 Uso:
   python -I scripts/recortar_orador.py public/orador.mp4 public/orador-alfa.webm
          [--modelo birefnet-portrait|u2net_human_seg|isnet-general-use] [--fps 30]
          [--de 12.0 --ate 18.5] [--prores] [--manter-quadros]
+  python -I scripts/recortar_orador.py public/orador.mp4 public/orador-alfa.webm --chroma "#64DB08"
+         [--similaridade 0.13] [--suavidade 0.06]
 """
 import argparse
 import os
@@ -50,7 +55,31 @@ def main():
     ap.add_argument("--ate", type=float, help="fim do trecho (s)")
     ap.add_argument("--prores", action="store_true", help="gera também .mov ProRes 4444 com alfa")
     ap.add_argument("--manter-quadros", action="store_true", help="não apaga os PNG intermediários")
+    ap.add_argument("--chroma", help="cor do fundo verde/azul (#RRGGBB): recorte por chroma key só com ffmpeg, sem rembg")
+    ap.add_argument("--similaridade", type=float, default=0.13, help="chromakey: quanto da cor sai (0,08-0,2)")
+    ap.add_argument("--suavidade", type=float, default=0.06, help="chromakey: borda (0,03-0,1)")
     a = ap.parse_args()
+
+    if a.chroma:
+        cor = a.chroma.lstrip("#")
+        r, g, b = int(cor[0:2], 16), int(cor[2:4], 16), int(cor[4:6], 16)
+        spill = "green" if g >= b else "blue"
+        corte = []
+        if a.de is not None:
+            corte += ["-ss", f"{a.de:.3f}"]
+        if a.ate is not None:
+            corte += ["-to", f"{a.ate:.3f}"]
+        os.makedirs(os.path.dirname(os.path.abspath(a.saida)) or ".", exist_ok=True)
+        vf = f"fps={a.fps},chromakey=0x{cor}:{a.similaridade}:{a.suavidade},despill=type={spill},format=yuva420p"
+        rodar(["ffmpeg", "-v", "error", "-y", *corte, "-i", a.entrada, "-vf", vf, "-an", "-c:v", "libvpx-vp9", "-pix_fmt", "yuva420p",
+               "-auto-alt-ref", "0", "-b:v", "0", "-crf", "30", "-row-mt", "1", a.saida])
+        print(f"ok (chroma {a.chroma}): {a.saida}")
+        if a.prores:
+            mov = os.path.splitext(a.saida)[0] + ".mov"
+            rodar(["ffmpeg", "-v", "error", "-y", *corte, "-i", a.entrada, "-vf", vf.replace("yuva420p", "yuva444p10le"), "-an",
+                   "-c:v", "prores_ks", "-profile:v", "4444", "-pix_fmt", "yuva444p10le", mov])
+            print(f"ok: {mov}")
+        return
 
     try:
         from rembg import new_session, remove  # import tardio: --help funciona sem o rembg

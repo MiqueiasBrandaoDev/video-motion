@@ -16,10 +16,14 @@ Correções (opcional, correcoes.json), só para grafia/erro evidente do Whisper
    "sequencias": [{"de": ["4", "e", "79", "dólares"], "para": ["4,79", "dólares"]}]}
 O tempo de uma sequência corrigida é redistribuído entre as palavras novas.
 
+Destaques (legenda fantasma do talking head): --destaques "horas,pronta,3" marca essas
+palavras com "destaque": true no legendas.json (acendem no acento). Alternativa sem
+regenerar: config.json -> "legenda_destaques".
+
 Uso:
   python -I scripts/legendas.py --palavras work/voz_final.json [--projeto .]
          [--marcos-spec marcos.spec.json] [--correcoes correcoes.json]
-         [--max-palavras 4] [--max-chars 22] [--listar]
+         [--max-palavras 4] [--max-chars 22] [--destaques "a,b"] [--listar]
 """
 import argparse
 import json
@@ -150,6 +154,7 @@ def main():
     ap.add_argument("--max-palavras", type=int, default=4)
     ap.add_argument("--max-chars", type=int, default=22)
     ap.add_argument("--quebra-silencio-ms", type=int, default=380)
+    ap.add_argument("--destaques", default="", help="palavras que acendem no acento na legenda fantasma (vírgula)")
     ap.add_argument("--listar", action="store_true", help="só lista as palavras com índice e tempo (ms)")
     a = ap.parse_args()
 
@@ -168,6 +173,10 @@ def main():
         return
 
     legendas = paginar(pal, a.max_palavras, a.max_chars, a.quebra_silencio_ms)
+    alvo = {x.strip().lower().strip(",.?!;:") for x in a.destaques.split(",") if x.strip()}
+    for l in legendas:
+        if l["text"].strip().lower().strip(",.?!;:") in alvo:
+            l["destaque"] = True
     os.makedirs(os.path.dirname(p(a.saida_legendas)), exist_ok=True)
     json.dump(legendas, open(p(a.saida_legendas), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
 

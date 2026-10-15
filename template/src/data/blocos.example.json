@@ -1,9 +1,9 @@
 {
-  "_como_usar": "Gerado por scripts/cortar.py. duracao_s = duração da voz editada (0 = usar config.duracao_s). blocos = início (ms, timeline final) de cada bloco do roteiro. Não edite à mão: edite cortes.json e rode cortar.py de novo.",
+  "_como_usar": "Gerado por scripts/cortar.py (ou cortar_video.py). duracao_s = duração da voz editada (0 = usar config.duracao_s). blocos = início (ms, timeline final) de cada bloco do roteiro. Não edite à mão: edite cortes.json e rode o script de novo.",
   "duracao_s": 0,
   "blocos": {
     "gancho": 0,
-    "apagao": 1800,
+    "planilha": 1800,
     "camadas": 5000,
     "sistema": 7600,
     "letreiro": 10800,

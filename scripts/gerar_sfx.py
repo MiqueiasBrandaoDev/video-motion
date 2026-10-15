@@ -26,7 +26,14 @@ Regras de densidade (lição de vídeo real: excesso de efeito cansa e soa amado
     - carimbo ou afastamento de câmera do cenas.json sem efeito de impacto a até 250 ms
     - todos os ganhos iguais ou todos os pitches iguais (falta variação leve)
 
-Formato do plano: ver template/src/data/sfx.example.json.
+Perfil (campo "perfil" do sfx.json):
+  motion  (padrão) motion puro com trilha: base de ~1 efeito a cada 2-3 s nas viradas + impactos
+  orador  talking head SEM trilha (anúncios analisados em out/2026): só ~1-2,5 impactos graves a
+          cada 10 s, nos títulos que entram atrás da cabeça, no número-chave e no CTA, mais um ou
+          outro efeito comum discreto. Intervalo médio esperado 2,5-8 s; impactos podem passar
+          de 1/3 dos efeitos; distância mínima entre impactos padrão 2,5 s.
+
+Formato do plano: ver template/src/data/sfx.example.json (motion) e sfx-orador.example.json (orador).
 Referência de tempo: número (ms), "marco", "bloco:nome", com deslocamento "+200"/"-150".
 
 Uso:
@@ -139,8 +146,8 @@ def main():
     ap.add_argument("--voz", default=os.path.join("public", "voz.wav"), help="voz final (para medir o pico de referência)")
     ap.add_argument("--saida", default=os.path.join("work", "sfx_resolvido.json"))
     ap.add_argument("--min-gap", type=float, default=0.4, help="intervalo mínimo entre efeitos (s)")
-    ap.add_argument("--min-gap-impacto", type=float, default=4.0,
-                    help="intervalo mínimo recomendado entre dois efeitos de impacto (s); abaixo disso gera AVISO")
+    ap.add_argument("--min-gap-impacto", type=float, default=None,
+                    help="intervalo mínimo recomendado entre dois impactos (s); padrão 4 (motion) ou 2,5 (orador)")
     ap.add_argument("--cenas", default=os.path.join("src", "data", "cenas.json"),
                     help="cenas.json (para conferir se carimbos e afastamentos de câmera têm impacto)")
     a = ap.parse_args()
@@ -148,6 +155,9 @@ def main():
     raiz = os.path.abspath(a.projeto)
     p = lambda x: x if os.path.isabs(x) else os.path.join(raiz, x)
     plano = json.load(open(p(a.plano), encoding="utf-8"))
+    orador = plano.get("perfil", "motion") == "orador"
+    if a.min_gap_impacto is None:
+        a.min_gap_impacto = 2.5 if orador else 4.0
     ms = resolvedor(raiz)
     pasta = p(plano.get("pasta", os.path.join("public", "sfx")))
     voz_pico = pico_voz(p(a.voz))
@@ -197,10 +207,12 @@ def main():
     if len(eventos) > 1:
         gaps = [y["t"] - x["t"] for x, y in zip(eventos, eventos[1:])]
         media = sum(gaps) / len(gaps)
-        if media < 2.0:
-            avisos.append(f"intervalo médio {media:.2f}s < 2 s: denso demais. Corte efeitos de saída, legenda e badges individuais.")
-        if media > 5.0:
-            avisos.append(f"intervalo médio {media:.2f}s > 5 s: confira se as viradas principais têm efeito.")
+        lim_min, lim_max = (2.5, 8.0) if orador else (2.0, 5.0)
+        if media < lim_min:
+            avisos.append(f"intervalo médio {media:.2f}s < {lim_min:g} s: denso demais{' para talking head (sem trilha, cada som aparece)' if orador else ''}. "
+                          f"Corte efeitos de saída, legenda e badges individuais.")
+        if media > lim_max:
+            avisos.append(f"intervalo médio {media:.2f}s > {lim_max:g} s: confira se as viradas principais têm efeito.")
         for x in eventos:
             n = sum(1 for y in eventos if x["t"] <= y["t"] < x["t"] + 5)
             if n > 3:
@@ -211,7 +223,7 @@ def main():
             if y["t"] - x["t"] < a.min_gap_impacto:
                 avisos.append(f"impactos a {y['t'] - x['t']:.2f}s ({x['t']:.2f}s e {y['t']:.2f}s; mínimo recomendado "
                               f"{a.min_gap_impacto:g}s): impacto perde força se repetir. Rebaixe um para comum.")
-        if len(eventos) >= 6 and len(imp) > len(eventos) / 3:
+        if not orador and len(eventos) >= 6 and len(imp) > len(eventos) / 3:
             avisos.append(f"{len(imp)} de {len(eventos)} efeitos são impacto: reserve para carimbo, revelação, número-chave e CTA.")
         if len({x["rel_voz_db"] for x in eventos if x["categoria"] == "comum"}) == 1 and len(eventos) - len(imp) > 1:
             avisos.append("todos os efeitos com o mesmo ganho: varie 1-3 dB")
@@ -227,7 +239,7 @@ def main():
         marca = "IMPACTO" if e["categoria"] == "impacto" else "       "
         print(f"{e['t']:7.2f}s {marca} {e['nome']:24} {e['rel_voz_db']:+5.1f} dB {e['semitons']:+.0f}st  {e['evento']}")
     if len(eventos) > 1:
-        print(f"\n{len(eventos)} efeitos, 1 a cada {(eventos[-1]['t'] - eventos[0]['t']) / (len(eventos) - 1):.2f}s em média. "
+        print(f"\nperfil {'orador (sem trilha)' if orador else 'motion'} · {len(eventos)} efeitos, 1 a cada {(eventos[-1]['t'] - eventos[0]['t']) / (len(eventos) - 1):.2f}s em média. "
               f"Pico de referência da voz: {ref_voz:.1f} dBFS{' (padrão, voz não encontrada)' if voz_pico is None else ''}")
     for w in avisos:
         print(f"AVISO: {w}")

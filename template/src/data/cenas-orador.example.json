@@ -1,0 +1,225 @@
+{
+ "_como_usar": "Talking head em 7 cenas orador (corte seco, o vídeo continua porque cada cena começa em trimBefore = ini). Campos da cena orador: video, recorte, enquadramento, punch [{em, escala 1.12, ate}], pb [{de, ate}] (preto e branco do 'jeito antigo'), card {em, ate, ret {x,y,w,h,raio} px, legenda} (orador encolhe para card), raw {em, editadoEm, rotulo, rotuloFinal, moldura {x,y,w,h} 0-1} (xadrez + moldura tracejada -> editado), escurecer, legenda (rosto | base | esquerda | oculta | y 0-1, ou [{em, pos}]), sobre [{tipo, em, ate?, camada? atras|frente, ...}] com tipos: titulo {rotulo, linha1, linha2, y, tam, pb, riscaEm}, riscado (titulo com risco), numero {valores [{v, em}], prefixo, sufixo, rotulo, y}, chips {itens [{texto, em}], y}, objecoes {rotulo, total, checks [refs]}, comando {texto, feitoEm, rotulo}, rec {estado, rotulo, capitulos [{em, texto}]}, passos {rotulo, titulo 'linha|*linha*', itens [{titulo, sub, icone, em}]} (use com card), cards {itens [{numero, titulo, sub}], y}, pill {texto, icone, y}, final {marca, rotulo, slogan, url}. Outras cenas do formato: duelo {titulo, lados [{rotulo, icone, cor, video, de, enquadramento, pb, legenda}], placar [{em, lado}], claro} e letterbox {titulo, selo {texto 'linha|linha', icone}, video, enquadramento, punch, rodape, claro, sobre}. Painel de editor em perspectiva: cena telaViva com tela.perspectiva {em, rotY 28, rotX 6} e blocos colunas/video/chat. Roteiro: references/roteiros-e-ganchos.md.",
+ "cenas": [
+  {
+   "id": "gancho",
+   "tipo": "orador",
+   "inicio": 0,
+   "punch": [
+    {
+     "em": "minutos",
+     "escala": 1.1,
+     "ate": "antes-200"
+    }
+   ],
+   "sobre": [
+    {
+     "tipo": "titulo",
+     "em": "gravada",
+     "rotulo": "aula pronta em",
+     "linha1": "dez",
+     "linha2": "minutos",
+     "y": 0.095
+    }
+   ]
+  },
+  {
+   "id": "antigo",
+   "tipo": "orador",
+   "inicio": "bloco:antigo",
+   "pb": [
+    {
+     "de": "bloco:antigo",
+     "ate": "agora-150"
+    }
+   ],
+   "sobre": [
+    {
+     "tipo": "titulo",
+     "em": "horas",
+     "ate": "gravava-100",
+     "rotulo": "antes",
+     "linha1": "3 horas",
+     "linha2": "por aula",
+     "pb": true,
+     "y": 0.095
+    },
+    {
+     "tipo": "riscado",
+     "em": "gravava",
+     "riscaEm": "mao",
+     "rotulo": "e ainda",
+     "linha1": "cortava",
+     "linha2": "na mão",
+     "pb": true,
+     "y": 0.095
+    }
+   ]
+  },
+  {
+   "id": "raw",
+   "tipo": "orador",
+   "inicio": "bloco:raw",
+   "raw": {
+    "em": "bloco:raw",
+    "editadoEm": "pronta",
+    "rotulo": "BRUTO · sem edição",
+    "rotuloFinal": "AULA PRONTA"
+   },
+   "sobre": [
+    {
+     "tipo": "rec",
+     "em": "bloco:raw",
+     "ate": "pronta+300",
+     "rotulo": "bruto",
+     "capitulos": [
+      {
+       "em": "bloco:raw",
+       "texto": "gravação crua"
+      },
+      {
+       "em": "pronta",
+       "texto": "editado"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "passos",
+   "tipo": "orador",
+   "inicio": "bloco:passos",
+   "card": {
+    "em": "bloco:passos",
+    "ate": "bloco:objecoes"
+   },
+   "sobre": [
+    {
+     "tipo": "passos",
+     "em": "bloco:passos",
+     "rotulo": "o método",
+     "titulo": "Funciona em|*3 passos*",
+     "itens": [
+      {
+       "titulo": "Roteiro",
+       "sub": "o que falar",
+       "icone": "pen",
+       "em": "roteiro"
+      },
+      {
+       "titulo": "Gravação",
+       "sub": "uma tomada",
+       "icone": "video",
+       "em": "gravacao"
+      },
+      {
+       "titulo": "Revisão",
+       "sub": "ajuste final",
+       "icone": "check",
+       "em": "revisao"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "objecoes",
+   "tipo": "orador",
+   "inicio": "bloco:objecoes",
+   "legenda": "oculta",
+   "punch": [
+    {
+     "em": "experiencia",
+     "escala": 1.08
+    }
+   ],
+   "sobre": [
+    {
+     "tipo": "objecoes",
+     "em": "bloco:objecoes",
+     "rotulo": "sem desculpa",
+     "total": 3,
+     "checks": [
+      "cara",
+      "estudio",
+      "experiencia"
+     ]
+    },
+    {
+     "tipo": "chips",
+     "em": "camera",
+     "y": 0.62,
+     "itens": [
+      {
+       "texto": "câmera",
+       "em": "camera"
+      },
+      {
+       "texto": "estúdio",
+       "em": "estudio"
+      },
+      {
+       "texto": "experiência",
+       "em": "experiencia"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "numero",
+   "tipo": "orador",
+   "inicio": "bloco:numero",
+   "punch": [
+    {
+     "em": "trezentas",
+     "escala": 1.1
+    }
+   ],
+   "sobre": [
+    {
+     "tipo": "numero",
+     "em": "cem",
+     "rotulo": "aulas publicadas",
+     "y": 0.1,
+     "sufixo": "+",
+     "valores": [
+      {
+       "v": 100,
+       "em": "cem"
+      },
+      {
+       "v": 200,
+       "em": "duzentas"
+      },
+      {
+       "v": 300,
+       "em": "trezentas"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "cta",
+   "tipo": "orador",
+   "inicio": "bloco:cta",
+   "sobre": [
+    {
+     "tipo": "pill",
+     "em": "toque",
+     "texto": "Toque em saiba mais",
+     "y": 0.67
+    },
+    {
+     "tipo": "final",
+     "em": "hoje+250",
+     "rotulo": "aulas em 10 minutos",
+     "marca": "*Aula Pronta*",
+     "slogan": "Você _fala_. O vídeo sai.",
+     "url": "exemplo.com.br"
+    }
+   ]
+  }
+ ]
+}

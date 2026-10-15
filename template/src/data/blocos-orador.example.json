@@ -1,0 +1,85 @@
+{
+ "_como_usar": "Gerado por scripts/cortar_video.py a partir de uma gravação de teste (voz sintética local). Não edite à mão: edite cortes.json e rode de novo.",
+ "original": "gravacao.mp4",
+ "duracao_original_s": 30.186,
+ "duracao_s": 16.33,
+ "tempo": 1.2,
+ "lufs": -14.8,
+ "pico_dbfs": -1.0,
+ "video": {
+  "arquivo": "orador.mp4",
+  "fps": 30,
+  "quadros": 490,
+  "largura": 1920,
+  "altura": 1080,
+  "fonte": "1920x1080@59.940",
+  "diferenca_ms": 2.9
+ },
+ "blocos": {
+  "gancho": 0,
+  "antigo": 1682,
+  "raw": 5909,
+  "passos": 7730,
+  "objecoes": 10149,
+  "numero": 12499,
+  "cta": 14973
+ },
+ "trechos": [
+  {
+   "orig_ini": 0.0,
+   "orig_fim": 2.0187,
+   "bloco": "gancho",
+   "novo_ini": 0.0,
+   "novo_fim": 1.6822
+  },
+  {
+   "orig_ini": 2.8695,
+   "orig_fim": 5.4888,
+   "bloco": "antigo",
+   "novo_ini": 1.6822,
+   "novo_fim": 3.865
+  },
+  {
+   "orig_ini": 6.1228,
+   "orig_fim": 8.5752,
+   "bloco": "antigo",
+   "novo_ini": 3.865,
+   "novo_fim": 5.9087
+  },
+  {
+   "orig_ini": 12.7127,
+   "orig_fim": 14.8982,
+   "bloco": "raw",
+   "novo_ini": 5.9087,
+   "novo_fim": 7.7299
+  },
+  {
+   "orig_ini": 15.5989,
+   "orig_fim": 18.5018,
+   "bloco": "passos",
+   "novo_ini": 7.7299,
+   "novo_fim": 10.149
+  },
+  {
+   "orig_ini": 20.8041,
+   "orig_fim": 23.6236,
+   "bloco": "objecoes",
+   "novo_ini": 10.149,
+   "novo_fim": 12.4986
+  },
+  {
+   "orig_ini": 24.3577,
+   "orig_fim": 27.3273,
+   "bloco": "numero",
+   "novo_ini": 12.4986,
+   "novo_fim": 14.9733
+  },
+  {
+   "orig_ini": 28.0947,
+   "orig_fim": 29.7297,
+   "bloco": "cta",
+   "novo_ini": 14.9733,
+   "novo_fim": 16.3358
+  }
+ ]
+}

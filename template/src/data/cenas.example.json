@@ -1,37 +1,104 @@
 {
-  "_como_usar": "Lista de cenas na ordem. inicio/em aceitam: número (ms na timeline final), nome de marco (marcos.json), 'bloco:nome' (blocos.json) e deslocamento, ex.: 'ninguem-200' ou 'bloco:cta+150'. A cena dura até o início da próxima. ESTILO PADRÃO (corte seco entre cenas; cada cena anima a própria entrada): frase, telaViva, camadas, bento, letreiro, linha, recorte/orador, rajada. CLÁSSICAS (cross-fade): titulo, numeros, print, terminal, pills, cta (ver cenas-classico.example.json). Marcação de texto: *acento* (gradiente+brilho), _emocional_ (serifa itálica, 1 por frase), [contorno], {numero}, ~problema~. Em qualquer cena do estilo padrão: camera [{em, escala, x, y}] + cameraInicial, carimbos [{texto, em, cor, x, y, rot}], motionBlur (só em movimento rápido de câmera). transicao: 'corte' | 'suave' sobrescreve o padrão do tipo. RITMO: alterne cenas calmas (2-4 s, um estado mudando a cada 0,5-1 s) com rajadas (planos de ~0,7 s em corte seco) nos picos da fala.",
+  "_como_usar": "Lista de cenas na ordem. inicio/em aceitam: número (ms na timeline final), nome de marco (marcos.json), 'bloco:nome' (blocos.json) e deslocamento, ex.: 'ninguem-200' ou 'bloco:cta+150'. A cena dura até o início da próxima. ESTILO PADRÃO (corte seco entre cenas; cada cena anima a própria entrada): frase, telaViva, camadas, bento, letreiro, linha, recorte, rajada; TALKING HEAD: orador, duelo, letterbox (ver cenas-orador.example.json e novo_projeto.py --modelo orador). CLÁSSICAS (cross-fade): titulo, numeros, print, terminal, pills, cta (ver cenas-classico.example.json). Marcação de texto: *acento* (gradiente+brilho), _emocional_ (serifa itálica, 1 por frase), [contorno], {numero}, ~problema~. Em qualquer cena do estilo padrão: camera [{em, escala, x, y}] + cameraInicial, carimbos [{texto, em, cor, x, y, rot}], motionBlur (só em movimento rápido de câmera). transicao: 'corte' | 'suave' sobrescreve o padrão do tipo. RITMO: alterne cenas calmas (2-4 s, um estado mudando a cada 0,5-1 s) com rajadas (planos de ~0,7 s em corte seco) nos picos da fala.",
   "cenas": [
     {
       "id": "gancho",
       "tipo": "frase",
       "inicio": 0,
-      "rotulo": "atendimento · 2026",
+      "rotulo": "estoque · loja",
       "linhas": [
-        {"texto": "Sua equipe", "em": "sua"},
-        {"texto": "_perde_ *clientes*", "em": "perde", "tam": 1.15}
+        {
+          "texto": "Seu estoque",
+          "em": "seu"
+        },
+        {
+          "texto": "_mente_ pra *você*",
+          "em": "mente",
+          "tam": 1.1
+        }
       ]
     },
     {
-      "id": "apagao",
+      "id": "planilha",
       "tipo": "telaViva",
-      "inicio": "bloco:apagao",
-      "titulo": "O _apagão_ das 21h",
-      "camera": [{"em": "nove", "escala": 1.04}],
-      "carimbos": [{"texto": "Ninguém respondeu", "em": "ninguem", "cor": "problema"}],
+      "inicio": "bloco:planilha",
+      "titulo": "A planilha _errou_",
+      "camera": [
+        {
+          "em": "sexta",
+          "escala": 1.04
+        }
+      ],
+      "carimbos": [
+        {
+          "texto": "Ninguém deu baixa",
+          "em": "ninguem",
+          "cor": "problema"
+        }
+      ],
       "tela": {
-        "titulo": "atendimento · caixa de entrada",
-        "status": {"texto": "AO VIVO"},
-        "alerta": {"em": "trava", "cor": "problema"},
+        "titulo": "estoque · loja centro",
+        "status": {
+          "texto": "AO VIVO"
+        },
+        "alerta": {
+          "em": "zero",
+          "cor": "problema"
+        },
         "blocos": [
           {
             "tipo": "lista",
             "itens": [
-              {"titulo": "Quero o orçamento", "sub": "@marina.lopes · 1 min", "badge": "NOVA", "estados": [{"em": "noite", "status": "erro", "texto": "SEM RESPOSTA"}]},
-              {"titulo": "Ainda tem vaga?", "sub": "@rafa.costa · 1 min", "badge": "NOVA", "estados": [{"em": "noite+250", "status": "erro", "texto": "SEM RESPOSTA"}]},
-              {"titulo": "Como faço o pedido?", "sub": "@bia.nunes · 2 min", "badge": "NOVA", "estados": [{"em": "painel", "status": "erro", "texto": "SEM RESPOSTA"}]}
+              {
+                "titulo": "Camiseta P preta",
+                "sub": "SKU 1042 · planilha: 12",
+                "icone": "package",
+                "badge": "OK",
+                "estados": [
+                  {
+                    "em": "prateleira",
+                    "status": "erro",
+                    "texto": "ZERADO"
+                  }
+                ]
+              },
+              {
+                "titulo": "Boné azul",
+                "sub": "SKU 2210 · planilha: 8",
+                "icone": "package",
+                "badge": "OK",
+                "estados": [
+                  {
+                    "em": "prateleira+250",
+                    "status": "erro",
+                    "texto": "ZERADO"
+                  }
+                ]
+              },
+              {
+                "titulo": "Meia kit 3",
+                "sub": "SKU 3307 · planilha: 20",
+                "icone": "package",
+                "badge": "OK",
+                "estados": [
+                  {
+                    "em": "zero",
+                    "status": "aviso",
+                    "texto": "FALTAM 6"
+                  }
+                ]
+              }
             ]
           },
-          {"tipo": "contador", "rotulo": "mensagens na fila", "de": 12, "ate": 47, "em": "noite", "ateEm": "responde", "cor": "problema"}
+          {
+            "tipo": "contador",
+            "rotulo": "vendas perdidas no mês",
+            "de": 3,
+            "ate": 41,
+            "em": "prateleira",
+            "ateEm": "baixa",
+            "cor": "problema"
+          }
         ]
       }
     },
@@ -39,16 +106,32 @@
       "id": "camadas",
       "tipo": "camadas",
       "inicio": "bloco:camadas",
-      "titulo": "A *solução*",
+      "titulo": "A *saída*",
       "explodeEm": "cinco",
       "juntaEm": "juntas",
-      "legenda": "5 camadas · um sistema",
+      "legenda": "5 camadas · um controle",
       "camadas": [
-        {"rotulo": "entrada", "icone": "inbox"},
-        {"rotulo": "triagem", "icone": "search"},
-        {"rotulo": "resposta", "icone": "message"},
-        {"rotulo": "registro", "icone": "users"},
-        {"rotulo": "retorno", "icone": "history", "texto": "Sem pausa"}
+        {
+          "rotulo": "entrada",
+          "icone": "inbox"
+        },
+        {
+          "rotulo": "contagem",
+          "icone": "search"
+        },
+        {
+          "rotulo": "alerta",
+          "icone": "zap"
+        },
+        {
+          "rotulo": "pedido",
+          "icone": "package"
+        },
+        {
+          "rotulo": "relatório",
+          "icone": "trendingUp",
+          "texto": "Sempre certo"
+        }
       ]
     },
     {
@@ -56,30 +139,82 @@
       "tipo": "bento",
       "inicio": "bloco:sistema",
       "colunas": 3,
-      "encaixe": {"tile": 4, "em": "bloco:sistema+60"},
-      "cameraInicial": {"escala": 1.12},
-      "camera": [{"em": "sistema", "escala": 1}],
+      "encaixe": {
+        "tile": 4,
+        "em": "bloco:sistema+60"
+      },
+      "cameraInicial": {
+        "escala": 1.12
+      },
+      "camera": [
+        {
+          "em": "sistema",
+          "escala": 1
+        }
+      ],
       "motionBlur": true,
-      "acende": [{"tile": 1, "em": "conectado"}, {"tile": 7, "em": "ponta"}],
+      "acende": [
+        {
+          "tile": 1,
+          "em": "conectado"
+        },
+        {
+          "tile": 7,
+          "em": "ponta"
+        }
+      ],
       "tiles": [
-        {"rotulo": "Mensagens", "icone": "message"},
-        {"rotulo": "Contatos", "icone": "users"},
-        {"rotulo": "E-mail", "icone": "mail"},
-        {"rotulo": "Agenda", "icone": "calendar"},
-        {"rotulo": "IA", "icone": "bot"},
-        {"rotulo": "Pagamento", "icone": "dollar"},
-        {"rotulo": "Relatórios", "icone": "trendingUp"},
-        {"rotulo": "Retorno", "icone": "history"},
-        {"rotulo": "Segurança", "icone": "shield"}
+        {
+          "rotulo": "Produtos",
+          "icone": "package"
+        },
+        {
+          "rotulo": "Fornecedores",
+          "icone": "users"
+        },
+        {
+          "rotulo": "Notas",
+          "icone": "file"
+        },
+        {
+          "rotulo": "Vendas",
+          "icone": "dollar"
+        },
+        {
+          "rotulo": "IA",
+          "icone": "bot"
+        },
+        {
+          "rotulo": "Pagamentos",
+          "icone": "coins"
+        },
+        {
+          "rotulo": "Relatórios",
+          "icone": "trendingUp"
+        },
+        {
+          "rotulo": "Alertas",
+          "icone": "zap"
+        },
+        {
+          "rotulo": "Backup",
+          "icone": "shield"
+        }
       ]
     },
     {
       "id": "letreiro",
       "tipo": "letreiro",
       "inicio": "bloco:letreiro",
-      "texto": "Atendimento 24h",
-      "texto2": "Sem plantão",
-      "linhas": [{"texto": "sem _plantão_", "em": "sem", "tam": 0.9}]
+      "texto": "Estoque em dia",
+      "texto2": "Sem planilha",
+      "linhas": [
+        {
+          "texto": "sem _planilha_",
+          "em": "sem",
+          "tam": 0.9
+        }
+      ]
     },
     {
       "id": "pulso",
@@ -87,8 +222,15 @@
       "inicio": "bloco:pulso",
       "forma": "ecg",
       "em": "bloco:pulso",
-      "rotuloLinha": {"antes": "24/7 · online"},
-      "linhas": [{"texto": "nunca _para_", "em": "nunca"}]
+      "rotuloLinha": {
+        "antes": "24/7 · sincronizado"
+      },
+      "linhas": [
+        {
+          "texto": "nunca _para_",
+          "em": "nunca"
+        }
+      ]
     },
     {
       "id": "orador",
@@ -96,18 +238,74 @@
       "inicio": "bloco:orador",
       "video": "orador.mp4",
       "recorte": "orador-alfa.webm",
-      "letreiro": {"texto": "Passo a passo", "em": "bloco:orador"},
-      "linhas": [{"texto": "como *montar*", "papel": "estreita", "em": "mostro"}]
+      "letreiro": {
+        "texto": "Passo a passo",
+        "em": "bloco:orador"
+      },
+      "linhas": [
+        {
+          "texto": "como *montar*",
+          "papel": "estreita",
+          "em": "mostro"
+        }
+      ]
     },
     {
       "id": "passos",
       "tipo": "rajada",
       "inicio": "bloco:passos",
       "planos": [
-        {"tipo": "frase", "em": "bloco:passos", "rotulo": "em", "linhas": [{"texto": "3 passos", "papel": "estreita", "entrada": "mascara"}]},
-        {"tipo": "frase", "em": "mapeia-150", "rotulo": "passo 01", "linhas": [{"texto": "*Mapeia*", "papel": "numero", "tam": 0.7, "entrada": "letra"}]},
-        {"tipo": "frase", "em": "conecta-150", "rotulo": "passo 02", "linhas": [{"texto": "*Conecta*", "papel": "numero", "tam": 0.7, "entrada": "letra"}]},
-        {"tipo": "frase", "em": "liga-150", "rotulo": "passo 03", "linhas": [{"texto": "*Liga*", "papel": "numero", "tam": 0.7, "entrada": "letra"}]}
+        {
+          "tipo": "frase",
+          "em": "bloco:passos",
+          "rotulo": "em",
+          "linhas": [
+            {
+              "texto": "3 passos",
+              "papel": "estreita",
+              "entrada": "mascara"
+            }
+          ]
+        },
+        {
+          "tipo": "frase",
+          "em": "cadastra-150",
+          "rotulo": "passo 01",
+          "linhas": [
+            {
+              "texto": "*Cadastra*",
+              "papel": "numero",
+              "tam": 0.62,
+              "entrada": "letra"
+            }
+          ]
+        },
+        {
+          "tipo": "frase",
+          "em": "conecta-150",
+          "rotulo": "passo 02",
+          "linhas": [
+            {
+              "texto": "*Conecta*",
+              "papel": "numero",
+              "tam": 0.66,
+              "entrada": "letra"
+            }
+          ]
+        },
+        {
+          "tipo": "frase",
+          "em": "acompanha-150",
+          "rotulo": "passo 03",
+          "linhas": [
+            {
+              "texto": "*Acompanha*",
+              "papel": "numero",
+              "tam": 0.55,
+              "entrada": "letra"
+            }
+          ]
+        }
       ]
     },
     {
@@ -115,8 +313,25 @@
       "tipo": "frase",
       "inicio": "bloco:cta",
       "rotulo": "comenta",
-      "carimbos": [{"texto": "Na sua DM", "em": "mando", "cor": "acento", "y": 0.66, "rot": -6, "tam": 70}],
-      "linhas": [{"texto": "*SISTEMA*", "papel": "numero", "entrada": "letra", "em": "comenta+300", "tam": 0.82}]
+      "carimbos": [
+        {
+          "texto": "Na sua DM",
+          "em": "mando",
+          "cor": "acento",
+          "y": 0.66,
+          "rot": -6,
+          "tam": 70
+        }
+      ],
+      "linhas": [
+        {
+          "texto": "*ESTOQUE*",
+          "papel": "numero",
+          "entrada": "letra",
+          "em": "comenta+300",
+          "tam": 0.78
+        }
+      ]
     }
   ]
 }

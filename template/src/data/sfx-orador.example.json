@@ -1,0 +1,53 @@
+{
+ "_como_usar": "Perfil orador (talking head sem trilha): impactos graves nos títulos atrás da cabeça, no número-chave e no CTA; poucos efeitos comuns discretos.",
+ "perfil": "orador",
+ "pasta": "public/sfx",
+ "respiros": [],
+ "eventos": [
+  {
+   "em": "gravada",
+   "arquivo": "impacto-a.wav",
+   "categoria": "impacto",
+   "rel_db": -14,
+   "semitons": 0,
+   "evento": "título DEZ MINUTOS atrás da cabeça"
+  },
+  {
+   "em": "mao+250",
+   "arquivo": "impacto-b.wav",
+   "categoria": "impacto",
+   "rel_db": -15,
+   "semitons": -1,
+   "evento": "risco em NA MÃO"
+  },
+  {
+   "em": "pronta",
+   "arquivo": "glass.wav",
+   "rel_db": -22,
+   "semitons": 0,
+   "evento": "RAW vira EDITADO"
+  },
+  {
+   "em": "experiencia",
+   "arquivo": "pop.wav",
+   "rel_db": -21,
+   "semitons": 1,
+   "evento": "3º check das objeções"
+  },
+  {
+   "em": "trezentas",
+   "arquivo": "impacto-a.wav",
+   "categoria": "impacto",
+   "rel_db": -13,
+   "semitons": 1,
+   "evento": "número 300"
+  },
+  {
+   "em": "toque",
+   "arquivo": "glass.wav",
+   "rel_db": -20,
+   "semitons": 1,
+   "evento": "pill de CTA"
+  }
+ ]
+}
