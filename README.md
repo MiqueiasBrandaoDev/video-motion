@@ -8,7 +8,8 @@ Entradas aceitas:
 |---|---|
 | ideia ou texto | "vídeo de 60 s explicando como funciona o meu serviço" |
 | áudio gravado | m4a, mp3, wav, ogg |
-| vídeo | talking head, screencast (mp4, mov, webm) |
+| vídeo com rosto (talking head) | gravação 9:16 ou 16:9 da pessoa falando (mp4, mov, webm): caminho principal |
+| screencast | gravação de tela (mp4, mov, webm) |
 | projeto ou produto | pasta de código, URL, app, README |
 
 Saída: MP4 (H.264 + AAC, -14 LUFS) em 9:16, 16:9 ou 1:1, com legenda sincronizada palavra por palavra, animação sincronizada com a fala, trilha com ducking e efeitos sonoros em duas camadas (base nas viradas + impactos fortes nos momentos-chave).
@@ -29,6 +30,21 @@ O template traz um kit de motion derivado de referências analisadas em out/2026
 | Encaixe | um elemento encolhe e vira parte da próxima tela |
 | Legenda em caixa | pequena, frase visível, só a palavra ativa destacada (a legenda grande virou variante) |
 | Letreiro, LinhaSVG, Recorte, Rajada | letreiro em contra-direção, ECG/rachadura, texto atrás do apresentador (recorte opcional), cortes de ~0,7 s nos picos da fala |
+
+## Talking head
+
+Para vídeo com rosto, o template tem um modelo próprio (`novo_projeto.py --modelo orador`), também parametrizado por JSON e com os valores de spring e frames medidos em anúncios analisados em out/2026:
+
+| Componente | O que faz |
+|---|---|
+| Cena `orador` | rosto em tela cheia a partir de fonte 9:16 ou 16:9 (reenquadramento, zoom, espaço acima da cabeça), punch-in nas palavras-chave, preto e branco no "jeito antigo", orador encolhendo para card |
+| Texto atrás da pessoa | título de duas larguras, número que rola e palavra riscada entre o fundo e a pessoa (com o recorte com alfa) |
+| Legenda fantasma | a frase inteira a 15% de opacidade; cada palavra acende quando é dita, destaque no acento |
+| Sobreposições | RAW -> EDITADO (xadrez + moldura com alças), lista de 3 passos ao lado do card, checklist de objeções com chips, terminal de comando + HUD de gravação, cards flutuantes, pill de CTA, card final |
+| Duelo e letterbox | dois resultados empilhados com placar; título fixo com vídeo 16:9 no meio |
+| Painel em perspectiva | janela de editor/assistente que gira de 28° para 0, com preview do vídeo, chat de comandos e linha do tempo |
+
+O vídeo é cortado junto com a voz (`cortar_video.py`: bordas na grade de quadros, `setpts` + `atempo` no mesmo grafo, sincronia conferida), então o frame N do vídeo cortado é o frame N da timeline. Som do formato: sem trilha, só voz e impactos graves nos títulos. Estruturas de roteiro com proporções de tempo e 18 tipos de gancho: `references/roteiros-e-ganchos.md`.
 
 O fundo de grade continua sendo a assinatura, agora com halos de luz, vinheta, grão e chão em perspectiva opcionais. O estilo anterior (cards de vidro, legenda grande, cross-fade) segue disponível como variante clássica.
 
@@ -68,6 +84,7 @@ Basta pedir em linguagem natural. Exemplos:
 
 - "faz um vídeo com motion a partir desse áudio" (anexando o arquivo)
 - "edita essa gravação com legenda pra Reels"
+- "corta esse vídeo meu falando e coloca motion em volta do rosto"
 - "cria um vídeo animado explicando o que esse projeto faz" (na pasta do projeto)
 - "demo animada do meu app em 16:9 pro YouTube"
 - "vídeo de 45 s pra TikTok só com tipografia cinética e música"
@@ -77,14 +94,14 @@ Basta pedir em linguagem natural. Exemplos:
 | Fase | O que acontece |
 |---|---|
 | 0. Entrada | detecta o insumo e o objetivo (plataforma, formato, duração, marca, CTA); pergunta só o que não dá para inferir |
-| 1. Conteúdo | transcreve com tempo por palavra e separa locução, instrução falada para o agente e descarte; ou lê o projeto; ou escreve o roteiro |
+| 1. Conteúdo | transcreve com tempo por palavra e separa locução, instrução falada para o agente e descarte; ou lê o projeto; ou escreve o roteiro numa estrutura medida (resultado no 1º segundo) |
 | 2. Pesquisa do nicho | pesquisa web obrigatória, `pesquisa.md` com fontes e direções criativas |
 | 3. Direção visual | estilo padrão (UI viva, carimbo, 3D, luz, tipografia em papéis, HUD), acento com significado, paleta da marca ou da pesquisa |
 | 4. Storyboard | blocos com tempo, qual palavra dispara qual animação |
 | 5. Assets | prints reais via Playwright, com dados sensíveis borrados antes do uso |
-| 6. Voz | cortes a partir do original, aceleração com tom preservado, loudnorm, retranscrição para legendas e marcos |
+| 6. Voz (e vídeo) | cortes a partir do original, aceleração com tom preservado, loudnorm, retranscrição para legendas e marcos; com rosto filmado, vídeo e voz cortados juntos com sincronia conferida |
 | 7. Remotion | projeto gerado do template; cenas declaradas em JSON e ancoradas na fala |
-| 8. Trilha e SFX | trilha com licença registrada, ducking por sidechain, efeitos em duas camadas (base a cada 2-3 s + impactos fortes) validados por script |
+| 8. Trilha e SFX | motion puro: trilha com licença registrada, ducking por sidechain, efeitos em duas camadas (base a cada 2-3 s + impactos fortes); talking head: sem trilha, impactos graves nos títulos; tudo validado por script |
 | 9. Render | H.264 8-12 Mbps, AAC 48 kHz, versão leve opcional |
 | 10. QA | leitura de frames, folha de contato com área segura, retranscrição do MP4, LUFS e true peak |
 | 11. Entrega | MP4, decisões, licenças e encerramento por PID só dos processos que a execução abriu |
@@ -95,10 +112,11 @@ Ajustes posteriores (velocidade da fala, trechos, cenas, trilha, cores, formato)
 
 ```
 SKILL.md          instruções que o Claude Code segue
-references/       guias por fase (áudio, pesquisa, direção visual, Remotion, sound design, formatos, QA, licenças)
-scripts/          Python: transcrever, trechos, cortar, legendas, tts, borrar, analisa_musica,
-                  gerar_sfx, mixar, frames_check, comprimir, novo_projeto, processos,
-                  cenas_check, recortar_orador (opcional)
+references/       guias por fase (áudio, pesquisa, roteiros e ganchos, direção visual, Remotion,
+                  sound design, formatos, QA, licenças)
+scripts/          Python: transcrever, trechos, cortar, cortar_video, legendas, tts, borrar,
+                  analisa_musica, gerar_sfx, mixar, frames_check, comprimir, novo_projeto,
+                  processos, cenas_check, recortar_orador (opcional)
 template/         projeto Remotion base copiado para cada vídeo (componentes, cenas, dados de exemplo)
 ```
 

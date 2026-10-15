@@ -12,15 +12,17 @@
 9. Estilo padrão: receitas (springs e durações)
 10. Recorte do apresentador (texto atrás da pessoa)
 11. Ritmo: calmo x rajada
+12. Talking head: cena orador, sobreposições, duelo, letterbox, painel 3D
+13. Técnica avançada (não implementada): HUD de visão computacional
 
 ## 1. Estrutura
 
 ```
 <projeto>/
-  cortes.json              plano de edição da voz (cortar.py)
+  cortes.json              plano de edição da voz (cortar.py) ou do vídeo + voz (cortar_video.py)
   marcos.spec.json         palavra -> marco (legendas.py)
   pesquisa.md, storyboard.md
-  public/  voz.wav, mix.wav, prints/, musica/ (+LICENCA.md), sfx/ (+LICENCA.md)
+  public/  voz.wav, mix.wav, orador.mp4 + orador-alfa.webm (talking head), prints/, musica/, sfx/ (+LICENCA.md)
   src/
     theme.ts               tokens, fontes, formato, área segura, helpers de movimento
     tempo.ts               referências de tempo -> frame, duração, batidas
@@ -28,10 +30,13 @@
     comp/                  estilo padrão: Palco (câmera, Carimbo, Flash, tremor), TelaViva, Camadas3D
                            (+ChaoGrade), GradeBento (+CardHalo), Encaixe, Tipografia (TextoMisto,
                            RotuloMono, Chip), Hud (BarraCapitulos, TituloFixo, Quadro45), Efeitos
-                           (Letreiro, LinhaSVG), Recorte, FundoGrade, Legendas (LegendaCaixa)
+                           (Letreiro, LinhaSVG), Recorte, FundoGrade, Legendas (LegendaCaixa, LegendaFantasma)
+                           talking head: Orador (CamadaVideo, punch, P&B, card, Xadrez, MolduraSelecao),
+                           Sobre (titulo, numero, chips, objecoes, comando, rec, passos, cards, pill, final)
                            clássico: CardVidro (+Rotulo, TextoMarcado), Print, Legendas, Contador,
                            Pill (+FaixaPills), Cursor, Terminal, Cta, Icone, Transicoes
     cenas/                 Kit (frase, telaViva, camadas, bento, letreiro, linha, recorte, rajada),
+                           Orador (orador, duelo, letterbox),
                            Titulo, Numeros, PrintCena, Outras, tipos.ts, registro.ts
     data/                  config, cenas, prints, marcos, blocos, legendas, batidas, sfx (.json)
   scripts/stills.mjs       frames avulsos em PNG
@@ -40,7 +45,9 @@
 
 `config.json`: `formato` (9:16 | 16:9 | 1:1), `fps`, `variante`, `acento`, `acento2`,
 `problema`, `duracao_s` (quando não há voz), `audio` (arquivo em public/, ex. `mix.wav`),
-`puxar_para_batida`, `legendas`, `legenda_estilo` (caixa | grande), `fundo` (`halos`, `chao`,
+`puxar_para_batida`, `legendas`, `legenda_estilo` (caixa | grande | fantasma), `legenda_destaques`,
+`extra_fim_s` (segundos depois da voz, para o card final), `orador` (`video`, `recorte`,
+`enquadramento`: padrões das cenas de talking head), `fundo` (`halos`, `chao`,
 `vinheta`, `grao`), `hud` (`capitulos[{inicio, cor}]`, `titulo` com `|` entre linhas, `quadro45`).
 Campos novos são opcionais: um config antigo continua funcionando.
 
@@ -81,7 +88,10 @@ com a faixa de luz.
 | `bento` | `tiles[{rotulo, icone?, sub?, cor?, largo?, em?}]`, `colunas?`, `conectores?`, `encaixe?{tile, em}`, `acende?[{tile, em}]` | grade de módulos com halo; com câmera, revelação |
 | `letreiro` | `texto`, `texto2?`, `em?`, `tam?`, `velocidade?`, `linhas?` | nome/promessa em duas linhas gigantes contra-direção |
 | `linha` | `forma` (ecg, reta, rachadura), `em?`, `planaEm?`, `cor?`, `rotuloLinha?{antes, depois}`, `linhas?` | pulso, queda, ruptura |
-| `recorte` / `orador` | `video?`, `recorte?`, `de?`, `deRecorte?`, `zoom?`, `letreiro?`, `linhas?` | apresentador com texto atrás |
+| `recorte` | `video?`, `recorte?`, `de?`, `deRecorte?`, `zoom?`, `letreiro?`, `linhas?` | apresentador com texto atrás (motion puro) |
+| `orador` | `video?`, `recorte?`, `enquadramento?`, `punch?`, `pb?`, `card?`, `raw?`, `sobre?`, `legenda?` (+ `linhas`/`letreiro` do recorte) | talking head (seção 12) |
+| `duelo` | `titulo`, `lados[{rotulo, icone?, cor?, video?, de?, enquadramento?, pb?, legenda?}]`, `placar?[{em, lado}]`, `claro?` | dois resultados empilhados com placar |
+| `letterbox` | `titulo`, `selo?{texto, icone?}`, `video?`, `enquadramento?`, `punch?`, `rodape?`, `claro?`, `sobre?` | título fixo + vídeo 16:9 no meio |
 | `rajada` | `planos[{tipo, em?, ...}]`, `passo_ms?` (700) | cortes de ~0,7 s nos picos da fala |
 
 Blocos da `telaViva` (`tela.blocos[]`):
@@ -96,6 +106,12 @@ Blocos da `telaViva` (`tela.blocos[]`):
 | `fluxo` | `nos[{texto, icone?, em, decisao?}]` | nó a nó, conector desenha 8 frames antes |
 | `kanban` | `colunas[]`, `card{texto, avatar?}`, `passos[{em, coluna}]` | card desliza de coluna (10 frames) |
 | `prompt` | `texto`, `em`, `cps?` (1,6 car/frame), `rotulo?` | digita com cursor; botão pulsa no fim |
+| `chat` | `mensagens[{texto, em, ok?, icone?}]`, `cps?` (1,4), `rotulo?` | bolha do comando digita; 6 frames depois do fim, linha de confirmação com check |
+| `video` | `arquivo?` (orador.mp4), `proporcao?` (largura/altura), `altura?`, `enquadramento?`, `status?`, `rotulo?` | preview do vídeo no frame da timeline |
+| `colunas` | `blocos[]`, `pesos?[]` | blocos lado a lado (ex.: vídeo + chat) |
+
+`tela.perspectiva: {em?, rotY?: 28, rotX?: 6}`: a janela entra girada e endireita em 18 frames
+(`spring({damping: 200, mass: 1.2})`).
 
 Status: `ok` (acento/solução), `erro` (problema), `aviso` (acento2), `neutro`.
 
@@ -172,6 +188,10 @@ limite. Precisão ~0,2 s.
 | `Letreiro`, `LinhaSVG` | `texto`, `texto2?`, `y`, `tam?`, `velocidade?`; `forma`, `at`, `planaEm?` |
 | `Recorte` | `video?`, `recorte?`, `de?`, `deRecorte?`, `zoom?`, `atras?`, `frente?` |
 | `LegendaCaixa` | lê `legendas.json`; `tam?` (padrão 58 px) |
+| `LegendaFantasma` | lê `legendas.json` e `config.legenda_destaques`; `pos` (rosto, base, esquerda, oculta, y 0-1), `tam?` (62 px) |
+| `CamadaVideo` | `arquivo`, `de` (trimBefore), `ret`, `enq`, `escala?`, `pb?`, `transparente?`, `marcacao?` (silhueta sem arquivo) |
+| `escalaPunch()`, `nivelPB()`, `progCard()`, `Xadrez`, `MolduraSelecao`, `EtiquetaEstado`, `BordaCard` | peças da cena orador, usáveis em cena sob medida |
+| `CamadaSobre`, `SOBRE` | desenha os itens `sobre` de uma camada (atras/frente); registro tipo -> componente |
 | `FundoGrade` | `celula?`, `halo?[x,y]`, `drift?`, `halos?`, `chao?`, `vinheta?`, `grao?` (padrão vem de `config.fundo`) |
 | `CardVidro` | `destaque?` (0-1), `opaco?`, `style?` |
 | `Rotulo`, `TextoMarcado` | texto mono em acento; `*trecho*` em acento |
@@ -326,6 +346,8 @@ Confira nos frames: borda do cabelo sem halo, texto atrás aparecendo dos dois l
 cabeça, sincronia labial.
 
 ## 11. Ritmo: calmo x rajada
+12. Talking head: cena orador, sobreposições, duelo, letterbox, painel 3D
+13. Técnica avançada (não implementada): HUD de visão computacional
 
 O vídeo alterna dois regimes:
 
@@ -347,3 +369,95 @@ No `cenas.json`, a rajada é uma cena só:
 Sem `em`, os planos entram a cada `passo_ms` (700). Com filmagem, intercale o orador em
 zoom 1,0 e 1,35 (simula câmera B). Uma ou duas rajadas por minuto; o resto em corte seco
 entre cenas calmas. Som: UM efeito para a rajada inteira (ou nenhum), nunca um por plano.
+
+## 12. Talking head
+
+Projeto com `novo_projeto.py --modelo orador`. Entrada: `public/orador.mp4` e `public/voz.wav`
+saídos do `cortar_video.py` (mesmo plano de cortes, frame N do vídeo = frame N da timeline) e,
+opcional, `public/orador-alfa.webm` do `recortar_orador.py`. Sem os arquivos, as cenas
+desenham uma silhueta de marcação para conferir o layout.
+
+### Enquadramento (`config.orador.enquadramento` ou `enquadramento` da cena)
+
+| Campo | Efeito |
+|---|---|
+| `x`, `y` | posição do recorte (object-position 0-1); com fonte 16:9 em 9:16, `x` escolhe a fatia horizontal |
+| `zoom` | escala sobre o "cobrir a tela" (1 = só cobre; 1,1-1,3 fecha no rosto) |
+| `foco` | altura do rosto (0-1), origem do zoom e do punch-in; `0` = zoom a partir do topo |
+| `desce` | abre espaço acima da cabeça (fração da altura): o vídeo de fundo desce e a borda funde com o fundo de grade em 12% da altura; a pessoa recortada desce junto, nítida. Para fonte 16:9 sem respiro: 0,10-0,18 |
+
+Testado com fonte 1920x1080 a 59,94 fps: `{"x": 0.53, "zoom": 1.1, "foco": 0, "desce": 0.12}`.
+`duelo` e `letterbox` usam só o `enquadramento` da própria cena (janela 16:9).
+
+### Cena `orador`: receitas (anúncios analisados em out/2026, 30 fps)
+
+| Elemento | Receita |
+|---|---|
+| punch-in | `punch: [{em, escala: 1.12, ate?}]`; `spring({damping: 200}, 12 frames)` de chave em chave, origem no `foco` |
+| preto e branco | `pb: [{de, ate}]`: `grayscale` 0 -> 1 em 6 frames, volta em 8, `contrast(1 + .1g)`; títulos do trecho em branco puro (`"pb": true`) |
+| orador vira card | `card: {em, ate?, ret?}`: interpola x, y, largura, altura e raio da tela cheia até o card (padrão canto inferior direito, 40% da largura, raio 28) com `spring({damping: 200}, 10 frames)`; borda no acento com glow; a legenda vai para a esquerda enquanto o card está ativo |
+| RAW -> EDITADO | `raw: {em, editadoEm, rotulo, rotuloFinal, moldura?}`: xadrez de transparência (`conic-gradient`, célula 64 px) atrás da pessoa, moldura tracejada com 8 alças, etiqueta clara; no `editadoEm` o xadrez some em 6 frames, a etiqueta troca para "✓ ..." no gradiente do acento com pop `{damping 14, stiffness 220, mass .6}` e sai 1,2 s depois. Sem recorte, o vídeo encolhe para dentro da moldura e volta a cobrir a tela na edição |
+
+Cada bloco do roteiro pode ser uma cena `orador` (corte seco): o vídeo não pula, porque cada
+cena começa o arquivo em `trimBefore = ini`.
+
+### Sobreposições (`sobre`)
+
+Cada item: `{tipo, em, ate?, camada?}`. Entra ~3 frames antes da palavra; em `ate` sai com
+opacidade, blur 8 px e sobe 10 px em 6 frames. `camada: "atras"` fica entre o fundo e a
+pessoa (exige o recorte; sem ele, fica por cima, então posicione acima da cabeça).
+
+| tipo | campos | camada | receita |
+|---|---|---|---|
+| `titulo` | `rotulo?`, `linha1?`, `linha2?`, `y?` (0,10), `tam?`, `pb?`, `riscaEm?` | atrás | linha 1 Plus Jakarta 800 104 px desce de -20 px com blur em 4 frames; linha 2 Big Shoulders 800 196 px, gradiente branco -> acento, entra 3 frames depois com `scaleY 1,3 -> 1` e blur em 5 frames |
+| `riscado` | os do `titulo` | atrás | igual + barra na linha 2: `scaleX 0 -> 1` em 8 frames (`Easing.out(cubic)`), -3°, cor de problema com glow (padrão 10 frames depois da entrada, ou `riscaEm`) |
+| `numero` | `valores[{v, em}]`, `prefixo?`, `sufixo?`, `rotulo?`, `y?`, `tam?`, `casas?` | atrás | Unbounded 800 330 px; a cada valor, o antigo sobe (0 -> -60%) e some com blur 6 px, o novo sobe de 60% -> 0, os dois em 6 frames com `bezier(.2, 0, 0, 1)`, sobrepostos |
+| `chips` | `itens[{texto, em}]`, `y?` (0,6), `numerar?` | frente | chips numerados ligados por traço; pop `spring({damping: 12, stiffness: 260})` 0,6 -> 1; o último aceso fica sólido no gradiente do acento. Esconda a legenda na cena (`"legenda": "oculta"`) para não repetir as palavras |
+| `objecoes` | `rotulo?`, `total?`, `checks[refs]`, `y?`, `cor?` | frente | HUD no topo: círculos 46 px; no check, fundo na cor, traço do check 20 -> 0 em 6 frames, escala 0,6 -> 1 com spring 12/260 |
+| `comando` | `texto`, `rotulo?`, `feitoEm?`, `rotuloFeito?`, `y?` (0,66) | frente | caixa escura "COMANDO › texto█": 1,5 caractere por frame (~45/s), cursor em bloco piscando a cada 15 frames; em `feitoEm` o rótulo vira "COMANDO · FEITO" com check |
+| `rec` | `estado?` (rec), `rotulo?`, `capitulos?[{em, texto}]`, `inicioTimecode?`, `y?` | frente | "● REC [BRUTO] 00:00:SS:FF" (bolinha piscando a cada 6 frames) + capítulo à direita trocando com crossfade de 4 frames. Não use junto com título no topo (colidem) |
+| `passos` | `rotulo?`, `titulo` ("linha" e "*linha*" separadas por barra vertical), `itens[{titulo, sub?, icone?, em}]`, `y?`, `iconeGrande?` | frente | com `card` na cena: coluna à esquerda (título 92 px, itens com tile de ícone 84 px); item ativo pelo marco ganha caixa de vidro no acento, os outros a 42%; tile grande do ícone ativo com 2 anéis pulsando `1 + .03 sin(f/10)` |
+| `cards` | `itens[{numero?, titulo, sub?}]`, `y?` | frente | 2-3 cards 290x450, borda branca 4 px, ±8°; sobem 80 px girando 6° a mais com `spring({damping: 16, stiffness: 180})`, stagger 4; flutuam `sin(f/20) * 6` |
+| `pill` | `texto`, `icone?` (arrowDown), `y?` (0,68) | frente | pill com gradiente do acento (exceção documentada à regra da pill de contorno: no talking head o CTA é o único elemento sólido), pop 14/220, glow pulsando |
+| `final` | `marca`, `rotulo?`, `slogan?`, `url?` | frente | tela cheia escura com halo; marca por máscara, slogan, endereço, seta para baixo; a legenda some sozinha. Use `config.extra_fim_s` (1-1,5 s) |
+
+`cenas_check.py` mede o texto parado de cada sobreposição de texto (do `em` ao `ate` ou ao fim
+da cena); HUD (`rec`, `objecoes`, `pill`, `final`) e `passos` ficam de fora.
+
+### Legenda fantasma
+
+`legenda_estilo: "fantasma"`: a página inteira (2-4 palavras do `legendas.py`) aparece a 15%;
+cada palavra acende quando é dita (opacidade 0,15 -> 1, sobe 12 px, blur 4 -> 0,
+`spring({damping: 200}, 3 frames)`). Destaque no acento clareado: `legendas.py --destaques
+"a,b"` ou `config.legenda_destaques`. Plus Jakarta Sans 800, 62 px, sombra suave, sem caixa.
+Posição por cena (`legenda`): `rosto` (y 60%, padrão do orador), `esquerda` (com o card),
+`base`, `oculta`, ou um y 0-1; aceita lista `[{em, pos}]`. A legenda em caixa continua o
+padrão do motion puro.
+
+### Duelo, letterbox e painel 3D
+
+- `duelo`: fundo claro, título em caixa alta, dois players 16:9 (raio 26) com ícone, nome e
+  placar (o líder ganha a cor e o anel); `lados[].pb` deixa um lado em P&B; `lados[].legenda`
+  vira etiqueta no canto do player. Legenda fantasma padrão em y 0,84 (dentro do 2º player).
+- `letterbox`: faixa clara com título condensado (o tamanho se ajusta à largura), selo de
+  ícone + 2 linhas, vídeo 16:9 em y 37%, rodapé opcional (`*trecho*` no acento escurecido).
+  Reaproveita gravação horizontal sem reenquadrar.
+- Painel de editor/assistente: cena `telaViva` com `tela.perspectiva` e blocos `colunas` ->
+  `video` + `chat`, mais `timeline`. A janela gira de 28° para 0 em 18 frames.
+
+## 13. Técnica avançada (não implementada): HUD de visão computacional
+
+Visto em anúncios analisados em out/2026: caixas de detecção com rótulo e confiança, mapa de
+profundidade colorido com escala "perto/longe", contagem de pontos, esqueleto da mão com 21
+pontos e objetos presos à mão. Não vem no template porque exige pré-processamento pesado e
+dependências opcionais. O caminho, se o cliente pedir:
+
+1. Pré-processar fora do Remotion, sobre o `orador.mp4` já cortado (para os quadros baterem):
+   MediaPipe Hands/Pose (landmarks por quadro, exportar JSON `[{frame, pontos: [[x, y], ...]}]`)
+   e Depth Anything (mapa de profundidade como vídeo em tons de cinza, mesmo fps).
+2. No Remotion: importar o JSON e desenhar com SVG `<circle>`/`<line>` no `useCurrentFrame()`;
+   o mapa de profundidade entra como `<OffthreadVideo>` com `mixBlendMode: 'screen'` e um filtro
+   de cor.
+3. Caixas de detecção: `border: 1px solid` no acento, rótulo mono 16 px, número com count-up.
+4. Custo: MediaPipe roda em CPU em tempo real; Depth Anything em CPU leva segundos por quadro
+   (use GPU ou só o trecho que aparece). Confira a licença de cada modelo antes (ver `licencas.md`).

@@ -1,5 +1,24 @@
 # Trilha e efeitos sonoros (fase 8)
 
+## Duas configurações
+
+Medido em anúncios analisados em out/2026 (loudness -14 LUFS em todos):
+
+| | Talking head (rosto falando) | Motion puro / demonstração / comparação |
+|---|---|---|
+| trilha | **nenhuma por padrão**: as pausas caem a silêncio (diferença fala-pausa de 13-34 dB) | contínua, baixa, com ducking (seção Mix) |
+| efeitos | impactos graves curtos (sub 20-60 Hz) quando um título entra atrás da cabeça, no número-chave e no CTA: ~1-2,5 a cada 10 s; um ou outro efeito comum discreto (troca para editado, check, pill) | base de ~1 a cada 2-3 s nas viradas + impactos (seção "Duas camadas") |
+| whoosh | quase nunca (só em troca de cenário/persona) | troca de bloco |
+| `sfx.json` | `"perfil": "orador"` | `"perfil": "motion"` (padrão) |
+| `gerar_sfx.py` espera | intervalo médio 2,5-8 s, impactos a 2,5 s ou mais | intervalo médio 2-5 s, impactos a 4 s ou mais, no máx. 1/3 impactos |
+| mix | `mixar.py` sem `--musica` | `mixar.py --musica ... --musica-lufs -23` |
+
+Talking head que é demonstração longa, duelo ou troca de persona pode ganhar trilha baixa
+(foi o padrão nesses casos). Sem trilha, cada som aparece: menos efeitos, mais graves.
+
+Exemplo de plano do perfil orador: `template/src/data/sfx-orador.example.json` (6 efeitos em
+16 s: 3 impactos nos títulos/número, 3 comuns discretos).
+
 ## Trilha
 
 **Escolha.** Sem vocal (vocal briga com a voz e com a legenda). BPM que combine com o
@@ -81,7 +100,7 @@ que se repetem (whoosh-a/whoosh-b, pop-a/pop-b) para alternar.
 | **número-chave** (o número que é a tese do vídeo) | impacto macio com grave | **impacto** |
 | **CTA** (carimbo final, chamada) | impacto ou chime encorpado | **impacto** |
 
-## Duas camadas e densidade (lição real)
+## Duas camadas e densidade no motion puro (lição real)
 
 O primeiro corte de um vídeo real tinha efeito em quase tudo e o resultado cansou. As
 referências analisadas em out/2026 mostraram o outro lado: poucos momentos-chave com som

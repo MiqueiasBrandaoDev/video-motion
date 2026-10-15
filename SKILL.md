@@ -43,7 +43,8 @@ Detecte o insumo e o objetivo antes de qualquer coisa:
 |---|---|---|
 | ideia/texto | só descrição ou roteiro | fase 1C |
 | áudio | m4a, mp3, wav, ogg | fase 1A |
-| vídeo | mp4, mov, webm (talking head, screencast) | fase 1A (extrai o áudio) + decide se o vídeo aparece; com orador filmado, pergunta de presença do orador obrigatória |
+| **vídeo com rosto** (caminho principal) | mp4, mov, webm com a pessoa falando (talking head, 9:16 ou 16:9) | fase 1A no próprio vídeo -> classifica trechos -> `cortar_video.py` corta VÍDEO + voz juntos -> modelo `orador`; pergunta de presença do orador obrigatória |
+| screencast | mp4/mov de tela | fase 1A (extrai o áudio) + trechos da tela como print/janela |
 | projeto/produto | pasta de código, URL, app, README | fase 1B (e 1A/1C para a voz) |
 
 Objetivo: plataforma, formato (9:16 Reels/TikTok/Shorts, 16:9 YouTube, 1:1 feed),
@@ -67,6 +68,23 @@ texto de tela da fase 3):
 
 Sem vídeo do orador (só áudio, ideia ou produto), a pergunta não se aplica.
 
+**Vídeo com rosto: o caminho completo** (detalhes em [references/audio.md](references/audio.md#7-vídeo-de-entrada)):
+
+1. Transcreva **o próprio vídeo** (o script extrai o áudio): `transcrever.py gravacao.mp4 work/transcricao.json`.
+2. Classifique os trechos (fase 1A) e escreva o `cortes.json` com os blocos do roteiro.
+3. Corte **o vídeo e a voz juntos**, nunca só o áudio:
+   `python -I <skill>/scripts/cortar_video.py --entrada gravacao.mp4` -> `public/orador.mp4` +
+   `public/voz.wav` + `blocos.json`. As bordas dos cortes caem na grade de quadros da fonte,
+   a aceleração usa `setpts=PTS/tempo` e `atempo=tempo` no mesmo grafo e o script confere a
+   sincronia (vídeo x voz, erro acima de 1 quadro).
+4. Opcional, para texto atrás da pessoa: `recortar_orador.py public/orador.mp4 public/orador-alfa.webm`
+   (`--chroma "#RRGGBB"` se a gravação for em fundo verde/azul: segundos, sem modelo).
+5. Projeto com o modelo talking head: `novo_projeto.py <pasta> --modelo orador` (legenda
+   fantasma, cenas `orador`, sem trilha).
+
+Fonte 16:9: o rosto é reenquadrado para 9:16 (`config.orador.enquadramento`: `x`, `zoom`,
+`foco`, `desce` para abrir espaço acima da cabeça) ou vai inteiro na cena `letterbox`/`duelo`.
+
 ### 1. Entender o conteúdo
 
 **1A. Áudio/vídeo.** Transcreva com tempo por palavra e liste os trechos:
@@ -84,8 +102,11 @@ tentativa boa -, hesitação, silêncio longo). Liste as instruções extraídas
 **1B. Projeto/produto.** Leia README, rotas, telas e o que o produto faz de fato. Anote o
 que merece aparecer (tela, número, fluxo) e onde capturar prints reais.
 
-**1C. Só ideia.** Escreva o roteiro com gancho nos 2 primeiros segundos (a frase que faz
-parar o scroll), um bloco por ideia e CTA. Para a voz, ofereça: (a) o usuário grava,
+**1C. Só ideia.** Escreva o roteiro numa das estruturas de
+[references/roteiros-e-ganchos.md](references/roteiros-e-ganchos.md) (problema -> demonstração
+em ~30% -> produto em ~82% -> CTA em ~89%; demonstração ao vivo com corpo versionável;
+objeções enumeradas; duelo), com um gancho da biblioteca de 18 tipos e **o resultado
+visível no 1º segundo**. Para a voz, ofereça: (a) o usuário grava,
 (b) TTS (`scripts/tts.py`, chave dele, voz sintética sinalizada) ou (c) vídeo sem voz,
 só tipografia cinética + música.
 
@@ -128,6 +149,12 @@ Tokens, variantes e regras: [references/direcao-visual.md](references/direcao-vi
 
 ### 4. Roteiro e storyboard
 
+Com fala gravada ou roteiro novo, confira a estrutura contra
+[references/roteiros-e-ganchos.md](references/roteiros-e-ganchos.md): primeira palavra em
+0,0 s e primeiro elemento visual até 1 s (**mostrar o resultado no 1º segundo**), demonstração
+começando em ~25-35% do vídeo, produto em ~80%, CTA em ~89% com pill até o fim. No talking
+head, a tabela da seção 5 da referência liga cada momento do roteiro a um componente.
+
 Grave `storyboard.md`: blocos com tempo, o que aparece em cada cena, qual palavra dispara
 qual animação, onde entram prints, números, CTA e as instruções extraídas na fase 1.
 Os blocos do storyboard viram os `bloco` do `cortes.json` e os `id` de `cenas.json`.
@@ -153,12 +180,14 @@ Snippet de captura: [references/remotion-padroes.md](references/remotion-padroes
 
 ### 6. Áudio da voz
 
-Edite `cortes.json` (janelas `manter` por bloco, trechos `remover`) e rode:
+Edite `cortes.json` (janelas `manter` por bloco, trechos `remover`) e rode `cortar.py` (só
+voz) ou, com rosto filmado, `cortar_video.py` (vídeo + voz no mesmo plano, mesmas saídas e
+`public/orador.mp4`):
 
 ```bash
-python -I <skill>/scripts/cortar.py --entrada gravacao.m4a
+python -I <skill>/scripts/cortar.py --entrada gravacao.m4a      # ou cortar_video.py --entrada gravacao.mp4
 python -I <skill>/scripts/transcrever.py public/voz.wav work/voz_final.json --vocab "Marca, Nome"
-python -I <skill>/scripts/legendas.py --palavras work/voz_final.json --marcos-spec marcos.spec.json
+python -I <skill>/scripts/legendas.py --palavras work/voz_final.json --marcos-spec marcos.spec.json [--destaques "palavra,outra"]
 ```
 
 `cortar.py` sempre parte do original: fade 10-15 ms por corte, respiro ~80-150 ms, pausas
@@ -172,6 +201,18 @@ passadas (-14 LUFS, TP -1). A **retranscrição da voz final** gera legendas e m
 python -I <skill>/scripts/novo_projeto.py <pasta-do-video> --formato 9:16 --variante escura --acento "#RRGGBB"
 cd <pasta-do-video> && npm install && npx tsc --noEmit
 ```
+
+Talking head: `--modelo orador` (dados de exemplo do formato, legenda fantasma). Cena
+`orador`: o rosto em tela cheia reenquadrado, com `punch` (punch-in suave nas palavras-chave),
+`pb` (preto e branco no "jeito antigo", 6 frames), `card` (orador encolhe para card, 10
+frames), `raw` (xadrez + moldura tracejada que vira "editado") e a lista `sobre` com as
+sobreposições no marco da fala: `titulo` (linha larga + linha condensada, atrás da cabeça),
+`riscado`, `numero` (rola em 6 frames), `chips`, `objecoes` (HUD de checks), `comando`
+(terminal digitando + `rec` com timecode), `passos` (lista de 3 com o card), `cards`,
+`pill` (CTA) e `final`. Mais as cenas `duelo` (dois resultados empilhados com placar) e
+`letterbox` (título fixo + vídeo 16:9), e a `telaViva` com `perspectiva` (rotateY 28° -> 0
+em 18 frames) e blocos `video`, `chat` e `colunas` para o painel de "editor/assistente".
+Legenda fantasma (`legenda_estilo: "fantasma"`) no talking head; legenda em caixa no motion puro.
 
 O template já traz o estilo padrão: cenas `frase`, `telaViva` (lista, checklist,
 contador, toggles, timeline, fluxo, kanban, prompt com estados ligados à fala), `camadas`,
@@ -187,7 +228,7 @@ em `Video.tsx`. Confira cada componente em stills nas duas variantes antes do re
 Depois de montar `cenas.json`, meça o texto parado (sai com erro acima de 2,5 s):
 
 ```bash
-python -I <skill>/scripts/cenas_check.py --projeto <pasta-do-video> --orador filmagem
+python -I <skill>/scripts/cenas_check.py --projeto <pasta-do-video>
 ```
 
 API dos componentes, tipos de cena e padrões: [references/remotion-padroes.md](references/remotion-padroes.md).
@@ -201,7 +242,18 @@ SFX CC0/livres (Kenney, Mixkit SFX, Freesound CC0), mesma família de timbre, re
 em `public/sfx/LICENCA.md`. Downloads ficam em `downloads/` e são tratados como não
 confiáveis (só ffprobe/ffmpeg lêem).
 
-**Duas camadas (lição real: excesso cansa; poucos momentos fortes dão peso):**
+**Duas configurações, escolha pelo formato:**
+
+| Formato | Trilha | Efeitos | `sfx.json` |
+|---|---|---|---|
+| **talking head** (rosto falando) | **sem trilha** por padrão (pausas caem a silêncio) | impactos graves curtos nos títulos que entram atrás da cabeça, no número-chave e no CTA, ~1-2,5 a cada 10 s; um ou outro efeito comum discreto | `"perfil": "orador"`; `mixar.py` sem `--musica` |
+| **motion puro** (sem rosto) e demonstração/comparação | trilha contínua com ducking | base de ~1 efeito a cada 2-3 s nas viradas + impactos (abaixo) | `"perfil": "motion"` (padrão) |
+
+Talking head que é demonstração ou duelo pode ganhar trilha baixa (padrão observado nas
+referências). Regras de densidade abaixo valem para o motion puro; no perfil orador o
+`gerar_sfx.py` espera intervalo médio de 2,5-8 s e impactos a 2,5 s ou mais um do outro.
+
+**Duas camadas no motion puro (lição real: excesso cansa; poucos momentos fortes dão peso):**
 1. **Base (comum):** ~1 efeito a cada 2-3 s em média, só nas viradas (troca de bloco,
    entrada de janela/print, destaque, clique), picos 18-24 dB abaixo da voz.
 2. **Impactos fortes (`"categoria": "impacto"`):** só em carimbo com flash,
@@ -237,7 +289,7 @@ para compartilhar: `python -I <skill>/scripts/comprimir.py out/video.mp4 out/vid
 ### 10. QA obrigatório antes de entregar
 
 ```bash
-python -I <skill>/scripts/cenas_check.py --orador filmagem
+python -I <skill>/scripts/cenas_check.py
 python -I <skill>/scripts/frames_check.py out/video.mp4 --n 18
 python -I <skill>/scripts/transcrever.py out/video.mp4 work/qa_final.json
 ```
@@ -245,7 +297,9 @@ python -I <skill>/scripts/transcrever.py out/video.mp4 work/qa_final.json
 `cenas_check.py` sem ERRO: nenhum texto de tela parado mais de ~2,5 s. Abra (Read)
 **cada** frame e a folha de contato: texto cortado, sobreposição, contraste,
 legenda e conteúdo dentro da área segura, dado sensível visível. Nos trechos de
-filmagem, confira a sincronia labial (boca bate com a voz editada). Compare a transcrição
+filmagem, confira a sincronia labial (boca bate com a voz editada; o `cortar_video.py`
+já imprime a diferença vídeo x voz, que deve ficar abaixo de 1 quadro), a borda do recorte
+(cabelo sem halo) e se o título atrás da cabeça continua legível. Compare a transcrição
 do MP4 com o roteiro: nenhum trecho cortado voltou, a voz é inteligível com a música.
 LUFS -14 +-1, true peak <= -1. Corrija e re-renderize até passar. Checklist completo:
 [references/qa.md](references/qa.md).
@@ -274,6 +328,9 @@ O usuário vai pedir ajustes. Tudo é parametrizado para refazer sem reescrever 
 | tirar/voltar um trecho | `cortes.json` -> `manter`/`remover` | idem |
 | mais/menos prints, zoom, destaque | `src/data/prints.json`, `cenas.json` | render |
 | trocar cena, texto, ordem | `src/data/cenas.json` | render |
+| talking head: rosto alto/baixo, zoom, título escondido pela cabeça | `config.json` -> `orador.enquadramento` (`zoom`, `foco`, `desce`), `y` do item `sobre` | stills -> render |
+| sobreposição no rosto: entra cedo/tarde, fica demais | `cenas.json` -> `sobre[].em` / `ate` | cenas_check -> stills -> render |
+| corte do vídeo com rosto (trecho, ritmo) | `cortes.json` | cortar_video -> transcrever -> legendas -> gerar_sfx -> mixar -> render |
 | texto parado demais / cansativo de ler | `cenas.json`: quebre o card em frases-chave de ~1,5-2 s e intercale cenas do orador | cenas_check -> stills -> render |
 | quer ver mais a pessoa / menos texto | presença do orador no `storyboard.md` (vai para "mais orador"); em `cenas.json`, encurte as cenas de texto e amplie as do orador | cenas_check -> stills -> render |
 | outra trilha, volume da música | `public/musica/` + flags do `mixar.py` | mixar -> render |
@@ -290,10 +347,11 @@ inteira daquela linha (marcos mudam de tempo). Rode `npx tsc --noEmit` e stills
 
 | Script | Faz |
 |---|---|
-| `novo_projeto.py` | copia o template para um projeto novo |
+| `novo_projeto.py` | copia o template para um projeto novo (`--modelo motion` ou `orador`) |
 | `transcrever.py` | áudio/vídeo -> JSON com tempo por palavra (OpenAI ou local) |
 | `trechos.py` | lista trechos com pistas de instrução/repetição/pausa |
 | `cortar.py` | cortes.json -> voz editada + blocos.json |
+| `cortar_video.py` | cortes.json -> vídeo com rosto + voz cortados juntos (trim/atrim + concat, setpts+atempo), confere a sincronia |
 | `legendas.py` | transcrição da voz final -> legendas.json + marcos.json |
 | `tts.py` | roteiro -> voz sintética (OpenAI) |
 | `borrar.py` | borra/pixeliza/tampa regiões sensíveis de prints |
@@ -304,4 +362,4 @@ inteira daquela linha (marcos mudam de tempo). Rode `npx tsc --noEmit` e stills
 | `frames_check.py` | ffprobe, LUFS, N frames + folha de contato com área segura |
 | `comprimir.py` | versão leve 2 passadas com +faststart |
 | `processos.py` | lista/encerra por PID só processos de automação |
-| `recortar_orador.py` | OPCIONAL: recorta o apresentador e gera vídeo com alfa (texto atrás da pessoa) |
+| `recortar_orador.py` | OPCIONAL: recorta o apresentador e gera vídeo com alfa (texto atrás da pessoa); `--chroma` para fundo verde/azul |

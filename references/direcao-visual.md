@@ -26,6 +26,25 @@ Complementos: `Letreiro` (duas linhas gigantes em sentidos opostos, uma só em c
 `LinhaSVG` (batimento/ECG que vira reta, rachadura), `Recorte` (texto atrás do apresentador,
 ver `remotion-padroes.md`) e o fundo de grade com halos.
 
+### Talking head (rosto falando)
+
+Formato dominante nos anúncios analisados em out/2026. O rosto é o protagonista e o motion
+entra em volta e atrás dele, no marco da fala (cena `orador`, `remotion-padroes.md` seção 12):
+
+| Técnica | Componente | Regra |
+|---|---|---|
+| texto atrás da cabeça | `titulo` (linha larga + linha condensada), `numero`, `riscado` com `camada: atras` | exige recorte com alfa; o título fica acima/atrás da cabeça, nunca sobre o rosto |
+| legenda fantasma | `legenda_estilo: "fantasma"` | frase inteira a 15%, palavra acende quando dita; uma palavra de destaque por página no máximo |
+| preto e branco no "jeito antigo" | `pb` | só no trecho da dor; volta à cor na virada |
+| orador vira card | `card` + `passos` | para método/etapas; a lista ocupa a esquerda, o card o canto inferior direito |
+| antes -> depois | `raw` | xadrez + moldura tracejada -> "✓ editado" |
+| HUD | `objecoes`, `rec`, `chips`, `comando` | no topo ou abaixo do rosto, nunca sobre os olhos |
+| CTA | `pill` com gradiente + `final` | a pill é o único elemento sólido do vídeo |
+| comparação / horizontal | cenas `duelo`, `letterbox` | fundo claro, título preto pesado, vídeo em janela |
+
+Acento com significado também aqui: uma cor de marca no destaque da legenda, na 2ª linha dos
+títulos, nos chips e na pill; cor de problema só no risco e no "REC"; P&B para o passado.
+
 ### Fundo
 
 A grade continua sendo a assinatura (escura e clara), agora com luz e profundidade:
@@ -52,7 +71,7 @@ para distinguir pessoas.
 |---|---|---|---|
 | frase | Plus Jakarta Sans 800 | frases-chave, legenda, rótulos de card | tracking -0,035em, 1-6 palavras |
 | número | Unbounded 800 (larga) ou Big Shoulders 800 (estreita, papel `estreita`) | número-chave, palavra de impacto, letreiro | gradiente texto -> acento + brilho; entra por máscara ou por letra |
-| emocional | Instrument Serif Italic | **uma** palavra por frase, a que carrega a emoção ("perde", "apagão", "dorme") | na cor do acento, com brilho; marcação `_palavra_` |
+| emocional | Instrument Serif Italic | **uma** palavra por frase, a que carrega a emoção ("perde", "mente", "para") | na cor do acento, com brilho; marcação `_palavra_` |
 | rótulo | JetBrains Mono 600 | rótulo acima da palavra grande, chips, status | caixa alta, tracking 0,24-0,3em, pequeno |
 
 Marcação no texto (`TextoMisto`): `*acento*` (gradiente + brilho), `_emocional_`,

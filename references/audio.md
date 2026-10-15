@@ -7,7 +7,7 @@
 4. O que o `cortar.py` faz (e comandos ffmpeg equivalentes)
 5. Retranscrição, legendas e marcos
 6. Voz por TTS e vídeo sem voz
-7. Vídeo de entrada (talking head, screencast)
+7. Vídeo de entrada (talking head com cortar_video.py, screencast)
 
 ## 1. Transcrição
 
@@ -143,8 +143,36 @@ na tela por 1,2-2 s) e `mixar.py --sem-voz --duracao <s>`.
 
 ## 7. Vídeo de entrada
 
-Talking head: o áudio segue o fluxo acima. Para manter o rosto no vídeo, corte o vídeo
-com os mesmos `trechos` do `blocos.json` (atrim/trim + setpts/asetpts, `setpts=PTS/1.2`
-junto do `atempo`) e use `<OffthreadVideo>` do Remotion como camada de fundo ou em
-janela. Screencast: extraia frames-chave como prints (`ffmpeg -ss t -i tela.mp4 -frames:v 1 print.png`)
+**Talking head (caminho principal com rosto).** Transcreva o próprio vídeo, classifique os
+trechos (seção 2) e corte **imagem e som juntos** com o mesmo `cortes.json`:
+
+```bash
+python -I <skill>/scripts/transcrever.py gravacao.mp4 work/transcricao.json --vocab "Marca, Nome"
+python -I <skill>/scripts/trechos.py work/transcricao.json --palavras
+python -I <skill>/scripts/cortar_video.py --entrada gravacao.mp4      # -> public/orador.mp4, public/voz.wav, blocos.json
+python -I <skill>/scripts/transcrever.py public/voz.wav work/voz_final.json
+python -I <skill>/scripts/legendas.py --palavras work/voz_final.json --marcos-spec marcos.spec.json --destaques "palavra,outra"
+# opcional, texto atrás da pessoa:
+python -I <skill>/scripts/recortar_orador.py public/orador.mp4 public/orador-alfa.webm            # rembg (pesado)
+python -I <skill>/scripts/recortar_orador.py public/orador.mp4 public/orador-alfa.webm --chroma "#64DB08"   # fundo verde
+```
+
+O que o `cortar_video.py` garante:
+
+| Ponto | Como |
+|---|---|
+| mesmo plano da voz | usa `cortar.planejar()` (ilhas de fala, `manter`, `remover`, pausas, respiros) |
+| sem deriva entre corte e boca | cada borda é arredondada para a grade de quadros da fonte; o vídeo corta por número de quadro (`trim=start_frame:end_frame`) e o áudio no mesmo instante (`atrim`) |
+| aceleração junta | `setpts=PTS/tempo` no vídeo e `atempo=tempo` no áudio, depois do `concat=v=1:a=1` |
+| saída estável | fps fixo (30), lado maior até 1920 px, H.264 CRF 18 com GOP de 1 s (busca rápida do OffthreadVideo), voz normalizada embutida |
+| conferência | conta os quadros do vídeo e compara com a duração da voz; erro acima de 1 quadro |
+
+Teste da rodada de desenvolvimento: gravação 16:9 a 59,94 fps, 30,2 s, 8 trechos, `tempo`
+1,2 -> 16,33 s; diferença vídeo x voz +2,9 ms. Com o tempo do original queimado em cada quadro,
+o quadro mostrado em 8 palavras ficou a 12-46 ms do instante original da palavra, sem crescer
+ao longo dos cortes.
+
+O recorte com alfa sai do **vídeo já cortado** (mesmo número de quadros). Gravação em fundo
+verde: corte a versão verde com o mesmo `cortes.json` (`--video-saida work/orador-verde.mp4`) e
+recorte por chroma. Screencast: extraia frames-chave como prints (`ffmpeg -ss t -i tela.mp4 -frames:v 1 print.png`)
 ou use o trecho em `<OffthreadVideo>` dentro de uma janela de vidro, com zoom por região.

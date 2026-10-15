@@ -23,7 +23,7 @@ algum player mostrar cor lavada, reencode: `ffmpeg -i out/video.mp4 -vf scale=ou
 ## 2. Texto de tela e filmagem
 
 ```bash
-python -I <skill>/scripts/cenas_check.py --orador filmagem
+python -I <skill>/scripts/cenas_check.py
 ```
 
 | Item | Esperado |
@@ -32,6 +32,11 @@ python -I <skill>/scripts/cenas_check.py --orador filmagem
 | card de texto inteiro | sem AVISO, ou AVISO justificado (ex.: metáfora animada que muda o tempo todo) |
 | alternância com o orador | segue a "presença do orador" do storyboard; sem trecho longo só de texto em "frase e volta" |
 | sincronia labial | nos trechos de filmagem, boca bate com a voz editada em início, meio e fim de cada cena do orador (`frames_check.py --tempos` nesses instantes + ouvir o trecho) |
+| sincronia do corte (talking head) | `cortar_video.py` imprimiu "vídeo - voz" abaixo de 1 quadro; `orador.mp4` e `orador-alfa.webm` com o mesmo número de quadros (`ffprobe -count_packets`) |
+| primeiro segundo | no frame de 0,5 s já há um elemento visual além do rosto (título, card, número, janela) |
+| texto atrás da cabeça | legível: pelo menos metade da linha condensada aparece dos lados/acima da cabeça (ajuste `y` do item ou `enquadramento.desce`) |
+| recorte | borda do cabelo sem halo verde/branco, nada da pessoa "cortado" pelo xadrez ou pelo card |
+| legenda fantasma | palavra acesa bate com a fala; não colide com chips, comando ou pill (esconda com `"legenda": "oculta"` quando os chips repetem as palavras) |
 
 Lição real (reel de palestra): card parado 5-8 s fez o espectador ler a mesma coisa
 várias vezes e perder a fala. Confirme nos frames que a frase é grande e não há card
@@ -70,7 +75,7 @@ python -I <skill>/scripts/transcrever.py out/video.mp4 work/qa_final.json --voca
 ## 5. Som
 
 - Ouça início, cada troca de bloco e o CTA.
-- SFX: nenhum some sob a voz, nenhum salta acima dela; densidade conforme `gerar_sfx.py`.
+- SFX: nenhum some sob a voz, nenhum salta acima dela; densidade conforme `gerar_sfx.py` (perfil `orador` no talking head sem trilha).
 - Música não termina seca (fade-out) e não começa alta.
 
 ## 6. Licenças e privacidade
