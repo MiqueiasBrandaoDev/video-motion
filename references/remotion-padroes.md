@@ -335,7 +335,15 @@ python -I <skill>/scripts/recortar_orador.py public/orador.mp4 public/orador-alf
 ```
 
    Saída: WebM VP9 `yuva420p` (lido pelo Remotion). `--prores` gera também `.mov` ProRes 4444.
-   Custo na CPU: ~0,3-1,5 s por quadro em 1080x1920. Alternativas mais estáveis entre quadros:
+   Os quadros vão por pipe (nada de PNG no disco) e o script confere no fim se o WebM tem um
+   quadro para cada quadro lido; se não tiver, sai com ERRO (uma rodada antiga entregou 605 de
+   1575 quadros sem aviso). Fonte 16:9 reenquadrada em 9:16: passe `--regiao x,y,l,a` (fração)
+   com a fatia que aparece no vídeo e uma folga para punch-in e card (ex.: `0.30,0,0.55,1`); o
+   arquivo continua do tamanho da entrada e o resto sai transparente.
+   Custo na CPU: ~0,35-1,5 s por quadro com `u2net_human_seg` (o modelo é a parte cara; em
+   notebook o tempo sobe com a temperatura). 1 min a 30 fps = 10-40 min: rode em segundo plano.
+   Windows: se o serviço WMI travar, o import do onnxruntime fica parado sem erro; o script já
+   contorna (desliga a consulta WMI do `platform`). Alternativas mais estáveis entre quadros:
    RobustVideoMatting ou BiRefNet em lote; o formato de saída é o mesmo.
 3. Na cena: `{"tipo": "recorte", "video": "orador.mp4", "recorte": "orador-alfa.webm",
    "letreiro": {...}, "linhas": [...]}`. Sem os arquivos, a cena desenha uma silhueta de
@@ -346,8 +354,6 @@ Confira nos frames: borda do cabelo sem halo, texto atrás aparecendo dos dois l
 cabeça, sincronia labial.
 
 ## 11. Ritmo: calmo x rajada
-12. Talking head: cena orador, sobreposições, duelo, letterbox, painel 3D
-13. Técnica avançada (não implementada): HUD de visão computacional
 
 O vídeo alterna dois regimes:
 
