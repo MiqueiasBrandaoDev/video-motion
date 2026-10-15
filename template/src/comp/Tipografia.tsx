@@ -157,6 +157,7 @@ export const TextoMisto: React.FC<{
 		});
 	});
 
+	const mascara = entrada === 'mascara';
 	const corpo = (
 		<div
 			style={{
@@ -164,19 +165,33 @@ export const TextoMisto: React.FC<{
 				fontSize: tam,
 				color: corBase,
 				textAlign: alinhar,
-				filter: sombra || undefined,
+				// na máscara o brilho vai no envelope de fora: aqui dentro o overflow cortaria o halo em retângulo
+				filter: (!mascara && sombra) || undefined,
 				...style,
 			}}
 		>
 			{unidades}
 		</div>
 	);
-	if (entrada !== 'mascara') return corpo;
+	if (!mascara) return corpo;
+	/*
+	 * Entrada por máscara: a linha sobe de baixo para dentro de uma janela com overflow hidden.
+	 * Três regras (bug real: antes da entrada aparecia uma faixa de brilho com borda reta e a
+	 * pontinha das letras, e o halo ficava recortado em retângulo depois de entrar):
+	 *  1. antes de `at` a linha não é desenhada (opacity 0), em vez de ficar escondida "quase fora";
+	 *  2. o brilho (drop-shadow) fica no envelope de FORA da janela, então nunca é recortado;
+	 *  3. a janela tem folga nos QUATRO lados: acento/til em cima, descendente/cedilha embaixo e o
+	 *     brilho dos trechos marcados (*acento*, ~problema~ têm drop-shadow próprio, raio ~0,22 do
+	 *     tamanho). Dentro de um flex centralizado a janela encolhe para a largura do texto; sem folga
+	 *     lateral o halo do "80%" virava um retângulo de borda reta.
+	 */
 	const s = spring({frame: frame - at, fps: FPS, config: {damping: 200}, durationInFrames: 6});
+	const folga = tam * 0.45;
 	return (
-		<div style={{overflow: 'hidden', paddingTop: tam * 0.24, marginTop: -tam * 0.24, paddingBottom: tam * 0.12, marginBottom: -tam * 0.12}}>
-			{/* 140%: com 110% o topo das letras e o brilho da linha escondida apareciam como um fio abaixo da máscara */}
-			<div style={{transform: `translateY(${frame < at ? 140 : (1 - s) * 140}%)`}}>{corpo}</div>
+		<div style={{filter: sombra || undefined, opacity: frame < at ? 0 : 1}}>
+			<div style={{overflow: 'hidden', padding: folga, margin: -folga}}>
+				<div style={{transform: `translateY(${(1 - s) * 160}%)`}}>{corpo}</div>
+			</div>
 		</div>
 	);
 };
