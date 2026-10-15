@@ -105,7 +105,18 @@ export const TextoMisto: React.FC<{
 	const escura = VARIANTE === 'escura';
 	const acentoTxt = escura ? corAcento : cor.acentoTexto;
 	const gradFrase: React.CSSProperties = gradiente
-		? {backgroundImage: cor.gradTexto, WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent'}
+		? {
+				backgroundImage: cor.gradTexto,
+				WebkitBackgroundClip: 'text',
+				backgroundClip: 'text',
+				color: 'transparent',
+				// o fundo só pinta dentro da caixa do span: com lineHeight < 1 o acento de Á/É/Ã e a cedilha
+				// ficavam de fora (sumiam). Folga em cima e embaixo, compensada na margem, sem mexer no layout.
+				paddingTop: '.24em',
+				marginTop: '-.24em',
+				paddingBottom: '.14em',
+				marginBottom: '-.14em',
+			}
 		: {};
 	const sombra = brilho ? (escura ? `drop-shadow(0 0 ${tam * 0.18}px ${alfa(corAcento, 0.45)})` : `drop-shadow(0 ${tam * 0.04}px ${tam * 0.12}px ${alfa(corAcento, 0.18)})`) : '';
 
@@ -163,7 +174,7 @@ export const TextoMisto: React.FC<{
 	if (entrada !== 'mascara') return corpo;
 	const s = spring({frame: frame - at, fps: FPS, config: {damping: 200}, durationInFrames: 6});
 	return (
-		<div style={{overflow: 'hidden', paddingBottom: tam * 0.12, marginBottom: -tam * 0.12}}>
+		<div style={{overflow: 'hidden', paddingTop: tam * 0.24, marginTop: -tam * 0.24, paddingBottom: tam * 0.12, marginBottom: -tam * 0.12}}>
 			<div style={{transform: `translateY(${frame < at ? 110 : (1 - s) * 110}%)`}}>{corpo}</div>
 		</div>
 	);
