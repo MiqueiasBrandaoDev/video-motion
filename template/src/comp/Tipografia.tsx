@@ -175,7 +175,8 @@ export const TextoMisto: React.FC<{
 	const s = spring({frame: frame - at, fps: FPS, config: {damping: 200}, durationInFrames: 6});
 	return (
 		<div style={{overflow: 'hidden', paddingTop: tam * 0.24, marginTop: -tam * 0.24, paddingBottom: tam * 0.12, marginBottom: -tam * 0.12}}>
-			<div style={{transform: `translateY(${frame < at ? 110 : (1 - s) * 110}%)`}}>{corpo}</div>
+			{/* 140%: com 110% o topo das letras e o brilho da linha escondida apareciam como um fio abaixo da máscara */}
+			<div style={{transform: `translateY(${frame < at ? 140 : (1 - s) * 140}%)`}}>{corpo}</div>
 		</div>
 	);
 };
