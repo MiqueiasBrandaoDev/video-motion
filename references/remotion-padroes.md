@@ -3,12 +3,15 @@
 ## Índice
 1. Estrutura do projeto
 2. Sincronia: referências de tempo
-3. `cenas.json`: tipos prontos
+3. `cenas.json`: tipos prontos (estilo padrão e clássico)
 4. `prints.json`: janela, zoom, destaque, tampar, clique
 5. Componentes
 6. Cena sob medida
 7. Comandos (studio, typecheck, stills, render)
 8. Capturar prints
+9. Estilo padrão: receitas (springs e durações)
+10. Recorte do apresentador (texto atrás da pessoa)
+11. Ritmo: calmo x rajada
 
 ## 1. Estrutura
 
@@ -22,17 +25,24 @@
     theme.ts               tokens, fontes, formato, área segura, helpers de movimento
     tempo.ts               referências de tempo -> frame, duração, batidas
     Root.tsx, Video.tsx    composição "Video" e montagem das cenas
-    comp/                  FundoGrade, CardVidro (+Rotulo, TextoMarcado), Print, Legendas,
-                           Contador, Pill (+FaixaPills), Cursor, Terminal, Cta, Icone, Transicoes
-    cenas/                 Titulo, Numeros, PrintCena, Outras (TerminalCena, Pills, CtaCena), tipos.ts
+    comp/                  estilo padrão: Palco (câmera, Carimbo, Flash, tremor), TelaViva, Camadas3D
+                           (+ChaoGrade), GradeBento (+CardHalo), Encaixe, Tipografia (TextoMisto,
+                           RotuloMono, Chip), Hud (BarraCapitulos, TituloFixo, Quadro45), Efeitos
+                           (Letreiro, LinhaSVG), Recorte, FundoGrade, Legendas (LegendaCaixa)
+                           clássico: CardVidro (+Rotulo, TextoMarcado), Print, Legendas, Contador,
+                           Pill (+FaixaPills), Cursor, Terminal, Cta, Icone, Transicoes
+    cenas/                 Kit (frase, telaViva, camadas, bento, letreiro, linha, recorte, rajada),
+                           Titulo, Numeros, PrintCena, Outras, tipos.ts, registro.ts
     data/                  config, cenas, prints, marcos, blocos, legendas, batidas, sfx (.json)
   scripts/stills.mjs       frames avulsos em PNG
   work/ out/ qa/ downloads/  (fora do git)
 ```
 
-`config.json`: `formato` (9:16 | 16:9 | 1:1), `fps`, `variante`, `acento`, `duracao_s`
-(quando não há voz), `audio` (arquivo em public/, ex. `mix.wav`), `puxar_para_batida`,
-`legendas`.
+`config.json`: `formato` (9:16 | 16:9 | 1:1), `fps`, `variante`, `acento`, `acento2`,
+`problema`, `duracao_s` (quando não há voz), `audio` (arquivo em public/, ex. `mix.wav`),
+`puxar_para_batida`, `legendas`, `legenda_estilo` (caixa | grande), `fundo` (`halos`, `chao`,
+`vinheta`, `grao`), `hud` (`capitulos[{inicio, cor}]`, `titulo` com `|` entre linhas, `quadro45`).
+Campos novos são opcionais: um config antigo continua funcionando.
 
 Duração da composição: `blocos.json.duracao_s` (voz editada) ou `config.duracao_s`.
 
@@ -56,8 +66,40 @@ para a batida imediatamente anterior (até 0,3 s), nunca atrasado.
 
 ## 3. `cenas.json`
 
-Cada cena dura até o início da próxima (6 frames de sobreposição com blur). `wipe: true`
-marca troca de bloco com a faixa de luz. Em textos, `*trecho*` sai no acento.
+Cada cena dura até o início da próxima. Cenas do estilo padrão entram em **corte seco** (a
+cena anima a própria entrada); cenas clássicas usam cross-fade com blur (6 frames de
+sobreposição). `transicao: "corte" | "suave"` sobrescreve. `wipe: true` marca troca de bloco
+com a faixa de luz.
+
+**Estilo padrão** (todas aceitam `camera`, `cameraInicial`, `carimbos`, `motionBlur`):
+
+| tipo | campos | uso |
+|---|---|---|
+| `frase` | `linhas[{texto, em?, papel?, tam?, entrada?, gradiente?, brilho?, numero?}]`, `rotulo?`, `rotuloEm?`, `alinhar?`, `vertical?` | gancho, frase-chave, número que conta, CTA |
+| `telaViva` | `tela{titulo, status?{texto, final?}, alerta?{em, cor}, inclinar?, blocos[]}`, `titulo?` | UI inventada que narra: lista, checklist, contador, toggles, timeline, fluxo, kanban, prompt |
+| `camadas` | `camadas[{rotulo, icone?, texto?}]`, `explodeEm?`, `juntaEm?`, `numerar?`, `legenda?`, `chao?`, `titulo?` | anatomia em planos 3D |
+| `bento` | `tiles[{rotulo, icone?, sub?, cor?, largo?, em?}]`, `colunas?`, `conectores?`, `encaixe?{tile, em}`, `acende?[{tile, em}]` | grade de módulos com halo; com câmera, revelação |
+| `letreiro` | `texto`, `texto2?`, `em?`, `tam?`, `velocidade?`, `linhas?` | nome/promessa em duas linhas gigantes contra-direção |
+| `linha` | `forma` (ecg, reta, rachadura), `em?`, `planaEm?`, `cor?`, `rotuloLinha?{antes, depois}`, `linhas?` | pulso, queda, ruptura |
+| `recorte` / `orador` | `video?`, `recorte?`, `de?`, `deRecorte?`, `zoom?`, `letreiro?`, `linhas?` | apresentador com texto atrás |
+| `rajada` | `planos[{tipo, em?, ...}]`, `passo_ms?` (700) | cortes de ~0,7 s nos picos da fala |
+
+Blocos da `telaViva` (`tela.blocos[]`):
+
+| tipo | campos | muda quando |
+|---|---|---|
+| `lista` | `itens[{titulo, sub?, avatar?, icone?, badge?, status?, estados[{em, status?, texto?}]}]` | cada `estados.em`: badge troca (pop) e a linha acende na cor do status |
+| `checklist` | `itens[{texto, em}]` | 10 frames antes: spinner; no `em`: check com pop |
+| `contador` | `rotulo`, `de?`, `ate`, `em`, `ateEm?`, `prefixo?`, `sufixo?`, `casas?`, `cor?` | conta de `em` a `ateEm` (ease-out cúbico) |
+| `toggles` | `itens[{texto, ligado?, em?}]` | toggle inverte no `em` |
+| `timeline` | `trilhas[{rotulo, blocos[[ini, fim] 0-1], cor?}]`, `em`, `ateEm?` | playhead corre; blocos acendem quando a cabeça passa |
+| `fluxo` | `nos[{texto, icone?, em, decisao?}]` | nó a nó, conector desenha 8 frames antes |
+| `kanban` | `colunas[]`, `card{texto, avatar?}`, `passos[{em, coluna}]` | card desliza de coluna (10 frames) |
+| `prompt` | `texto`, `em`, `cps?` (1,6 car/frame), `rotulo?` | digita com cursor; botão pulsa no fim |
+
+Status: `ok` (acento/solução), `erro` (problema), `aviso` (acento2), `neutro`.
+
+**Clássicas** (variante anterior):
 
 | tipo | campos | uso |
 |---|---|---|
@@ -68,7 +110,8 @@ marca troca de bloco com a faixa de luz. Em textos, `*trecho*` sai no acento.
 | `pills` | `titulo?`, `itens[{rotulo, icone, em}]` | lista de benefícios/recursos |
 | `cta` | `principal`, `em?`, `pill?{texto, icone, em}`, `rotulo?` | chamada final |
 
-Todos aceitam `id`, `inicio`, `rotulo`, `wipe`.
+Todos aceitam `id`, `inicio`, `rotulo`, `wipe`, `transicao`. Exemplo completo das clássicas:
+`template/src/data/cenas-classico.example.json`.
 
 Duração de cena de texto: o intervalo entre duas mudanças na tela (início da cena,
 cada `em`/`risco`/`ate`/`escreveEm`) não passa de ~2,5 s; a cena inteira de texto
@@ -77,7 +120,7 @@ curtas intercaladas com o orador. Cena sob medida que mostra o orador: use um ti
 `filmagem`/`orador`/`video` ou marque `"orador": true` para o validador:
 
 ```bash
-python -I <skill>/scripts/cenas_check.py --projeto <pasta-do-video> --orador filmagem --limite 2.5
+python -I <skill>/scripts/cenas_check.py --projeto <pasta-do-video> --orador filmagem,recorte --limite 2.5
 ```
 
 Saída: tabela por cena (duração, maior trecho parado, status), AVISO para frase sobre o
@@ -118,7 +161,18 @@ limite. Precisão ~0,2 s.
 
 | Componente | Props principais |
 |---|---|
-| `FundoGrade` | `celula?`, `halo?[x,y]`, `drift?` |
+| `Palco` | `ini`, `camera?`, `cameraInicial?`, `carimbos?`, `motionBlur?`, `origem?` (envelope das cenas do estilo padrão) |
+| `Carimbo`, `Flash`, `tremor()`, `poseCamera()` | peças do Palco, usáveis em cena sob medida |
+| `TelaViva` | `def` (DefTelaViva), `ini`, `largura`, `entra?` |
+| `Camadas3D`, `ChaoGrade` | `def` (DefCamadas3D), `ini`; `base?`, `profundidade?`, `celula?` |
+| `GradeBento`, `CardHalo`, `layoutBento()` | `def`, `ini`; `rotulo`, `icone?`, `cor?`, `aceso?` |
+| `Encaixe`, `progEncaixe()`, `misturaRet()` | `de`, `para` (retângulos), `at`, `dur?` (8) |
+| `TextoMisto`, `RotuloMono`, `Chip`, `parseMisto()` | `texto` com marcação, `at`, `papel?`, `tam?`, `entrada?`, `gradiente?`, `brilho?` |
+| `Hud` (`BarraCapitulos`, `TituloFixo`, `Quadro45`) | lê `config.hud`; fica fora das cenas |
+| `Letreiro`, `LinhaSVG` | `texto`, `texto2?`, `y`, `tam?`, `velocidade?`; `forma`, `at`, `planaEm?` |
+| `Recorte` | `video?`, `recorte?`, `de?`, `deRecorte?`, `zoom?`, `atras?`, `frente?` |
+| `LegendaCaixa` | lê `legendas.json`; `tam?` (padrão 58 px) |
+| `FundoGrade` | `celula?`, `halo?[x,y]`, `drift?`, `halos?`, `chao?`, `vinheta?`, `grao?` (padrão vem de `config.fundo`) |
 | `CardVidro` | `destaque?` (0-1), `opaco?`, `style?` |
 | `Rotulo`, `TextoMarcado` | texto mono em acento; `*trecho*` em acento |
 | `Print` | `janela`, `ini`, `largura`, `proporcao?` |
@@ -132,13 +186,17 @@ limite. Precisão ~0,2 s.
 | `Cena`, `Wipe` | envelope de entrada/saída; faixa de luz de troca de bloco |
 
 Helpers (`theme.ts`): `prog(frame, ini, dur)` (0-1 com easing), `mola(frame, ini, cfg?)`
-(spring leve), `revela(frame, ini)` (estilo de entrada), `px(v)` (escala por formato),
-`alfa(hex, a)`, `tonalidade(hex, f)`, `fmt(v, casas)` (número no locale),
-`LIMITE_CONTEUDO` (y máximo de conteúdo, acima da legenda).
+(spring leve), `revela(frame, ini)` (entrada clássica), `entraUI(frame, ini)` (entrada do
+estilo padrão), `molaKit(frame, ini, 'ui' | 'pop' | 'carimbo' | 'camera' | 'camadas')`,
+`MOLAS`, `easingEncaixe`, `papel` (estilos dos 4 papéis tipográficos), `corDe(nome)`,
+`brilho(cor)`, `px(v)` (escala por formato), `alfa(hex, a)`, `tonalidade(hex, f)`,
+`fmt(v, casas)`, `LIMITE_CONTEUDO` (y máximo de conteúdo, acima da legenda), `AREA`
+(área útil do estilo padrão: abaixo do HUD, acima da legenda), `HUD`, `QUADRO45`.
 
-Movimento: spring `damping 14, stiffness 160` para entradas; punch-in de número
+Movimento clássico: spring `damping 14, stiffness 160` para entradas; punch-in de número
 `damping 11, stiffness 170` saindo de escala 1,3; easing `bezier(0.16, 1, 0.3, 1)`.
-Transição entre cenas: 9-12 frames com blur. Nada linear seco, nada acima de ~0,7 s.
+Transição entre cenas clássicas: 9-12 frames com blur. Estilo padrão: seção 9. Nada linear
+seco, nada acima de ~0,7 s.
 
 ## 6. Cena sob medida
 
@@ -165,7 +223,7 @@ export const Comparacao: React.FC<PropsCena<any>> = ({def, ini}) => {
 };
 ```
 
-Registre em `Video.tsx` (acrescente `comparacao: Comparacao` no objeto `REGISTRO`), adicione o tipo em
+Registre em `Video.tsx` (acrescente `comparacao: Comparacao` no `Object.assign(REGISTRO, ...)`), adicione o tipo em
 `cenas/tipos.ts` se quiser checagem, e use `{"tipo": "comparacao", ...}` no `cenas.json`.
 Para um vídeo de fundo (talking head, screencast), use `<OffthreadVideo src={staticFile(...)} />`
 com `startFrom` em frames. Para alternar frase e orador sem perder a sincronia labial,
@@ -206,3 +264,86 @@ try {
 Com o Playwright MCP: `browser_resize` para 1600x1000, navegar, `browser_take_screenshot`,
 e `browser_close` ao terminar. Salve como `NN-nome-raw.png`, borre com `borrar.py` para
 `NN-nome.png` e confira o resultado abrindo a imagem.
+
+## 9. Estilo padrão: receitas
+
+Valores a 30 fps, medidos quadro a quadro nas referências analisadas em out/2026. Todos
+saem de `MOLAS` em `theme.ts`; mude lá para mudar o vídeo inteiro.
+
+| Elemento | Receita |
+|---|---|
+| entrada de UI (janela, card, linha, tile) | `spring({damping: 200}, durationInFrames: 6)`: opacidade 0 -> 1, escala .94 -> 1, sobe 20 px, blur 6 -> 0 (`entraUI`). Itens em stagger de 2 frames; blocos da janela de 3 em 3 |
+| badge/chip trocando de estado | `spring({damping: 14, stiffness: 220, mass: .6})`, escala .8 -> 1 (leve overshoot) |
+| carimbo | `spring({stiffness: 400, damping: 18, mass: .6})`, escala 1,6 -> 1, rotação -7°; flash da cor 0,28 -> 0 em 3 frames; tremor de câmera 4 frames (amplitude 9 px caindo); SFX de impacto no mesmo `em`. Texto se ajusta para caber em 84% da largura |
+| câmera virtual | `spring({damping: 200, mass: 1.2}, durationInFrames: 16)` de chave em chave; afastar = `cameraInicial: {escala: 1.1-1.2}` + `camera: [{em, escala: 1}]`; aproximar = escala 1,04-1,15 |
+| motion blur | `CameraMotionBlur shutterAngle 180, samples 6`, ligado só enquanto a mola da câmera < 0,985. Medido: +4 s num trecho de 3,2 s com 16 frames de câmera em movimento (concorrência 2); nos frames parados não custa nada |
+| camadas 3D | `perspective 2000`, `rotateY(-24° ± 4°) rotateX(8°)` girando devagar; explodir/juntar `spring({damping: 200}, 8 frames)`; passo por camada: Z 130 px, X 34 px, Y -26 px. Chips das camadas de trás só aparecem explodidas |
+| chão de grade | plano `rotateX(72°)`, origem na borda de baixo, `perspective 800`, células de 90 px andando 1,2 px/frame, máscara que some no horizonte |
+| bento | tiles em stagger de 3 frames com `entraUI(.., 24)`; conectores (2 pontos) acendem 4 frames depois do par; `acende` dá pulso de 12 frames; encaixe do tile: 8 frames com `easingEncaixe`, os outros tiles entram 2 frames depois |
+| encaixe | `Easing.bezier(0.2, 0, 0, 1)`, 6-8 frames; interpola x, y, largura, altura e raio; conteúdo escala uniforme (sem distorcer texto) |
+| texto por palavra | `spring({damping: 200}, 8 frames)`, atraso 2 frames por palavra: sobe 30 px, escala .9 -> 1, blur 8 -> 0 |
+| texto por letra | idem, atraso 1 frame por letra: escala .6 -> 1 + blur (~10 frames numa palavra de 8 letras) |
+| texto por máscara | linha sobe de 110% para 0 dentro de `overflow: hidden` em 6 frames (`damping 200`); padrão do papel número/estreita |
+| contador | `interpolate` com `Easing.out(Easing.cubic)` em 30-45 frames (ou até `ateEm`); separador de milhar do locale |
+| gradiente em texto | `background-image` + `background-clip: text` + `color: transparent`; brilho com `filter: drop-shadow(0 0 .22em cor)` (no claro: sombra curta e fraca) |
+| contorno | `-webkit-text-stroke` + `paint-order: stroke fill` com o miolo na cor do fundo (esconde os contornos internos que fontes variáveis sobrepõem) |
+| letreiro | duas linhas, 4 px/frame, a de baixo em sentido oposto e só contorno; texto repetido 8x (sem módulo, não "pula") |
+| LinhaSVG | `pathLength 1` + `strokeDashoffset` 1 -> 0 em 30 frames (ECG) ou 3 frames (rachadura); `planaEm` troca para reta na cor de problema |
+| barra de capítulos | segmento do capítulo atual enche linearmente até o próximo; concluídos cheios na cor (`problema` sólido, solução em gradiente) |
+| legenda em caixa | 58 px (~3% de 1920), frase da página visível; não dita em cinza, dita em branco, ativa no acento com brilho; sombra dura de 7 px com o gradiente do acento; troca de página em corte (some em 80 ms) |
+
+Área útil: `AREA.topo` (abaixo do HUD) até `AREA.base` (acima da legenda em caixa). Com
+`hud.quadro45`, o conteúdo fica no 4:5 central (y 285 a 1635 no 9:16) e sobrevive ao corte
+do feed.
+
+Stills de conferência: `node scripts/stills.mjs qa/stills <frames>` (1 bundle, ~3 s por
+frame). Olhe cada componente nas duas variantes antes do render completo.
+
+## 10. Recorte do apresentador (texto atrás da pessoa)
+
+Só com rosto filmado. O empilhamento é fixo: fundo (vídeo original) -> texto/letreiro/janela
+-> pessoa recortada (`<OffthreadVideo transparent>`). Fluxo:
+
+1. Corte o vídeo do apresentador com os mesmos trechos e o mesmo `tempo` da voz (frame N do
+   arquivo = frame N da timeline).
+2. Gere o recorte com alfa (OPCIONAL, pesado):
+
+```bash
+pip install "rembg[cpu]"     # uma vez; rembg[gpu] se houver GPU
+python -I <skill>/scripts/recortar_orador.py public/orador.mp4 public/orador-alfa.webm --modelo birefnet-portrait
+# só um trecho (mais rápido): --de 12.0 --ate 18.5  -> na cena use "deRecorte" = frame de 12,0 s
+```
+
+   Saída: WebM VP9 `yuva420p` (lido pelo Remotion). `--prores` gera também `.mov` ProRes 4444.
+   Custo na CPU: ~0,3-1,5 s por quadro em 1080x1920. Alternativas mais estáveis entre quadros:
+   RobustVideoMatting ou BiRefNet em lote; o formato de saída é o mesmo.
+3. Na cena: `{"tipo": "recorte", "video": "orador.mp4", "recorte": "orador-alfa.webm",
+   "letreiro": {...}, "linhas": [...]}`. Sem os arquivos, a cena desenha uma silhueta de
+   marcação para conferir o layout. Com vídeo e sem recorte, o texto fica por cima (sem
+   profundidade).
+
+Confira nos frames: borda do cabelo sem halo, texto atrás aparecendo dos dois lados da
+cabeça, sincronia labial.
+
+## 11. Ritmo: calmo x rajada
+
+O vídeo alterna dois regimes:
+
+| Regime | Duração | Como |
+|---|---|---|
+| calmo | cenas de 2-4 s | uma tela por cena, com algo mudando a cada 0,5-1 s (estado, contador, carimbo, câmera) |
+| rajada | 3-6 planos de ~0,7 s | cena `rajada` com `planos` em corte seco, nos picos da fala (lista de 3 passos, enumeração, "sem X, sem Y, sem Z") |
+
+No `cenas.json`, a rajada é uma cena só:
+
+```json
+{"id": "passos", "tipo": "rajada", "inicio": "bloco:passos", "planos": [
+  {"tipo": "frase", "em": "bloco:passos", "linhas": [{"texto": "3 passos", "papel": "estreita"}]},
+  {"tipo": "frase", "em": "mapeia-150", "rotulo": "passo 01", "linhas": [{"texto": "*Mapeia*", "papel": "numero", "entrada": "letra"}]},
+  {"tipo": "recorte", "em": "conecta-150", "video": "orador.mp4", "zoom": 1.35}
+]}
+```
+
+Sem `em`, os planos entram a cada `passo_ms` (700). Com filmagem, intercale o orador em
+zoom 1,0 e 1,35 (simula câmera B). Uma ou duas rajadas por minuto; o resto em corte seco
+entre cenas calmas. Som: UM efeito para a rajada inteira (ou nenhum), nunca um por plano.

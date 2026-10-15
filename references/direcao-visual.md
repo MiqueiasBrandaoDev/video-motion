@@ -1,5 +1,91 @@
 # Direção visual (fase 3)
 
+## Estilo padrão
+
+Kit derivado de referências analisadas em out/2026 (reels de motion feitos em código, com e
+sem rosto). Ficam as **técnicas**: nada de personagem, logo, paleta exata, texto ou nome de
+quem fez. A pergunta que o estilo responde: o vídeo parece *produzido* (luz, profundidade,
+UI que narra) ou *colado* (cards chapados por cima)?
+
+### Os 10 pontos
+
+| # | Técnica | Componente | Regra |
+|---|---|---|---|
+| 1 | **UI inventada e viva**: tela de app desenhada em código, simplificada, cujos estados mudam no marco da fala (item marca check, status muda de cor, contador sobe, toggle desliga) | `TelaViva` (cena `telaViva`) | prefira à print quando a print é ilegível em 9:16; um estado novo a cada 0,5-1 s |
+| 2 | **Carimbo** como pontuação dramática: texto em caixa com borda, rotação ~-7°, bate de 1,6x para 1x, flash de tela 3 frames, tremor 4 frames, SFX de impacto | `carimbos` em qualquer cena | 1 por bloco, no máximo; a palavra é a conclusão da fala ("ninguém respondeu", "grátis") |
+| 3 | **Espaço 3D**: planos em Z que explodem e se juntam, chão de grade em perspectiva | `Camadas3D` (cena `camadas`) | para "anatomia" de algo: camadas, etapas, partes |
+| 4 | **Câmera virtual**: afastar para revelar, aproximar, pan; motion blur só no trecho rápido | `camera`/`cameraInicial`/`motionBlur` | afastar é o melhor "revelar" que existe; não mova a câmera em toda cena |
+| 5 | **Luz emitida**: halo radial colorido atrás de cada card, borda luminosa, ícone com glow, conectores pontilhados | `CardHalo`, `GradeBento` (cena `bento`) | luz vem da cor de acento; nada de vidro neutro cinza como único recurso |
+| 6 | **Tipografia em papéis** (abaixo) com gradiente, brilho e contorno; entrada por letra/palavra/máscara | `TextoMisto`, cena `frase` | rótulo mono pequeno em cima, palavra enorme embaixo |
+| 7 | **Elementos fixos** (HUD) fora das transições: barra de capítulos colorida, título fixo, quadro 4:5 seguro | `Hud` (config `hud`) | a barra mostra a estrutura (problema x solução); o título fixo é opcional |
+| 8 | **Encaixe**: o elemento atual encolhe e vira parte da próxima tela (vídeo vira preview, celular vira tile) | `Encaixe`, `encaixe` no bento | 6-8 frames, `Easing.bezier(0.2, 0, 0, 1)`; troca o fade genérico |
+| 9 | **Legenda pequena em caixa** (~3,5% da altura), frase visível, só a palavra ativa destacada | `LegendaCaixa` (padrão) | a legenda deixa o motion ser protagonista; a grande virou variante |
+| 10 | **Ritmo contrastado**: trechos calmos (2-4 s, estado mudando dentro) e rajadas de cortes de ~0,7 s nos picos da fala | cena `rajada` | 1-2 rajadas por minuto; o resto em corte seco entre cenas |
+
+Complementos: `Letreiro` (duas linhas gigantes em sentidos opostos, uma só em contorno),
+`LinhaSVG` (batimento/ECG que vira reta, rachadura), `Recorte` (texto atrás do apresentador,
+ver `remotion-padroes.md`) e o fundo de grade com halos.
+
+### Fundo
+
+A grade continua sendo a assinatura (escura e clara), agora com luz e profundidade:
+2 halos do acento derivando devagar (ciclo de ~10 s) + contra-halo fraco, vinheta nas bordas,
+grão fino opcional e chão de grade em perspectiva opcional (`config.fundo`:
+`halos`, `chao`, `vinheta`, `grao`). Fundo quase preto (`#08080A`) ou quase branco
+(`#F4F3EF`); a cor vem dos elementos e do glow, não de um fundo colorido.
+
+### Paleta: acento com significado
+
+Escolha um dos dois modos e mantenha no vídeo inteiro:
+
+| Modo | Quando | Como |
+|---|---|---|
+| **Semântico** | o roteiro tem problema x solução (antes/depois, dor/alívio, concorrente/produto) | `acento` = solução/marca; `problema` = dor/erro (vermelho-coral por padrão). O vermelho só aparece na dor: badge "sem resposta", carimbo, alerta, barra de capítulo do problema |
+| **Acento único** | não há conflito no roteiro; marca forte de uma cor | só `acento` (+ `acento2` opcional para o fim do gradiente). A riqueza vem do gradiente, do brilho e da profundidade, não de cores novas |
+
+Nunca uma terceira cor decorativa. Avatares de UI inventada usam cores neutras variadas só
+para distinguir pessoas.
+
+### Tipografia em papéis
+
+| Papel | Fonte padrão | Uso | Estilo |
+|---|---|---|---|
+| frase | Plus Jakarta Sans 800 | frases-chave, legenda, rótulos de card | tracking -0,035em, 1-6 palavras |
+| número | Unbounded 800 (larga) ou Big Shoulders 800 (estreita, papel `estreita`) | número-chave, palavra de impacto, letreiro | gradiente texto -> acento + brilho; entra por máscara ou por letra |
+| emocional | Instrument Serif Italic | **uma** palavra por frase, a que carrega a emoção ("perde", "apagão", "dorme") | na cor do acento, com brilho; marcação `_palavra_` |
+| rótulo | JetBrains Mono 600 | rótulo acima da palavra grande, chips, status | caixa alta, tracking 0,24-0,3em, pequeno |
+
+Marcação no texto (`TextoMisto`): `*acento*` (gradiente + brilho), `_emocional_`,
+`[contorno]`, `{numero}`, `~problema~`. Alternativas por nicho: frase -> Manrope 800 ou
+Figtree 800; número -> Syne 800; emocional -> Playfair Display Italic (mais larga).
+
+### O que evitar no estilo padrão
+
+| Não | Sim |
+|---|---|
+| card de vidro cinza chapado como único recurso | card escuro com halo da cor, borda luminosa e glow |
+| print ilegível encolhido em 9:16 | TelaViva com os 3-4 dados que a fala cita |
+| fade/cross-fade genérico entre todas as cenas | corte seco + entrada própria da cena, ou encaixe |
+| câmera mexendo em toda cena, motion blur ligado sempre | câmera só para revelar/aproximar; blur só no trecho rápido |
+| carimbo em toda frase | 1 carimbo por bloco, na conclusão |
+| duas palavras emocionais na mesma frase, serifa em frase inteira | uma palavra emocional |
+| legenda grande protagonista disputando com o motion | legenda em caixa pequena |
+| terceira cor, gradiente arco-íris | acento (+ problema) com gradiente e luz |
+| emoji como ícone | ícone em traço estilo lucide com glow |
+| personagem, logo ou paleta copiados de uma referência | a técnica, com a marca e a paleta do cliente |
+
+Texto parado continua com limite de ~2,5 s (seção "Texto de tela" abaixo).
+
+---
+
+## Variante clássica
+
+O estilo anterior continua disponível: cenas `titulo`, `numeros`, `print`, `terminal`,
+`pills`, `cta`, legenda grande (`legenda_estilo: "grande"`), cross-fade com blur. Use quando
+o cliente pedir um visual mais sóbrio/editorial ou quando o vídeo for essencialmente print
+real de produto. As regras abaixo valem para ela (e as de acento, contraste e texto de tela
+valem para as duas).
+
 ## Assinatura: fundo de grade
 
 `template/src/comp/FundoGrade.tsx`. Grade de linhas finas (célula 72 px) com drift lento,
@@ -13,20 +99,24 @@ cena mais limpa (CTA, número grande), dá para mudar o halo de lugar por cena.
 
 | Token | Escura | Clara | Uso |
 |---|---|---|---|
-| `fundo` | `#0A0A0B` | `#F6F5F2` | fundo (nunca `#000` puro nem `#FFF` puro) |
-| `texto` | `#F5F4F2` | `#161616` | títulos, números |
+| `fundo` | `#08080A` | `#F4F3EF` | fundo (nunca `#000` puro nem `#FFF` puro) |
+| `texto` | `#F5F4F2` | `#141416` | títulos, números |
 | `suave` | `#B4B2AE` | `#57554F` | texto secundário |
 | `apagado` | `#87858A` | `#8D8B85` | rótulos inativos |
 | `linha` | branco 9% | preto 10% | bordas |
-| `grade` | branco 4,5% | preto 6% | linhas da grade |
+| `grade` | branco 5% | preto 7% | linhas da grade |
 | `vidro` | branco 4,5% | branco 72% | card de vidro |
 | `vidroOpaco` | `#101012` 92% | branco 96% | card sobre print/grade |
 | `codigoFundo` | `#0E0E10` | `#16161A` | terminal (escuro nas duas variantes) |
-| `acento` | `config.acento` | `config.acento` | UMA cor por vídeo |
+| `acento` | `config.acento` | `config.acento` | cor da marca/solução |
+| `acento2` | `config.acento2` | idem | fim do gradiente (padrão: acento clareado) |
+| `problema` | `config.problema` | escurecido | só a dor/erro no modo semântico |
+| `superficie`, `superficie2` | `#0C0C10`, `#14141A` | branco, `#F1F0EC` | janela e linhas da TelaViva, cards do bento |
 | `acentoTexto` | = acento | acento escurecido 28% | acento usado como texto (contraste no claro) |
 
 Derivados automáticos: `acentoClaro`, `acentoFundo`, `linhaAcento` (45%), `halo`,
-`glow(forca)`. Troque só `config.acento` e a variante; o resto acompanha.
+`glow(forca)`, `gradTexto`, `gradAcento`, `corDe(nome)` (acento | solucao | problema | neutro | hex),
+`brilho(cor, forca)`. Troque só `config.acento` e a variante; o resto acompanha.
 
 Escolha da variante: escura para tech, produto digital, noite, premium; clara para
 saúde, educação, finanças pessoais, comida, jurídico, quando o nicho for claro na
@@ -52,7 +142,7 @@ for rgb, n in Counter(im.getdata()).most_common(12):
 3. Contraste: o acento como texto precisa de contraste >= 4,5:1 com o fundo. Na variante
    clara isso é automático via `acentoTexto`; confira mesmo assim nos frames.
 
-## Tipografia
+## Tipografia (clássica)
 
 3 famílias, carregadas por `@remotion/google-fonts` no topo de `theme.ts`:
 
@@ -67,7 +157,7 @@ título grande (-0,03em), rótulo mono em caixa alta com espaçamento (0,16-0,18
 números em mono com `tabular-nums`. Para trocar: mude o import (`@remotion/google-fonts/<Familia>`)
 e os pesos/subsets em `theme.ts`.
 
-## Regras anti "cara de IA"
+## Regras anti "cara de IA" (clássica)
 
 | Não | Sim |
 |---|---|

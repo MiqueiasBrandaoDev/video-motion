@@ -105,11 +105,17 @@ Protocolo, consultas e modelo do `pesquisa.md`: [references/pesquisa-de-nicho.md
 
 ### 3. Direção visual
 
-Assinatura padrão: **fundo de grade** (linhas finas, célula 72 px, máscara radial suave,
-halo da cor de acento), variante escura ou clara. **Um** acento por vídeo. Tipografia:
-1 display + 1 corpo + 1 mono para números. Sem emoji como ícone (SVG estilo lucide), sem
-gradiente arco-íris, sem roxo-azul genérico, título com peso moderado (500-600). A paleta
-vem da marca do usuário (extraia dos pixels da logo/site) ou da pesquisa do nicho.
+**Estilo padrão** (kit de 10 pontos em `direcao-visual.md`): o vídeo tem que parecer
+*produzido*, não colado. Fundo de grade (escuro ou claro) com halos de luz e profundidade;
+UI inventada que narra a fala (TelaViva) no lugar de print ilegível; carimbo com flash como
+pontuação; camadas 3D e câmera que se afasta para revelar; cards com halo e borda luminosa;
+tipografia em 4 papéis (frase grotesca pesada, número largo/estreito, **uma** palavra
+emocional em serifa itálica, rótulo mono espaçado); HUD fixo (barra de capítulos, título
+opcional, quadro 4:5); legenda pequena em caixa; ritmo calmo x rajada. Paleta: acento com
+significado (solução x problema) ou acento único com gradiente, brilho e profundidade. Nunca
+terceira cor, emoji como ícone ou elemento copiado de referência. A paleta vem da marca do
+usuário (pixels da logo/site) ou da pesquisa do nicho. A variante clássica (cards de vidro,
+legenda grande, cross-fade) continua disponível quando o cliente pedir algo mais sóbrio.
 
 **Texto de tela (lição real: card parado cansa e compete com a fala):** fora a legenda,
 nenhum texto fica parado mais de ~2,5 s. Texto de tela é frase-chave curta (2-6
@@ -167,13 +173,17 @@ python -I <skill>/scripts/novo_projeto.py <pasta-do-video> --formato 9:16 --vari
 cd <pasta-do-video> && npm install && npx tsc --noEmit
 ```
 
-O template já traz: fundo de grade, card de vidro, Print (janela + spring + Ken Burns +
-zoom/contorno sincronizado + tampar + cursor com clique), legenda palavra por palavra
-(2-4 palavras, palavra ativa no acento, área segura), contador, pill/badge, terminal
-digitando, tipografia cinética, CTA, transições curtas (blur/wipe). As cenas são
-declaradas em `src/data/cenas.json` e ancoradas em tempos da fala (`"marco"`,
-`"bloco:nome"`, `"marco+200"`), nunca em frame escrito à mão. Nada linear seco: spring
-ou easing em tudo. Cena sob medida: crie em `src/cenas/` e registre em `Video.tsx`.
+O template já traz o estilo padrão: cenas `frase`, `telaViva` (lista, checklist,
+contador, toggles, timeline, fluxo, kanban, prompt com estados ligados à fala), `camadas`,
+`bento` (com encaixe), `letreiro`, `linha` (ECG, rachadura), `recorte` (texto atrás do
+apresentador) e `rajada`; em qualquer uma, `camera`, `carimbos` e `motionBlur`; HUD e
+legenda em caixa no `config.json`. As cenas clássicas (`titulo`, `numeros`, `print`,
+`terminal`, `pills`, `cta`) seguem disponíveis e se misturam com as novas. Tudo declarado
+em `src/data/cenas.json` e ancorado em tempos da fala (`"marco"`, `"bloco:nome"`,
+`"marco+200"`), nunca em frame escrito à mão. Springs e durações exatas de cada componente:
+`remotion-padroes.md`, seção 9. Texto atrás da pessoa exige recorte prévio (opcional,
+`scripts/recortar_orador.py`, seção 10). Cena sob medida: crie em `src/cenas/` e registre
+em `Video.tsx`. Confira cada componente em stills nas duas variantes antes do render.
 Depois de montar `cenas.json`, meça o texto parado (sai com erro acima de 2,5 s):
 
 ```bash
@@ -191,11 +201,17 @@ SFX CC0/livres (Kenney, Mixkit SFX, Freesound CC0), mesma família de timbre, re
 em `public/sfx/LICENCA.md`. Downloads ficam em `downloads/` e são tratados como não
 confiáveis (só ffprobe/ffmpeg lêem).
 
-**Densidade (lição real: excesso cansa e soa amador):** ~1 efeito a cada 2-3 s em média,
-só nas viradas (troca de bloco, entrada de print, destaque, clique, punch-in de número,
-CTA); nada em legenda, saída ou em cada badge; mínimo 400 ms entre efeitos; nunca o
-mesmo som seguido; trechos de respiro só com voz + música; picos 18-24 dB abaixo da voz;
-variação leve de pitch/ganho. `gerar_sfx.py` bloqueia o plano que quebra essas regras.
+**Duas camadas (lição real: excesso cansa; poucos momentos fortes dão peso):**
+1. **Base (comum):** ~1 efeito a cada 2-3 s em média, só nas viradas (troca de bloco,
+   entrada de janela/print, destaque, clique), picos 18-24 dB abaixo da voz.
+2. **Impactos fortes (`"categoria": "impacto"`):** só em carimbo com flash,
+   revelação/afastamento de câmera, número-chave e CTA; picos 12-16 dB abaixo da voz;
+   ~4 s ou mais entre impactos.
+
+Nas duas: nada em legenda, saída, cada badge ou cada plano de rajada; mínimo 400 ms entre
+efeitos; nunca o mesmo som seguido; trechos de respiro só com voz + música; variação leve
+de pitch/ganho. `gerar_sfx.py` bloqueia o plano que quebra as regras e avisa quando um
+carimbo ou afastamento de câmera ficou sem impacto.
 
 ```bash
 python -I <skill>/scripts/analisa_musica.py public/musica/faixa.mp3 --offset 0.8 --duracao 84 --saida-batidas src/data/batidas.json
@@ -203,8 +219,10 @@ python -I <skill>/scripts/gerar_sfx.py
 python -I <skill>/scripts/mixar.py --musica public/musica/faixa.mp3 --offset 0.8 --subida-em bloco:cta
 ```
 
-Ducking por sidechaincompress (música ~20 dB abaixo da voz), fade in/out, leve subida no
-CTA, trocas de cena puxadas para a batida (`puxar_para_batida`). Detalhes:
+Trilha contínua com ducking por sidechaincompress: no estilo padrão ~10-12 dB abaixo da voz
+durante a fala (`--musica-lufs -23` como ponto de partida, conferido no QA); trilha discreta
+(~20 dB, `-27`) na variante clássica. Fade in/out, leve subida no CTA, trocas de cena puxadas
+para a batida (`puxar_para_batida`). Detalhes:
 [references/sound-design.md](references/sound-design.md).
 
 ### 9. Render
@@ -259,8 +277,9 @@ O usuário vai pedir ajustes. Tudo é parametrizado para refazer sem reescrever 
 | texto parado demais / cansativo de ler | `cenas.json`: quebre o card em frases-chave de ~1,5-2 s e intercale cenas do orador | cenas_check -> stills -> render |
 | quer ver mais a pessoa / menos texto | presença do orador no `storyboard.md` (vai para "mais orador"); em `cenas.json`, encurte as cenas de texto e amplie as do orador | cenas_check -> stills -> render |
 | outra trilha, volume da música | `public/musica/` + flags do `mixar.py` | mixar -> render |
-| SFX demais/de menos | `src/data/sfx.json` | gerar_sfx -> mixar -> render |
-| cor, fonte, variante, formato | `src/data/config.json`, `src/theme.ts` | render |
+| SFX demais/de menos, impacto fraco/forte | `src/data/sfx.json` (`categoria`, `rel_db`) | gerar_sfx -> mixar -> render |
+| carimbo, câmera, ritmo (rajada) | `src/data/cenas.json` (`carimbos`, `camera`, tipo `rajada`) | stills -> render |
+| cor, fonte, variante, formato, HUD, legenda | `src/data/config.json` (`acento`, `problema`, `hud`, `legenda_estilo`, `fundo`), `src/theme.ts` | render |
 | legenda (tamanho de página, grafia) | flags e `correcoes.json` do `legendas.py` | render |
 
 Sempre a partir do original. Depois de qualquer mudança de áudio, refaça a cadeia
@@ -279,9 +298,10 @@ inteira daquela linha (marcos mudam de tempo). Rode `npx tsc --noEmit` e stills
 | `tts.py` | roteiro -> voz sintética (OpenAI) |
 | `borrar.py` | borra/pixeliza/tampa regiões sensíveis de prints |
 | `analisa_musica.py` | BPM, batidas, loudness da trilha; perfil de SFX (`--sfx`) |
-| `gerar_sfx.py` | valida densidade do plano de SFX e resolve tempos |
+| `gerar_sfx.py` | valida densidade do plano de SFX (base + impactos) e resolve tempos |
 | `cenas_check.py` | mede o texto parado por cena no `cenas.json` (máx. ~2,5 s) e a alternância com o orador |
 | `mixar.py` | voz + trilha (ducking) + SFX -> mix.wav (-14 LUFS) |
 | `frames_check.py` | ffprobe, LUFS, N frames + folha de contato com área segura |
 | `comprimir.py` | versão leve 2 passadas com +faststart |
 | `processos.py` | lista/encerra por PID só processos de automação |
+| `recortar_orador.py` | OPCIONAL: recorta o apresentador e gera vídeo com alfa (texto atrás da pessoa) |

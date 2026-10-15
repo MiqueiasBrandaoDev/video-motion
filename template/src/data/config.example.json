@@ -1,12 +1,55 @@
 {
-  "_como_usar": "Parâmetros globais do vídeo. formato: 9:16 | 16:9 | 1:1. variante: escura | clara. acento: UMA cor hex por vídeo (vem da marca ou da pesquisa do nicho). duracao_s: usada quando não há blocos.json com duração (vídeo sem voz ou teste). audio: arquivo em public/ (ex.: mix.wav) ou vazio. puxar_para_batida: encaixa o início das cenas na batida anterior (até 0,3 s) usando batidas.json.",
+  "_como_usar": "Parâmetros globais do vídeo. formato: 9:16 | 16:9 | 1:1. variante: escura | clara. acento: cor da marca/solução (hex). acento2: fim do gradiente do acento (opcional; padrão = acento clareado). problema: cor da dor/erro (opcional; use só se o roteiro tiver problema x solução). duracao_s: usada quando não há blocos.json com duração (vídeo sem voz ou teste). audio: arquivo em public/ (ex.: mix.wav) ou vazio. puxar_para_batida: encaixa o início das cenas na batida anterior (até 0,3 s). legendas: liga a legenda; legenda_estilo: caixa (padrão, pequena em caixa) | grande (variante clássica). fundo: grade com halos (halos), chão em perspectiva (chao), vinheta, grão (grao). hud: elementos fixos fora das transições: capitulos (barra no topo; inicio = referência de tempo, cor = problema | solucao | acento), titulo (até 2 linhas com marcação, | separa as linhas; vazio = sem título fixo), quadro45 (conteúdo no 4:5 central do 9:16).",
   "titulo": "Exemplo",
   "formato": "9:16",
   "fps": 30,
   "variante": "escura",
   "acento": "#F2A33A",
-  "duracao_s": 5,
+  "acento2": "",
+  "problema": "#E8505B",
+  "duracao_s": 20.4,
   "audio": "",
   "puxar_para_batida": false,
-  "legendas": true
+  "legendas": true,
+  "legenda_estilo": "caixa",
+  "fundo": {
+    "halos": true,
+    "chao": false,
+    "vinheta": true,
+    "grao": true
+  },
+  "hud": {
+    "capitulos": [
+      {
+        "inicio": "bloco:gancho",
+        "cor": "problema"
+      },
+      {
+        "inicio": "bloco:apagao",
+        "cor": "problema"
+      },
+      {
+        "inicio": "bloco:camadas",
+        "cor": "solucao"
+      },
+      {
+        "inicio": "bloco:sistema",
+        "cor": "solucao"
+      },
+      {
+        "inicio": "bloco:letreiro",
+        "cor": "solucao"
+      },
+      {
+        "inicio": "bloco:orador",
+        "cor": "solucao"
+      },
+      {
+        "inicio": "bloco:cta",
+        "cor": "solucao"
+      }
+    ],
+    "titulo": "O *SISTEMA* QUE|NUNCA _dorme_",
+    "quadro45": false
+  }
 }

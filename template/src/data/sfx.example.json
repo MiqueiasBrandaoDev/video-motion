@@ -1,11 +1,78 @@
 {
-  "_como_usar": "Plano de efeitos sonoros. Valide e resolva com: python -I <skill>/scripts/gerar_sfx.py --projeto . (gera work/sfx_resolvido.json, que o mixar.py usa). em: referência de tempo do PICO do efeito (mesma sintaxe das cenas). rel_db: pico do efeito relativo ao pico da voz (-18 a -24). semitons: variação leve de pitch (-2 a +2). respiros: trechos [ini, fim] (refs) onde nenhum efeito pode cair.",
+  "_como_usar": "Plano de efeitos sonoros em DUAS CAMADAS. Valide e resolva com: python -I <skill>/scripts/gerar_sfx.py --projeto . (gera work/sfx_resolvido.json, que o mixar.py usa). em: referência de tempo do PICO do efeito (mesma sintaxe das cenas). categoria: comum (base de ~1 a cada 2-3 s nas viradas, rel_db -18 a -24) ou impacto (poucos e fortes: carimbo com flash, revelação/afastamento de câmera, número-chave, CTA; rel_db -12 a -16; ~4 s ou mais entre impactos). rel_db: pico do efeito relativo ao pico da voz. semitons: variação leve de pitch (-2 a +2). respiros: trechos [ini, fim] (refs) onde nenhum efeito pode cair. Nada em legenda, nada em cada badge, nunca o mesmo arquivo seguido.",
   "pasta": "public/sfx",
-  "respiros": [],
+  "respiros": [
+    [
+      "passos",
+      "mapeia+300"
+    ]
+  ],
   "eventos": [
-    {"em": "bloco:prova-150", "arquivo": "whoosh.ogg", "rel_db": -20, "semitons": 0, "evento": "troca de bloco: gancho -> prova"},
-    {"em": "bloco:prova+450", "arquivo": "punch.ogg", "rel_db": -20, "semitons": 0, "evento": "punch-in do custo"},
-    {"em": "pronto", "arquivo": "clique.ogg", "rel_db": -21, "semitons": 0, "evento": "clique do cursor"},
-    {"em": "bloco:cta-150", "arquivo": "whoosh.ogg", "rel_db": -21, "semitons": -1, "evento": "troca de bloco: CTA"}
+    {
+      "em": "bloco:apagao-150",
+      "arquivo": "whoosh-a.ogg",
+      "rel_db": -21,
+      "semitons": 0,
+      "evento": "troca de bloco: gancho -> apagão"
+    },
+    {
+      "em": "ninguem",
+      "arquivo": "impacto-a.ogg",
+      "categoria": "impacto",
+      "rel_db": -14,
+      "semitons": 0,
+      "evento": "carimbo NINGUÉM RESPONDEU + flash"
+    },
+    {
+      "em": "bloco:camadas-150",
+      "arquivo": "whoosh-b.ogg",
+      "rel_db": -22,
+      "semitons": 0,
+      "evento": "troca de bloco: camadas"
+    },
+    {
+      "em": "sistema",
+      "arquivo": "impacto-b.ogg",
+      "categoria": "impacto",
+      "rel_db": -13,
+      "semitons": -1,
+      "evento": "câmera se afasta e revela o grid"
+    },
+    {
+      "em": "bloco:letreiro-150",
+      "arquivo": "whoosh-a.ogg",
+      "rel_db": -22,
+      "semitons": -1,
+      "evento": "troca de bloco: letreiro"
+    },
+    {
+      "em": "bloco:orador-150",
+      "arquivo": "whoosh-b.ogg",
+      "rel_db": -21,
+      "semitons": 1,
+      "evento": "troca de bloco: orador"
+    },
+    {
+      "em": "conecta",
+      "arquivo": "pop.ogg",
+      "rel_db": -23,
+      "semitons": 0,
+      "evento": "rajada: um pop para o grupo de passos"
+    },
+    {
+      "em": "bloco:cta-150",
+      "arquivo": "whoosh-a.ogg",
+      "rel_db": -21,
+      "semitons": 0,
+      "evento": "troca de bloco: CTA"
+    },
+    {
+      "em": "mando",
+      "arquivo": "impacto-a.ogg",
+      "categoria": "impacto",
+      "rel_db": -15,
+      "semitons": 1,
+      "evento": "carimbo NA SUA DM (CTA)"
+    }
   ]
 }

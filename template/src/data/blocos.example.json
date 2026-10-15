@@ -3,9 +3,14 @@
   "duracao_s": 0,
   "blocos": {
     "gancho": 0,
-    "prova": 1600,
-    "demo": 2500,
-    "cta": 3700
+    "apagao": 1800,
+    "camadas": 5000,
+    "sistema": 7600,
+    "letreiro": 10800,
+    "pulso": 12400,
+    "orador": 14000,
+    "passos": 16000,
+    "cta": 18100
   },
   "trechos": []
 }

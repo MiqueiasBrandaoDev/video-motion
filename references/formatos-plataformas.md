@@ -14,7 +14,9 @@ da fase 2 (blog/central do criador da plataforma, ano corrente) e anote no `pesq
 A área segura de base do 9:16 (250 px) fica livre para a interface (legenda do post,
 botões, nome). A coluna da direita (~120 px a partir da borda, entre 900 e 1500 px de
 altura) também recebe botões no Reels e TikTok: não coloque número ou CTA colado na
-borda direita. A legenda do template fica entre `H - 250 - 300` e `H - 250`.
+borda direita. A legenda em caixa (padrão) fica centrada na faixa `H - 250 - 190` a `H - 250`;
+a legenda grande (variante) entre `H - 250 - 300` e `H - 250`. Com `hud.quadro45`, o conteúdo e
+a legenda ficam no 4:5 central (y 285 a 1635), que sobrevive ao corte 4:5 do feed.
 
 `config.fps`: 30 é o padrão (bom para fala). 60 só se houver screencast rápido.
 

@@ -3,17 +3,27 @@
 Cada evento é ancorado no MESMO tempo que dispara a animação (marco, bloco ou ms).
 O script mede o pico interno de cada arquivo para que o ataque caia no frame certo.
 
+Duas camadas (ver references/sound-design.md):
+  comum   base de ~1 efeito a cada 2-3 s nas viradas (troca de bloco, entrada de janela,
+          destaque, clique), pico 18-24 dB abaixo da voz.
+  impacto poucos e fortes nos momentos-chave (carimbo com flash, revelação/afastamento de
+          câmera, número-chave, CTA), pico 12-16 dB abaixo da voz. Campo "categoria": "impacto".
+
 Regras de densidade (lição de vídeo real: excesso de efeito cansa e soa amador):
   ERRO (bloqueia):
     - dois efeitos a menos de 400 ms (--min-gap)
     - o mesmo arquivo duas vezes seguidas
-    - pico fora de -26..-16 dB relativo ao pico da voz (alvo: -18 a -24)
+    - comum: pico fora de -26..-16 dB relativo ao pico da voz (alvo: -18 a -24)
+    - impacto: pico fora de -20..-10 dB relativo à voz (alvo: -12 a -16)
     - pitch fora de -3..+3 semitons
     - efeito dentro de um trecho de respiro
     - arquivo ausente
   AVISO:
     - intervalo médio < 2 s (denso demais) ou > 5 s (pode estar seco)
     - mais de 3 efeitos em qualquer janela de 5 s
+    - impacto fora de -16..-12 dB; dois impactos a menos de --min-gap-impacto (padrão 4 s);
+      impactos passando de 1/3 dos efeitos (forte demais vira ruído)
+    - carimbo ou afastamento de câmera do cenas.json sem efeito de impacto a até 250 ms
     - todos os ganhos iguais ou todos os pitches iguais (falta variação leve)
 
 Formato do plano: ver template/src/data/sfx.example.json.
@@ -22,6 +32,7 @@ Referência de tempo: número (ms), "marco", "bloco:nome", com deslocamento "+20
 Uso:
   python -I scripts/gerar_sfx.py [--projeto .] [--plano src/data/sfx.json]
          [--voz public/voz.wav] [--saida work/sfx_resolvido.json] [--min-gap 0.4]
+         [--min-gap-impacto 4] [--cenas src/data/cenas.json]
 """
 import argparse
 import json
@@ -85,6 +96,40 @@ def pico_voz(arq):
     return float(m[-1]) if m else None
 
 
+def momentos_chave(caminho, ms):
+    """Carimbos e afastamentos de câmera (escala diminuindo) declarados no cenas.json."""
+    if not os.path.exists(caminho):
+        return []
+    try:
+        cenas = json.load(open(caminho, encoding="utf-8")).get("cenas", [])
+    except (OSError, ValueError):
+        return []
+    saida = []
+
+    def visita(c):
+        for cb in c.get("carimbos", []) or []:
+            try:
+                saida.append((ms(cb["em"]) / 1000, f"carimbo '{cb.get('texto', '')}' ({c.get('id', c.get('tipo'))})"))
+            except (KeyError, SystemExit):
+                pass
+        escala = (c.get("cameraInicial") or {}).get("escala", 1)
+        for ch in c.get("camera", []) or []:
+            nova = ch.get("escala", escala)
+            if nova < escala - 0.05:
+                try:
+                    saida.append((ms(ch["em"]) / 1000, f"afastamento de câmera ({c.get('id', c.get('tipo'))})"))
+                except (KeyError, SystemExit):
+                    pass
+            escala = nova
+        for pl in c.get("planos", []) or []:
+            if isinstance(pl, dict):
+                visita(pl)
+
+    for c in cenas:
+        visita(c)
+    return saida
+
+
 def main():
     sys.stdout.reconfigure(encoding="utf-8")
     sys.stderr.reconfigure(encoding="utf-8")
@@ -94,6 +139,10 @@ def main():
     ap.add_argument("--voz", default=os.path.join("public", "voz.wav"), help="voz final (para medir o pico de referência)")
     ap.add_argument("--saida", default=os.path.join("work", "sfx_resolvido.json"))
     ap.add_argument("--min-gap", type=float, default=0.4, help="intervalo mínimo entre efeitos (s)")
+    ap.add_argument("--min-gap-impacto", type=float, default=4.0,
+                    help="intervalo mínimo recomendado entre dois efeitos de impacto (s); abaixo disso gera AVISO")
+    ap.add_argument("--cenas", default=os.path.join("src", "data", "cenas.json"),
+                    help="cenas.json (para conferir se carimbos e afastamentos de câmera têm impacto)")
     a = ap.parse_args()
 
     raiz = os.path.abspath(a.projeto)
@@ -112,20 +161,30 @@ def main():
             perfis[e["arquivo"]] = perfil(arq) if os.path.exists(arq) else None
         pf = perfis[e["arquivo"]]
         t = ms(e["em"]) / 1000
-        rel = float(e.get("rel_db", -21))
+        cat = e.get("categoria", "comum")
+        if cat not in ("comum", "impacto"):
+            erros.append(f"{t:6.2f}s categoria '{cat}' inválida (use comum ou impacto)")
+            cat = "comum"
+        rel = float(e.get("rel_db", -14 if cat == "impacto" else -21))
         st = float(e.get("semitons", 0))
         desc = e.get("evento", "")
         if pf is None:
             erros.append(f"{t:6.2f}s arquivo ausente ou ilegível: {arq}")
             continue
-        if not -26 <= rel <= -16:
-            erros.append(f"{t:6.2f}s rel_db {rel} fora de -26..-16 ({desc})")
+        if cat == "comum" and not -26 <= rel <= -16:
+            erros.append(f"{t:6.2f}s rel_db {rel} fora de -26..-16 para efeito comum ({desc}). "
+                         f"Se for um momento-chave, use categoria impacto.")
+        if cat == "impacto":
+            if not -20 <= rel <= -10:
+                erros.append(f"{t:6.2f}s impacto com rel_db {rel} fora de -20..-10 ({desc})")
+            elif not -16 <= rel <= -12:
+                avisos.append(f"{t:6.2f}s impacto com rel_db {rel}: alvo -12 a -16 ({desc})")
         if abs(st) > 3:
             erros.append(f"{t:6.2f}s pitch {st} st fora de -3..+3 ({desc})")
         for r0, r1 in respiros:
             if r0 <= t <= r1:
                 erros.append(f"{t:6.2f}s cai no respiro {r0:.2f}-{r1:.2f}s ({desc})")
-        eventos.append({"t": round(t, 3), "arquivo": arq.replace(os.sep, "/"), "nome": e["arquivo"], "rel_voz_db": rel,
+        eventos.append({"t": round(t, 3), "arquivo": arq.replace(os.sep, "/"), "nome": e["arquivo"], "categoria": cat, "rel_voz_db": rel,
                         "pico_alvo_dbfs": round(ref_voz + rel, 2), "pico_arquivo_dbfs": round(pf["pico_dbfs"], 2),
                         "pico_interno_s": pf["pico_interno_s"], "semitons": st, "evento": desc})
 
@@ -147,13 +206,26 @@ def main():
             if n > 3:
                 avisos.append(f"{n} efeitos entre {x['t']:.2f}s e {x['t'] + 5:.2f}s (máx. recomendado 3)")
                 break
-        if len({x["rel_voz_db"] for x in eventos}) == 1:
+        imp = [x for x in eventos if x["categoria"] == "impacto"]
+        for x, y in zip(imp, imp[1:]):
+            if y["t"] - x["t"] < a.min_gap_impacto:
+                avisos.append(f"impactos a {y['t'] - x['t']:.2f}s ({x['t']:.2f}s e {y['t']:.2f}s; mínimo recomendado "
+                              f"{a.min_gap_impacto:g}s): impacto perde força se repetir. Rebaixe um para comum.")
+        if len(eventos) >= 6 and len(imp) > len(eventos) / 3:
+            avisos.append(f"{len(imp)} de {len(eventos)} efeitos são impacto: reserve para carimbo, revelação, número-chave e CTA.")
+        if len({x["rel_voz_db"] for x in eventos if x["categoria"] == "comum"}) == 1 and len(eventos) - len(imp) > 1:
             avisos.append("todos os efeitos com o mesmo ganho: varie 1-3 dB")
         if len(eventos) > 4 and len({x["semitons"] for x in eventos}) == 1:
             avisos.append("todos os efeitos com o mesmo pitch: varie -1/0/+1 semitom")
 
+    # momentos-chave do cenas.json (carimbos e afastamentos de câmera) sem impacto por perto
+    for t_chave, o_que in momentos_chave(p(a.cenas), ms):
+        if not any(x["categoria"] == "impacto" and abs(x["t"] - t_chave) <= 0.25 for x in eventos):
+            avisos.append(f"{t_chave:6.2f}s {o_que} sem efeito de impacto (categoria impacto a até 250 ms)")
+
     for e in eventos:
-        print(f"{e['t']:7.2f}s {e['nome']:24} {e['rel_voz_db']:+5.1f} dB {e['semitons']:+.0f}st  {e['evento']}")
+        marca = "IMPACTO" if e["categoria"] == "impacto" else "       "
+        print(f"{e['t']:7.2f}s {marca} {e['nome']:24} {e['rel_voz_db']:+5.1f} dB {e['semitons']:+.0f}st  {e['evento']}")
     if len(eventos) > 1:
         print(f"\n{len(eventos)} efeitos, 1 a cada {(eventos[-1]['t'] - eventos[0]['t']) / (len(eventos) - 1):.2f}s em média. "
               f"Pico de referência da voz: {ref_voz:.1f} dBFS{' (padrão, voz não encontrada)' if voz_pico is None else ''}")

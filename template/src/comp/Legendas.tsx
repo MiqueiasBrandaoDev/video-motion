@@ -2,11 +2,106 @@ import React, {useMemo} from 'react';
 import {createTikTokStyleCaptions, type Caption} from '@remotion/captions';
 import {AbsoluteFill, interpolate, spring, useCurrentFrame, useVideoConfig} from 'remotion';
 import legendasJson from '../data/legendas.json';
-import {cor, fonte, H, px, SEGURO_BASE, VARIANTE} from '../theme';
+import {alfa, BASE_LEGENDA, cor, fonte, H, papel, px, SEGURO_BASE, VARIANTE, W, ZONA_LEGENDA} from '../theme';
 
 const legendas = legendasJson as Caption[];
 
+/** Página de legenda ativa no instante `ms` (ou null). */
+const usePagina = () => {
+	const frame = useCurrentFrame();
+	const {fps} = useVideoConfig();
+	const ms = (frame / fps) * 1000;
+	const {pages} = useMemo(() => createTikTokStyleCaptions({captions: legendas, combineTokensWithinMilliseconds: 100000}), []);
+	const idx = pages.findIndex((p, i) => {
+		const fim = i < pages.length - 1 ? pages[i + 1].startMs : p.startMs + 4000;
+		return ms >= p.startMs - 60 && ms < fim;
+	});
+	if (idx < 0) return null;
+	const pagina = pages[idx];
+	const ultimo = pagina.tokens[pagina.tokens.length - 1];
+	const fimPagina = idx < pages.length - 1 ? pages[idx + 1].startMs : ultimo.toMs + 1500;
+	const someEm = Math.min(fimPagina, ultimo.toMs + 900);
+	return {pagina, someEm, ms, frame, fps};
+};
+
 /**
+ * Legenda em caixa (estilo padrão): pequena (~3,5% da altura), frase inteira da página
+ * visível dentro de uma caixa escura com borda fina e um traço de gradiente do acento
+ * embaixo e à direita (sombra dura colorida). Palavras ainda não ditas em cinza, já ditas
+ * em branco e só a palavra ativa destacada no acento. Troca de página em corte seco.
+ * Ganha a cena: a legenda deixa o motion ser protagonista.
+ */
+export const LegendaCaixa: React.FC<{tam?: number}> = ({tam = px(58)}) => {
+	const pg = usePagina();
+	if (!pg) return null;
+	const {pagina, someEm, ms} = pg;
+	const escura = VARIANTE === 'escura';
+	const sai = interpolate(ms, [someEm - 80, someEm], [1, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+	const deslocamento = Math.max(6, Math.round(tam * 0.12));
+	const centroY = BASE_LEGENDA - ZONA_LEGENDA / 2;
+	return (
+		<AbsoluteFill style={{pointerEvents: 'none'}}>
+			<div style={{position: 'absolute', left: 0, width: W, top: centroY, display: 'flex', justifyContent: 'center', transform: 'translateY(-50%)', opacity: sai}}>
+				<div style={{position: 'relative', maxWidth: W - px(150)}}>
+					<div
+						style={{
+							position: 'absolute',
+							inset: 0,
+							transform: `translate(${deslocamento}px, ${deslocamento}px)`,
+							borderRadius: 6,
+							background: cor.gradAcento,
+							boxShadow: `0 0 18px ${alfa(cor.acento, 0.35)}`,
+						}}
+					/>
+					<div
+						style={{
+							position: 'relative',
+							padding: `${tam * 0.26}px ${tam * 0.62}px ${tam * 0.3}px`,
+							borderRadius: 6,
+							background: escura ? '#0B0C0E' : '#FFFFFF',
+							border: `1.5px solid ${escura ? 'rgba(255,255,255,.16)' : 'rgba(20,20,20,.14)'}`,
+							...papel.frase,
+							fontSize: tam,
+							lineHeight: 1.15,
+							letterSpacing: '-.02em',
+							textAlign: 'center',
+						}}
+					>
+						{pagina.tokens.map((t, i) => {
+							const ativo = ms >= t.fromMs - 40 && ms < (pagina.tokens[i + 1]?.fromMs ?? Infinity) - 40;
+							const jaFoi = ms >= t.fromMs - 40;
+							return (
+								<span
+									key={`${t.fromMs}-${i}`}
+									style={{
+										marginLeft: i > 0 ? '0.26em' : 0,
+										color: ativo
+											? escura
+												? cor.acentoClaro
+												: cor.acentoTexto
+											: jaFoi
+												? escura
+													? '#F5F4F2'
+													: cor.texto
+												: escura
+													? '#6E6E78'
+													: '#A3A19B',
+										textShadow: ativo && escura ? `0 0 16px ${alfa(cor.acento, 0.55)}` : undefined,
+									}}
+								>
+									{t.text.trim()}
+								</span>
+							);
+						})}
+					</div>
+				</div>
+			</div>
+		</AbsoluteFill>
+	);
+};
+
+/**
+ * Variante clássica (config.legenda_estilo = "grande").
  * Legenda palavra por palavra (2-4 palavras por página, quebras já marcadas com
  * pageBreakAfter por scripts/legendas.py). Palavra ativa na cor de acento com spring leve.
  * Fica acima da área segura de baixo da plataforma (SEGURO_BASE).

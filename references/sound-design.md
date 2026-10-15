@@ -39,8 +39,11 @@ python -I <skill>/scripts/mixar.py --musica public/musica/faixa.mp3 --offset 0.8
   --subida-em bloco:cta --subida-db 3
 ```
 
-- `--musica-lufs -27` (padrão): com o ducking, a música fica ~20 dB abaixo da voz durante
-  a fala e respira nas pausas. Voz baixa demais na mixagem? `-29`. Música sumindo? `-25`.
+- Estilo padrão: **trilha contínua, presente nas pausas**, ~10-12 dB abaixo da voz durante
+  a fala com ducking. Ponto de partida: `--musica-lufs -23`; ouça os trechos de fala e as
+  pausas no QA e ajuste de 1 em 1 dB (voz brigando com a música? `-24`/`-25`).
+- `--musica-lufs -27` (padrão do script): trilha discreta, ~20 dB abaixo da voz durante a
+  fala (variante clássica, ou nicho sóbrio). Música sumindo? `-25`.
 - Ducking: `sidechaincompress=threshold=0.05:ratio=3:attack=15:release=350` com a voz como chave.
 - Fade-in 1 s, fade-out 1,5 s; subida de +3 dB a partir do CTA (0,3 s antes).
 - `--offset`: escolha o segundo da faixa em que o vídeo começa para que uma batida forte
@@ -65,28 +68,43 @@ python -I <skill>/scripts/analisa_musica.py --sfx "public/sfx/*.ogg"
 Centróides parecidos e ataques curtos = família coerente. Tenha 2 variações para os sons
 que se repetem (whoosh-a/whoosh-b, pop-a/pop-b) para alternar.
 
-| Momento | Som típico |
-|---|---|
-| troca de bloco (wipe) | whoosh de ar curto |
-| entrada de print/janela | swoosh suave |
-| contorno/destaque em região | glass/ping discreto |
-| clique do cursor | click |
-| punch-in de número | impacto macio (maximize/punch) |
-| fim de contador | blip único (não um tick por número) |
-| grupo de badges/pills | UM pop para o grupo |
-| CTA | chime/confirmação |
+| Momento | Som típico | Camada |
+|---|---|---|
+| troca de bloco (wipe, corte seco de cena) | whoosh de ar curto | comum |
+| entrada de print/janela/TelaViva | swoosh suave | comum |
+| contorno/destaque em região, toggle, status que muda | glass/ping discreto | comum |
+| clique do cursor | click | comum |
+| fim de contador | blip único (não um tick por número) | comum |
+| grupo de badges/pills, rajada inteira | UM pop para o grupo | comum |
+| **carimbo** (com flash e tremor) | impacto seco com corpo grave (stamp, punch, hit) | **impacto** |
+| **câmera se afasta e revela** (bento, grid, sistema inteiro) | impacto grave + ar (boom curto, riser que corta) | **impacto** |
+| **número-chave** (o número que é a tese do vídeo) | impacto macio com grave | **impacto** |
+| **CTA** (carimbo final, chamada) | impacto ou chime encorpado | **impacto** |
 
-## Regras de densidade (lição real)
+## Duas camadas e densidade (lição real)
 
-O primeiro corte de um vídeo real tinha efeito em quase tudo e o resultado cansou. As regras:
+O primeiro corte de um vídeo real tinha efeito em quase tudo e o resultado cansou. As
+referências analisadas em out/2026 mostraram o outro lado: poucos momentos-chave com som
+forte dão peso que nenhuma quantidade de whoosh dá. O padrão junta os dois:
 
-- ~1 efeito a cada 2-3 s em média; 25-35 num vídeo de 80-90 s.
-- Só nas viradas: troca de bloco, entrada de print, destaque, clique, punch-in de número, CTA.
-- Nada em legenda, saída de elemento, cada badge, cada linha de terminal.
-- Mínimo 400 ms entre dois efeitos; no máximo 3 em qualquer janela de 5 s.
+**Camada 1, base (comum).** Continua igual:
+- ~1 efeito a cada 2-3 s em média (contando as duas camadas); 25-35 num vídeo de 80-90 s.
+- Só nas viradas: troca de bloco, entrada de janela/print, destaque, clique, CTA.
+- Pico 18-24 dB abaixo do pico da voz (`rel_db` -18 a -24).
+
+**Camada 2, impactos fortes (`"categoria": "impacto"`).**
+- Só nos momentos-chave: carimbo com flash, revelação/afastamento de câmera, número-chave, CTA.
+- Mais altos: pico 12-16 dB abaixo da voz (`rel_db` -12 a -16).
+- Poucos: ~4 s ou mais entre dois impactos (`--min-gap-impacto`, padrão 4) e no máximo
+  ~1/3 dos efeitos do vídeo. Impacto repetido vira ruído e perde a força.
+- O impacto cai no MESMO `em` do carimbo/da câmera; o `gerar_sfx.py` avisa quando um
+  carimbo ou afastamento de câmera do `cenas.json` fica sem impacto (até 250 ms).
+
+**Valem para as duas camadas:**
+- Nada em legenda, saída de elemento, cada badge, cada linha de terminal, cada plano de rajada.
+- Mínimo 400 ms entre dois efeitos (`--min-gap`, padrão 0,4); no máximo 3 em qualquer janela de 5 s.
 - Nunca o mesmo arquivo duas vezes seguidas.
 - Respiros: frases de peso (dor, revelação, "zero comandos") só com voz + música.
-- Pico de cada efeito 18-24 dB abaixo do pico da voz (`rel_db` -18 a -24).
 - Variação leve: pitch -2..+2 semitons, ganho +-1-3 dB entre ocorrências.
 
 ## Plano (`src/data/sfx.json`)
@@ -97,17 +115,23 @@ O primeiro corte de um vídeo real tinha efeito em quase tudo e o resultado cans
   "respiros": [["dor", "dor+4000"], ["naoDigitei-200", "comando+600"]],
   "eventos": [
     {"em": "bloco:dor-150", "arquivo": "whoosh-a.ogg", "rel_db": -20, "semitons": 0, "evento": "troca de bloco: gancho -> dor"},
-    {"em": "custo+60", "arquivo": "glass-a.ogg", "rel_db": -23, "semitons": 0, "evento": "contorno no card de custo"}
+    {"em": "ninguem", "arquivo": "impacto-a.ogg", "categoria": "impacto", "rel_db": -14, "semitons": 0, "evento": "carimbo + flash"},
+    {"em": "custo+60", "arquivo": "glass-a.ogg", "rel_db": -23, "semitons": 0, "evento": "contorno no card de custo"},
+    {"em": "sistema", "arquivo": "impacto-b.ogg", "categoria": "impacto", "rel_db": -13, "semitons": -1, "evento": "câmera se afasta e revela"}
   ]
 }
 ```
+
+Sem `categoria`, o evento é `comum`. O kit precisa de 2 sons de impacto da mesma família
+(impacto-a/impacto-b) para alternar.
 
 `em` é o instante do **pico** do efeito, igual ao instante da animação que ele acompanha
 (para whoosh de wipe: ~150 ms antes do início do bloco). O `gerar_sfx.py` mede o pico
 interno de cada arquivo e o `mixar.py` posiciona para o pico cair no tempo certo.
 
 ```bash
-python -I <skill>/scripts/gerar_sfx.py          # ERRO bloqueia, AVISO orienta
+python -I <skill>/scripts/gerar_sfx.py                       # ERRO bloqueia, AVISO orienta
+python -I <skill>/scripts/gerar_sfx.py --min-gap-impacto 3   # vídeo curto com 2 viradas fortes
 ```
 
 Depois do render, ouça os trechos com mais efeitos e confira no QA se nenhum some sob

@@ -26,7 +26,7 @@ Precisão: ~0,2 s (ignora os 6 frames de sobreposição e a antecipação da ent
 
 Uso:
   python -I scripts/cenas_check.py [--projeto .] [--cenas src/data/cenas.json]
-         [--limite 2.5] [--orador filmagem,orador,video]
+         [--limite 2.5] [--orador filmagem,orador,video,recorte]
 Sai com código 1 se houver ERRO.
 """
 import argparse
@@ -35,8 +35,8 @@ import os
 import re
 import sys
 
-CHAVES_TEMPO = {"em", "risco", "ate", "escreveEm", "desde"}
-IGNORAR = {"id", "tipo", "inicio", "wipe", "rotulo", "chaves", "_como_usar"}
+CHAVES_TEMPO = {"em", "risco", "ate", "escreveEm", "desde", "ateEm", "explodeEm", "juntaEm", "planaEm", "rotuloEm"}
+IGNORAR = {"id", "tipo", "inicio", "wipe", "rotulo", "chaves", "_como_usar", "cameraInicial"}
 
 
 def carregar(caminho, padrao):
@@ -86,7 +86,7 @@ def main():
     ap.add_argument("--projeto", default=".")
     ap.add_argument("--cenas", default=os.path.join("src", "data", "cenas.json"))
     ap.add_argument("--limite", type=float, default=2.5, help="máximo de texto parado (s)")
-    ap.add_argument("--orador", default="filmagem,orador,video", help="tipos de cena que mostram o orador")
+    ap.add_argument("--orador", default="filmagem,orador,video,recorte", help="tipos de cena que mostram o orador")
     a = ap.parse_args()
 
     raiz = os.path.abspath(a.projeto)
