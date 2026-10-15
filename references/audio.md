@@ -119,6 +119,12 @@ python -I <skill>/scripts/legendas.py --palavras work/voz_final.json --marcos-sp
  "fimLink": {"palavra": "link", "borda": "fim"}}
 ```
 
+Porcentagem: o `text` do Whisper traz "30%", mas a lista de palavras vem só com "30" (o "%"
+some). Recoloque com `trocas` (`{"30": "30%"}`) ou, quando o mesmo número aparece com e sem
+"por cento", com `sequencias` presas à palavra anterior (`["gera", "50"] -> ["gera", "50%"]`).
+Nome próprio que o Whisper ouve como palavra comum vai em
+`--vocab` e, se ainda errar, em `trocas`/`sequencias`.
+
 `correcoes.json` só corrige grafia ou erro evidente do Whisper (marca escrita errada,
 número quebrado em palavras). Na dúvida, ouça o trecho isolado antes de corrigir.
 

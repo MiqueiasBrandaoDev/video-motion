@@ -76,6 +76,17 @@ python -I <skill>/scripts/mixar.py --musica public/musica/faixa.mp3 --offset 0.8
 **Fontes.** Kenney (Interface Sounds, UI Audio: CC0, sem atribuição), Mixkit Sound Effects
 (Free License), Freesound filtrando por CC0 (conferir a licença de cada arquivo).
 
+**Impacto grave sem fonte externa.** Os pacotes CC0 de interface (Kenney) não têm o "boom"
+curto de sub que o talking head pede. Gere com ffmpeg (obra própria, sem licença de terceiro;
+registre a receita no `LICENCA.md`): seno que cai de ~110 para ~38 Hz + transiente de ruído.
+
+```bash
+ffmpeg -f lavfi -i "aevalsrc='0.9*exp(-t/0.35)*(1-exp(-t/0.003))*sin(2*PI*(38*t+(110-38)*0.08*(1-exp(-t/0.08))))+0.35*exp(-t/0.012)*(random(0)*2-1)':s=48000:d=1.3"   -af "lowpass=f=3500,afade=t=out:st=1.0:d=0.3,alimiter=limit=0.89" -ac 2 public/sfx/impacto-a.wav
+# impacto-b: troque 110/38 por 95/34, 0.35 por 0.42 e random(0) por random(1)
+```
+
+Medido: centróide 81-91 Hz, ataque 7-8 ms, pico interno 0,03-0,04 s.
+
 **Kit coerente.** Uma família de timbre: por exemplo, interface macia (drop, glass,
 select, toggle) + um whoosh de ar curto para troca de bloco. Nada de cartoon, 8-bit ou
 "cash register" num vídeo sério. Meça o kit:
