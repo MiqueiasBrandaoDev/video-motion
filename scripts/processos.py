@@ -11,6 +11,9 @@ e os apps do usuário. Este script:
 Use --listar antes de abrir o studio/render e depois de terminar: encerre apenas os
 PIDs novos, que são os seus.
 
+Lista pelo psutil quando ele existe (sem WMI); senão, no Windows, pelo Get-CimInstance com
+limite de 90 s. psutil instalado só no site do usuário: rode com python -E -P.
+
 Uso:
   python -I scripts/processos.py --listar
   python -I scripts/processos.py --encerrar 12345 12388
@@ -30,10 +33,28 @@ NAVEGADORES = ["chrome", "chromium", "msedge", "headless_shell"]
 
 
 def processos():
+    try:  # psutil não passa pelo WMI (no Windows o Get-CimInstance trava junto com o serviço WMI)
+        import psutil
+        out = []
+        for p in psutil.process_iter(["pid", "name", "cmdline", "memory_info"]):
+            try:
+                cmd = " ".join(p.info["cmdline"] or []) or (p.info["name"] or "")
+                mem = p.info["memory_info"].rss if p.info["memory_info"] else 0
+                out.append((p.info["pid"], p.info["name"] or "", cmd, mem))
+            except (psutil.Error, OSError):
+                continue
+        return out
+    except ImportError:
+        pass
     if os.name == "nt":
         ps = ("Get-CimInstance Win32_Process | Select-Object ProcessId,Name,CommandLine,WorkingSetSize | "
               "ConvertTo-Json -Compress")
-        r = subprocess.run(["powershell", "-NoProfile", "-Command", ps], capture_output=True, text=True, encoding="utf-8", errors="ignore")
+        try:
+            r = subprocess.run(["powershell", "-NoProfile", "-Command", ps], capture_output=True, text=True, encoding="utf-8",
+                               errors="ignore", timeout=90)
+        except subprocess.TimeoutExpired:
+            sys.exit("a consulta ao WMI (Get-CimInstance) passou de 90 s: o serviço WMI está travado. Instale o psutil "
+                     "(pip install psutil) e rode com python -E -P, que lista sem passar pelo WMI.")
         dados = json.loads(r.stdout or "[]")
         if isinstance(dados, dict):
             dados = [dados]
