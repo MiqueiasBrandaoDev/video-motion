@@ -11,6 +11,7 @@ import {DueloCena, LetterboxCena, OradorCena} from './cenas/Orador';
 import {CtaCena, Pills, TerminalCena} from './cenas/Outras';
 import {PrintCena} from './cenas/PrintCena';
 import {REGISTRO} from './cenas/registro';
+import {TeaserCena, VoltaCena} from './cenas/Teaser';
 import {Titulo} from './cenas/Titulo';
 import {TIPOS_KIT, type CenaDef} from './cenas/tipos';
 import cenasJson from './data/cenas.json';
@@ -36,6 +37,9 @@ Object.assign(REGISTRO, {
 	orador: OradorCena,
 	duelo: DueloCena,
 	letterbox: LetterboxCena,
+	// teaser (cold open) e volta ao começo
+	teaser: TeaserCena,
+	volta: VoltaCena,
 	// clássicas (variante anterior)
 	titulo: Titulo,
 	numeros: Numeros,
@@ -51,7 +55,7 @@ const SOBREPOE = 6; // frames de sobreposição entre cenas na transição "suav
 const suave = (c: CenaDef) => (c.transicao ? c.transicao === 'suave' : !TIPOS_KIT.has(c.tipo));
 
 /** Posição padrão da legenda fantasma por tipo de cena. */
-const POS_PADRAO: Record<string, PosLegenda> = {orador: 'rosto', recorte: 'rosto', duelo: 0.84, letterbox: 0.64};
+const POS_PADRAO: Record<string, PosLegenda> = {orador: 'rosto', recorte: 'rosto', duelo: 0.84, letterbox: 0.64, teaser: 'rosto', volta: 'oculta'};
 
 /** Posição da legenda no frame (cena ativa; card do orador ativo vira "esquerda"; `legenda` da cena sobrescreve). */
 const posLegenda = (c: CenaDef | undefined, frame: number): PosLegenda => {

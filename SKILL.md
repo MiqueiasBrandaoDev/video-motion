@@ -85,6 +85,13 @@ Sem vídeo do orador (só áudio, ideia ou produto), a pergunta não se aplica.
 Fonte 16:9: o rosto é reenquadrado para 9:16 (`config.orador.enquadramento`: `x`, `zoom`,
 `foco`, `desce` para abrir espaço acima da cabeça) ou vai inteiro na cena `letterbox`/`duelo`.
 
+**Corte de podcast: teaser (cold open) por padrão.** Quando a frase de impacto está no meio do
+trecho, ela abre o vídeo de relance (3-5 s, preto e branco, voz de megafone), a fita rebobina
+(cena `volta`, som de `som_volta.py`) e o corte começa colorido; a frase reaparece no contexto
+(payoff). Campo `teaser` do `cortes.json` + cenas `teaser`/`volta`. Estrutura, regras e links:
+[references/roteiros-e-ganchos.md](references/roteiros-e-ganchos.md) (seção 3.E); exemplo em
+`references/teaser.example.json`.
+
 ### 1. Entender o conteúdo
 
 **1A. Áudio/vídeo.** Transcreva com tempo por palavra e liste os trechos:
@@ -212,6 +219,8 @@ sobreposições no marco da fala: `titulo` (linha larga + linha condensada, atr�
 `pill` (CTA) e `final`. Mais as cenas `duelo` (dois resultados empilhados com placar) e
 `letterbox` (título fixo + vídeo 16:9), e a `telaViva` com `perspectiva` (rotateY 28° -> 0
 em 18 frames) e blocos `video`, `chat` e `colunas` para o painel de "editor/assistente".
+Corte de podcast com teaser: cenas `teaser` (P&B, grão, tremor, chip "daqui a pouco") e
+`volta` (VHS rebobinando do payoff até o começo, OSD "REW" e contador), antes do corpo.
 Legenda fantasma (`legenda_estilo: "fantasma"`) no talking head; legenda em caixa no motion puro.
 
 O template já traz o estilo padrão: cenas `frase`, `telaViva` (lista, checklist,
@@ -351,7 +360,9 @@ inteira daquela linha (marcos mudam de tempo). Rode `npx tsc --noEmit` e stills
 | `transcrever.py` | áudio/vídeo -> JSON com tempo por palavra (OpenAI ou local) |
 | `trechos.py` | lista trechos com pistas de instrução/repetição/pausa |
 | `cortar.py` | cortes.json -> voz editada + blocos.json |
-| `cortar_video.py` | cortes.json -> vídeo com rosto + voz cortados juntos (trim/atrim + concat, setpts+atempo), confere a sincronia |
+| `cortar_video.py` | cortes.json -> vídeo com rosto + voz cortados juntos (trim/atrim + concat, setpts+atempo), confere a sincronia; com `teaser`, põe a frase de impacto no começo com voz de megafone |
+| `som_volta.py` | som da fita rebobinando (transição do teaser), gerado da própria voz |
+| `espectro.py` | energia por faixa, centroide e crista de um trecho (confere a voz do teaser) |
 | `legendas.py` | transcrição da voz final -> legendas.json + marcos.json |
 | `tts.py` | roteiro -> voz sintética (OpenAI) |
 | `borrar.py` | borra/pixeliza/tampa regiões sensíveis de prints |

@@ -19,6 +19,36 @@ Talking head que é demonstração longa, duelo ou troca de persona pode ganhar 
 Exemplo de plano do perfil orador: `template/src/data/sfx-orador.example.json` (6 efeitos em
 16 s: 3 impactos nos títulos/número, 3 comuns discretos).
 
+## Voz do teaser e som da volta
+
+Teaser (cold open, `roteiros-e-ganchos.md` 3.E): a fala do trecho vai com **voz de megafone**,
+aplicada pelo `cortar_video.py` só no teaser (`"filtro": "megafone"`; `"radio"` ou uma cadeia
+ffmpeg própria também valem). Cadeia `megafone`: passa-altas 700 Hz (6 polos), passa-baixas
+3,5 kHz (4 polos), ressonâncias da corneta (+7 dB em 1,7 kHz, +4 dB em 2,6 kHz), compressor
+10:1, overdrive tanh com oversample 4x, duas reflexões de metal (6 e 11 ms), segundo
+compressor + limitador e nova limitação de faixa (620 Hz-3,7 kHz), porque o clipe gera
+harmônicos fora da faixa. O teaser é normalizado à parte (-14 LUFS + `ganho_db`, padrão -1).
+
+Conferência pelos números (`espectro.py public/voz.wav --blocos src/data/blocos.json`):
+
+| Medida | Voz limpa (TSA Cast) | Megafone (alvo) | Medido |
+|---|---|---|---|
+| energia em 600-3400 Hz | 15-40% | >= 90% | 97% |
+| energia abaixo de 300 Hz | 20-25% | <= 1,5% | 0% |
+| centroide espectral | 0,9-1,25 kHz | 1,3-2,2 kHz | ~1,5 kHz |
+| banda com 90% da energia (5-95%) | ~150-4900 Hz | ~600-3500 Hz | ~700-2900 Hz |
+| fator de crista | ~15 dB | menor que o da voz limpa | ~14 dB |
+
+Referência da faixa: telefonia de banda estreita 300-3400 Hz (ITU-T G.712) e corneta de
+megafone, que corta ainda mais o grave (~500-700 Hz) e ressoa em 1-3 kHz.
+
+Som da volta (`som_volta.py`, sem amostra de terceiros): a própria voz do corpo lida de trás
+para frente do payoff até o começo, com a velocidade subindo de 3x para 12x (o pitch sobe: é
+isso que faz o ouvido ler "rebobinando") e freando nos últimos ~12%; motor de fita (55 Hz x
+velocidade, com harmônicos) e ruído de fita seguindo a velocidade; clunk de play (78 Hz com
+decaimento de 45 ms + clique) 25 ms antes do corpo. No `sfx.json`: `"categoria": "transicao"`
+(pico -16..-4 dB da voz, alvo -8 a -12), `"alinhar": "inicio"`.
+
 ## Trilha
 
 **Escolha.** Sem vocal (vocal briga com a voz e com a legenda). BPM que combine com o

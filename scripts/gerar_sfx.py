@@ -26,6 +26,10 @@ Regras de densidade (lição de vídeo real: excesso de efeito cansa e soa amado
     - carimbo ou afastamento de câmera do cenas.json sem efeito de impacto a até 250 ms
     - todos os ganhos iguais ou todos os pitches iguais (falta variação leve)
 
+Terceira categoria, "transicao": o som da volta do teaser (scripts/som_volta.py), que cobre um
+silêncio da voz; pico -16..-4 dB relativo à voz (alvo -8 a -12). Com "alinhar": "inicio" o
+arquivo começa no tempo do evento (padrão: o pico interno cai no tempo).
+
 Perfil (campo "perfil" do sfx.json):
   motion  (padrão) motion puro com trilha: base de ~1 efeito a cada 2-3 s nas viradas + impactos
   orador  talking head SEM trilha (anúncios analisados em out/2026): só ~1-2,5 impactos graves a
@@ -172,10 +176,10 @@ def main():
         pf = perfis[e["arquivo"]]
         t = ms(e["em"]) / 1000
         cat = e.get("categoria", "comum")
-        if cat not in ("comum", "impacto"):
-            erros.append(f"{t:6.2f}s categoria '{cat}' inválida (use comum ou impacto)")
+        if cat not in ("comum", "impacto", "transicao"):
+            erros.append(f"{t:6.2f}s categoria '{cat}' inválida (use comum, impacto ou transicao)")
             cat = "comum"
-        rel = float(e.get("rel_db", -14 if cat == "impacto" else -21))
+        rel = float(e.get("rel_db", -14 if cat == "impacto" else -9 if cat == "transicao" else -21))
         st = float(e.get("semitons", 0))
         desc = e.get("evento", "")
         if pf is None:
@@ -189,6 +193,8 @@ def main():
                 erros.append(f"{t:6.2f}s impacto com rel_db {rel} fora de -20..-10 ({desc})")
             elif not -16 <= rel <= -12:
                 avisos.append(f"{t:6.2f}s impacto com rel_db {rel}: alvo -12 a -16 ({desc})")
+        if cat == "transicao" and not -16 <= rel <= -4:
+            erros.append(f"{t:6.2f}s transição com rel_db {rel} fora de -16..-4 ({desc}); alvo -8 a -12 (cobre um silêncio da voz)")
         if abs(st) > 3:
             erros.append(f"{t:6.2f}s pitch {st} st fora de -3..+3 ({desc})")
         for r0, r1 in respiros:
@@ -196,7 +202,7 @@ def main():
                 erros.append(f"{t:6.2f}s cai no respiro {r0:.2f}-{r1:.2f}s ({desc})")
         eventos.append({"t": round(t, 3), "arquivo": arq.replace(os.sep, "/"), "nome": e["arquivo"], "categoria": cat, "rel_voz_db": rel,
                         "pico_alvo_dbfs": round(ref_voz + rel, 2), "pico_arquivo_dbfs": round(pf["pico_dbfs"], 2),
-                        "pico_interno_s": pf["pico_interno_s"], "semitons": st, "evento": desc})
+                        "pico_interno_s": 0.0 if e.get("alinhar") == "inicio" else pf["pico_interno_s"], "semitons": st, "evento": desc})
 
     eventos.sort(key=lambda x: x["t"])
     for x, y in zip(eventos, eventos[1:]):
@@ -236,7 +242,7 @@ def main():
             avisos.append(f"{t_chave:6.2f}s {o_que} sem efeito de impacto (categoria impacto a até 250 ms)")
 
     for e in eventos:
-        marca = "IMPACTO" if e["categoria"] == "impacto" else "       "
+        marca = {"impacto": "IMPACTO", "transicao": "VOLTA  "}.get(e["categoria"], "       ")
         print(f"{e['t']:7.2f}s {marca} {e['nome']:24} {e['rel_voz_db']:+5.1f} dB {e['semitons']:+.0f}st  {e['evento']}")
     if len(eventos) > 1:
         print(f"\nperfil {'orador (sem trilha)' if orador else 'motion'} · {len(eventos)} efeitos, 1 a cada {(eventos[-1]['t'] - eventos[0]['t']) / (len(eventos) - 1):.2f}s em média. "

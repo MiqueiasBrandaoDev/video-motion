@@ -451,6 +451,20 @@ padrão do motion puro.
 - Painel de editor/assistente: cena `telaViva` com `tela.perspectiva` e blocos `colunas` ->
   `video` + `chat`, mais `timeline`. A janela gira de 28° para 0 em 18 frames.
 
+### Teaser e volta (cold open / flash-forward)
+
+Estrutura e regras: `roteiros-e-ganchos.md`, seção 3.E. Exemplo: `references/teaser.example.json`.
+O `cortar_video.py` monta `orador.mp4` e `voz.wav` como `[teaser][volta][corpo]` e grava os blocos
+`teaser`, `volta`, `payoff` (onde a frase do teaser reaparece no corpo).
+
+| Cena | Campos | Comportamento |
+|---|---|---|
+| `teaser` | `rotulo`, `grao` (0,35), `tremor` (0), `vinheta` (0,6), `pb` (1), `aproxima` (0,05), `punch`, `video`, `de`, `enquadramento` | orador em P&B com contraste +18%, grão de filme animado (feTurbulence, semente por frame), tremor de câmera na mão (muda a cada 2 frames, ~3 px com `tremor: 1`), zoom lento, chip "▶▶ rótulo" no topo piscando a cada 0,5 s. Legenda fantasma na posição `rosto` |
+| `volta` | `de` ("bloco:payoff"), `ate` (fim da cena), `rotulo` ("REW"), `forca` (1), `pbInicial` (1), `enquadramento` | rebobina o `orador.mp4` do payoff até o 1º quadro do corpo com easing in-out cúbico (cada frame mostra `trimBefore = fonte - frame`); defeitos VHS com intensidade em sino (pico no meio): deslocamento e skew por frame, aberração cromática (filtro SVG, 3-12 px), scanlines, 2 faixas de tracking, grão; OSD "◀◀ REW" e contador regressivo mm:ss; P&B 1 -> 0,8 -> 0 (cor volta em 92%); flash branco de 0,5 nos 3 últimos frames. Legenda oculta |
+
+Efeitos reaproveitáveis em `comp/Fita.tsx`: `Grao`, `Vinheta`, `Scanlines`, `Tracking`,
+`FiltroRGB`, `Triangulos` (ícone de rebobinar/avançar desenhado em SVG), `OSD`, `tremor()`.
+
 ## 13. Técnica avançada (não implementada): HUD de visão computacional
 
 Visto em anúncios analisados em out/2026: caixas de detecção com rótulo e confiança, mapa de

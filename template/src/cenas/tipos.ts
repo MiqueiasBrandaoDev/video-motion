@@ -128,6 +128,43 @@ export type CenaLetterbox = BaseKit & {
 	sobre?: ItemSobre[];
 };
 
+/**
+ * teaser (cold open): o trecho do payoff no começo, em P&B, com grão, vinheta e tremor opcionais.
+ * O trecho vem do campo "teaser" do cortes.json (cortar_video.py põe a frase no começo do orador.mp4).
+ * rotulo (campo comum): chip pequeno no topo, ex. "daqui a pouco".
+ */
+export type CenaTeaser = BaseKit & {
+	tipo: 'teaser';
+	video?: string;
+	de?: number;
+	enquadramento?: Enquadramento;
+	/** nível de P&B 0-1 (padrão 1) */
+	pb?: number;
+	/** grão de filme 0-1 (padrão 0,35; 0 tira) */
+	grao?: number;
+	/** tremor de câmera na mão (0 = parado, padrão; 1 = leve, ~3 px) */
+	tremor?: number;
+	/** vinheta 0-1 (padrão 0,6) */
+	vinheta?: number;
+	/** aproximação lenta ao longo da cena (padrão 0,05 = +5%) */
+	aproxima?: number;
+	punch?: PunchIn[];
+};
+/**
+ * volta: transição "volta ao começo" (fita VHS rebobinando) entre o teaser e o corpo.
+ * de: de onde rebobina (padrão "bloco:payoff"); ate: até onde (padrão: o fim da cena = início do corpo).
+ * rotulo: texto do OSD (padrão "REW"). forca: intensidade dos defeitos 0-1,5 (padrão 1).
+ */
+export type CenaVolta = BaseKit & {
+	tipo: 'volta';
+	video?: string;
+	de?: Ref;
+	ate?: Ref;
+	enquadramento?: Enquadramento;
+	forca?: number;
+	pbInicial?: number;
+};
+
 /** Plano da rajada: qualquer cena (sem id/inicio) com `em` opcional. */
 export type PlanoRajada = {tipo: string; em?: Ref; [campo: string]: unknown};
 export type CenaRajada = BaseKit & {tipo: 'rajada'; passo_ms?: number; planos: PlanoRajada[]};
@@ -149,10 +186,12 @@ export type CenaDef =
 	| CenaOrador
 	| CenaDuelo
 	| CenaLetterbox
+	| CenaTeaser
+	| CenaVolta
 	| CenaRajada;
 
 /** Tipos do estilo padrão: transição em corte seco (as próprias cenas animam a entrada). */
-export const TIPOS_KIT = new Set(['frase', 'telaViva', 'camadas', 'bento', 'letreiro', 'linha', 'recorte', 'orador', 'duelo', 'letterbox', 'rajada']);
+export const TIPOS_KIT = new Set(['frase', 'telaViva', 'camadas', 'bento', 'letreiro', 'linha', 'recorte', 'orador', 'duelo', 'letterbox', 'rajada', 'teaser', 'volta']);
 
 /** Props que toda cena recebe: a definição e o frame absoluto em que o Sequence começa. */
 export type PropsCena<T extends CenaDef = CenaDef> = {def: T; ini: number; dur: number};

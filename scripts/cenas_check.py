@@ -90,7 +90,7 @@ def main():
     ap.add_argument("--projeto", default=".")
     ap.add_argument("--cenas", default=os.path.join("src", "data", "cenas.json"))
     ap.add_argument("--limite", type=float, default=2.5, help="máximo de texto parado (s)")
-    ap.add_argument("--orador", default="filmagem,orador,video,recorte,duelo,letterbox", help="tipos de cena que mostram o orador")
+    ap.add_argument("--orador", default="filmagem,orador,video,recorte,duelo,letterbox,teaser,volta", help="tipos de cena que mostram o orador")
     a = ap.parse_args()
 
     raiz = os.path.abspath(a.projeto)

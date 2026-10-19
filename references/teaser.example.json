@@ -1,0 +1,41 @@
+{
+ "_como_usar": "Exemplo completo do teaser (cold open / flash-forward) num corte de podcast talking head. Três pedaços: o campo 'teaser' do cortes.json (lido por scripts/cortar_video.py), as cenas 'teaser' e 'volta' do src/data/cenas.json e o evento do som da volta no src/data/sfx.json (arquivo gerado por scripts/som_volta.py). Estrutura e regras: references/roteiros-e-ganchos.md, seção 3.E. Tempos do cortes.json em segundos do ORIGINAL; a janela do teaser também está dentro de um 'manter' (é o payoff que reaparece no corpo).",
+ "cortes.json": {
+  "tempo": 1.3,
+  "teaser": {
+   "ini": 743.7,
+   "fim": 747.34,
+   "filtro": "megafone",
+   "volta_s": 0.8,
+   "ganho_db": -1,
+   "remover": [],
+   "_campos": "ini/fim: janela da frase de impacto (corte SECO em fim, sem respiro: marque o vale de energia antes da conclusão). filtro: megafone | radio | nenhum | cadeia ffmpeg própria. volta_s: duração da transição (silêncio na voz, vídeo congelado). ganho_db: nível do teaser em relação ao corpo (-14 LUFS + ganho). tempo (opcional): aceleração só do teaser (padrão: a do corpo). remover: tropeços dentro do teaser."
+  },
+  "manter": [
+   {"ini": 641.6, "fim": 655.0, "bloco": "heroi"},
+   {"ini": 725.75, "fim": 743.4, "bloco": "armadilha"},
+   {"ini": 743.7, "fim": 748.85, "bloco": "frase"}
+  ]
+ },
+ "blocos.json gerado": {
+  "blocos": {"teaser": 0, "volta": 3900, "heroi": 4700, "armadilha": 20000, "frase": 33000, "payoff": 33000},
+  "teaser": {"fim_ms": 3900, "volta_ms": 3900, "volta_fim_ms": 4700, "payoff_ms": 33000, "payoff_fim_ms": 35600}
+ },
+ "cenas.json": [
+  {"id": "teaser", "tipo": "teaser", "inicio": 0, "rotulo": "daqui a pouco", "grao": 0.4, "tremor": 1, "vinheta": 0.6, "aproxima": 0.05,
+   "_campos": "video, de, enquadramento (padrão: config.orador), pb 0-1 (padrão 1), grao 0-1 (0,35), tremor (0 = parado; 1 = leve), vinheta (0,6), aproxima (0,05 = zoom lento +5%), punch [{em, escala, ate}], rotulo (chip no topo)."},
+  {"id": "volta", "tipo": "volta", "inicio": "bloco:volta", "rotulo": "REW",
+   "_campos": "de (padrão 'bloco:payoff': de onde rebobina), ate (padrão: o fim da cena = 1º quadro do corpo), forca 0-1,5 (defeitos VHS, padrão 1), pbInicial (P&B no começo, padrão 1), rotulo (texto do OSD, padrão REW), enquadramento."},
+  {"id": "heroi", "tipo": "orador", "inicio": "bloco:heroi"},
+  {"id": "frase", "tipo": "orador", "inicio": "bloco:frase", "pb": [{"de": "bloco:payoff", "ate": "bloco:payoff+900"}],
+   "_campos": "no payoff, P&B rápido (0,5-1 s) para o espectador reconhecer o trecho do teaser; a conclusão entra colorida."}
+ ],
+ "sfx.json (evento)": {"em": "bloco:volta", "arquivo": "volta.wav", "categoria": "transicao", "alinhar": "inicio", "rel_db": -9, "evento": "fita rebobina até o começo"},
+ "comandos": [
+  "python -I <skill>/scripts/cortar_video.py --entrada gravacao.mp4",
+  "python -E -P <skill>/scripts/som_volta.py",
+  "python -E -P <skill>/scripts/espectro.py public/voz.wav --blocos src/data/blocos.json",
+  "python -I <skill>/scripts/transcrever.py public/voz.wav work/voz_final.json  (a voz de megafone transcreve bem; confira as palavras do teaser)",
+  "python -I <skill>/scripts/gerar_sfx.py && python -I <skill>/scripts/mixar.py"
+ ]
+}

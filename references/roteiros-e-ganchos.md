@@ -7,7 +7,7 @@ analisados em out/2026 (talking head com motion por cima, 24 a 60 s, 9:16). Fica
 ## Índice
 1. A regra do primeiro segundo
 2. Medidas de ritmo
-3. Estruturas (A a D) com proporções de tempo
+3. Estruturas (A a E) com proporções de tempo; E = teaser (cold open) para cortes de podcast
 4. Biblioteca de ganchos
 5. Do roteiro ao storyboard (talking head)
 6. Checklist do roteiro
@@ -97,6 +97,61 @@ Ciclos de ~5 s. Funciona com 3 a 6 objeções.
 Dois resultados lado a lado (vertical: um em cima do outro) com nome e placar. É gancho e
 prova ao mesmo tempo; nos analisados, a peça que mais circulou era um duelo. Cena `duelo`.
 
+### E. Teaser (cold open / flash-forward): padrão para corte de podcast
+
+A frase de impacto costuma estar no meio do trecho, e o começo do trecho é contexto morno.
+O teaser põe a frase de relance no começo e depois volta ao começo de verdade:
+
+| Bloco | Tempo | O que aparece | O que se ouve |
+|---|---|---|---|
+| teaser | 0 a 3-5 s | o trecho da frase em **preto e branco**, grão, vinheta, tremor leve opcional, chip pequeno "daqui a pouco", legenda | a fala com **voz de megafone** (passa-faixa 0,7-3,5 kHz, compressão, overdrive) |
+| volta | 0,6-1 s | **fita VHS rebobinando**: o vídeo corre de trás para frente do payoff até o começo, scanlines, faixas de tracking, aberração cromática, OSD "◀◀ REW" com contador regressivo; o P&B vira cor e um flash curto entrega o 1º quadro | motor de fita subindo de pitch + a própria voz ao contrário acelerando + clunk de play (`som_volta.py`) |
+| corpo | 35-55 s | o corte normal, colorido, voz limpa | voz limpa |
+| payoff | onde a frase cai na fala (~55-85% do corpo) | a frase volta **no contexto**; repita o visual do teaser por 0,5-1 s (P&B rápido) para o espectador reconhecer, e a conclusão entra colorida | voz limpa |
+
+**Gancho padrão de corte de podcast:** a primeira metade da frase de impacto, cortada seco
+antes da conclusão ("bons empreendedores morrem de estafa..." sem o "bons empresários morrem
+ricos"). O espectador fica com a pergunta; o corpo responde.
+
+**Regras:**
+1. Teaser de **3 a 5 s** (`cortar_video.py` avisa fora disso). Mais curto não registra;
+   mais longo vira o vídeo.
+2. A frase **precisa reaparecer** no corpo, dentro de um `manter` (é o payoff). Sem isso o
+   teaser é isca e o espectador se sente enganado; `cortar_video.py` avisa.
+3. **Não revele o payoff inteiro** no teaser: corte antes da conclusão (a 1ª metade da frase,
+   a pergunta sem a resposta, o número sem a explicação).
+4. O corpo começa num ponto que funciona depois do relance (sujeito explícito, sem "e aí",
+   "isso", "como eu disse"); se precisar, tire o começo com `remover`.
+5. Sem trilha no teaser; o único efeito é o som da volta. Legenda ligada no teaser.
+6. Só o convidado em câmera e só a voz dele, no teaser e no corpo.
+
+**Por que rebobinar e não outra transição** (pesquisa de out/2026): o som de rebobinar sobe de
+pitch e é lido como "voltar no tempo / repetir"; o tape stop desce de pitch e é lido como
+"parar / acabar" (serve para fim de cena, não para recomeço); glitch e flash não dizem
+direção. O teaser na frente do vídeo inteiro é a ferramenta "hook teaser" dos editores de
+corte (trecho mais forte no começo, vídeo completo depois). Fontes:
+[Morphic, rewind](https://morphic.com/resources/sounds/rewind-sound-effect) e
+[tape stop](https://morphic.com/resources/sounds/tape-stop-sound-effects) (2026);
+[FlexClip, VHS rewind](https://flexclip.com/learn/vhs-rewind-effect.html);
+[Motion Array, rewind no Premiere](https://motionarray.com/learn/premiere-pro/how-to-create-a-rewind-effect-in-premiere-pro/);
+[Soundstripe, cortes de podcast](https://www.soundstripe.com/blogs/how-to-clip-a-podcast) (2026-08);
+[CapCut, transições 2026](https://www.capcut.com/fr-fr/help/capcut-transitions);
+[Pippit, templates Film Rewind](https://pippit.capcut.com/templates/capcut-film-rewind).
+
+**Como montar** (exemplo completo em `references/teaser.example.json`):
+
+```text
+cortes.json  "teaser": {"ini": 743.7, "fim": 747.34, "filtro": "megafone", "volta_s": 0.8}
+             (segundos do original; corte seco em fim; a mesma frase dentro de um "manter")
+cortar_video.py         -> orador.mp4 e voz.wav = [teaser][volta][corpo]; blocos teaser, volta, payoff
+som_volta.py            -> public/sfx/volta.wav (fita rebobinando, gerado da própria voz)
+espectro.py --blocos    -> confere a voz do teaser pelos números (>= 90% em 600-3400 Hz)
+cenas.json   {"tipo": "teaser", "inicio": 0, "rotulo": "daqui a pouco", "grao": 0.4, "tremor": 1}
+             {"tipo": "volta", "inicio": "bloco:volta"}
+             corpo a partir de "bloco:<primeiro bloco>"; no payoff, "pb": [{"de": "bloco:payoff", ...}]
+sfx.json     {"em": "bloco:volta", "arquivo": "volta.wav", "categoria": "transicao", "alinhar": "inicio", "rel_db": -9}
+```
+
 ## 4. Biblioteca de ganchos
 
 Fórmulas genéricas. Preencha com o assunto do cliente; nunca copie a frase de uma referência.
@@ -144,6 +199,7 @@ Regra observada: em nenhum dos analisados o gancho era saudação, nome ou prome
 | comparação | cena `duelo` |
 | gravação horizontal com título fixo | cena `letterbox` |
 | CTA | `pill` (no "toque/clique") + `final` nos últimos 1-2 s |
+| corte de podcast com a frase de impacto no meio | estrutura E: cenas `teaser` + `volta` antes do corpo, `pb` curto no payoff |
 
 3. Separe o vídeo em blocos (`cortes.json` -> `bloco`); cada bloco vira uma cena `orador`
    (corte seco; o vídeo não pula porque cada cena começa no frame da timeline).
@@ -158,3 +214,4 @@ Regra observada: em nenhum dos analisados o gancho era saudação, nome ou prome
 - [ ] Nome do produto/oferta perto de ~80%; CTA em ~89%, com pill até o fim.
 - [ ] Cada bloco tem a palavra que dispara cada elemento.
 - [ ] Nenhuma frase, nome ou marca copiados de referência.
+- [ ] Corte de podcast com teaser: 3-5 s, metade da frase (sem a conclusão), a frase reaparece no corpo, o corpo começa limpo depois da volta.
