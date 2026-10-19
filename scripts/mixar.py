@@ -98,6 +98,10 @@ def main():
         if not os.path.exists(voz):
             sys.exit(f"voz não encontrada: {voz} (use --sem-voz para vídeo sem locução)")
         dur = duracao(voz)
+        # o vídeo dura voz + config.extra_fim_s (card final): o mix vai até lá, senão o som do card final é cortado
+        cfg_arq = os.path.join(raiz, "src", "data", "config.json")
+        extra = float((json.load(open(cfg_arq, encoding="utf-8")) if os.path.exists(cfg_arq) else {}).get("extra_fim_s") or 0)
+        dur += extra
         entradas += ["-i", voz]
         cadeias.append("[0:a]aresample=48000,aformat=channel_layouts=stereo,asplit=2[voz][chave]")
         rotulos.append("[voz]")

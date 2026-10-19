@@ -41,11 +41,20 @@ def carregar_palavras(d):
         if not txt:
             continue
         pal.append({"w": txt, "s": float(w["start"]), "e": float(w["end"]), "fim_frase": txt[-1] in PONT_FIM or txt[-1] == ","})
-    # pontuação: palavras da API vêm sem pontuação; tenta alinhar 1:1 com o texto
+    # pontuação: palavras da API vêm sem pontuação; alinha com o texto (1:1, ou por sequência
+    # quando a contagem difere: "super-herói" é 1 token no texto e 2 palavras)
     toks = d.get("text", "").split()
     if len(toks) == len(pal):
         for p, t in zip(pal, toks):
             p["fim_frase"] = p["fim_frase"] or t[-1] in PONT_FIM + ","
+    elif toks:
+        import difflib
+        nt = [t.strip(PONT_FIM + ",\"'").lower() for t in toks]
+        npal = [p["w"].strip(PONT_FIM + ",\"'").lower() for p in pal]
+        for bl in difflib.SequenceMatcher(a=npal, b=nt, autojunk=False).get_matching_blocks():
+            for k in range(bl.size):
+                if toks[bl.b + k][-1] in PONT_FIM + ",":
+                    pal[bl.a + k]["fim_frase"] = True
     else:  # fallback: fim de segmento = fim de frase
         fins = [s["end"] for s in d.get("segments", [])]
         for p in pal:
@@ -162,6 +171,30 @@ def main():
     p = lambda x: x if os.path.isabs(x) else os.path.join(raiz, x)
     d = json.load(open(a.palavras if os.path.exists(a.palavras) else p(a.palavras), encoding="utf-8"))
     pal = carregar_palavras(d)
+    # teaser: a volta é silêncio na voz; o Whisper costuma "repetir" a frase do teaser ali (alucinação)
+    tz = (json.load(open(p(os.path.join("src", "data", "blocos.json")), encoding="utf-8")).get("teaser")
+          if os.path.exists(p(os.path.join("src", "data", "blocos.json"))) else None)
+    if tz:
+        v0, v1 = tz["volta_ms"] / 1000, tz["volta_fim_ms"] / 1000
+        # 1) repetição colada da frase do teaser que termina dentro da volta
+        base = lambda w: w["w"].strip(",.?!;:").lower()
+        for n in range(8, 1, -1):
+            i = next((i for i in range(n, len(pal) - n + 1)
+                      if pal[i]["s"] < v1 and pal[i + n - 1]["e"] > v0 - 0.05
+                      and [base(x) for x in pal[i:i + n]] == [base(x) for x in pal[i - n:i]]), None)
+            if i is not None:
+                print(f"teaser: repetição alucinada na volta removida: {' '.join(x['w'] for x in pal[i:i + n])}")
+                pal[i - 1]["fim_frase"] = True
+                del pal[i:i + n]
+                break
+        # 2) qualquer palavra que comece no silêncio da volta
+        fora = [w for w in pal if v0 - 0.03 <= w["s"] < v1 - 0.06]
+        if fora:
+            print(f"teaser: {len(fora)} palavra(s) na volta (silêncio) removidas: {' '.join(w['w'] for w in fora)}")
+        pal = [w for w in pal if not (v0 - 0.03 <= w["s"] < v1 - 0.06)]
+        for w in pal:  # a página do teaser termina no fim do teaser
+            if w["s"] < v0 <= w["e"] + 0.5 and not any(v["s"] > w["s"] and v["s"] < v0 for v in pal):
+                w["fim_frase"] = True
     if a.correcoes:
         pal = corrigir(pal, json.load(open(p(a.correcoes), encoding="utf-8")))
     if not pal:

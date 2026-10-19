@@ -112,10 +112,11 @@ export const TextoMisto: React.FC<{
 				color: 'transparent',
 				// o fundo só pinta dentro da caixa do span: com lineHeight < 1 o acento de Á/É/Ã e a cedilha
 				// ficavam de fora (sumiam). Folga em cima e embaixo, compensada na margem, sem mexer no layout.
-				paddingTop: '.24em',
-				marginTop: '-.24em',
-				paddingBottom: '.14em',
-				marginBottom: '-.14em',
+				// .24em ainda cortava o acento do Á/É maiúsculo na fonte condensada (medido 2026-10-19): .42em
+				paddingTop: '.42em',
+				marginTop: '-.42em',
+				paddingBottom: '.16em',
+				marginBottom: '-.16em',
 			}
 		: {};
 	const sombra = brilho ? (escura ? `drop-shadow(0 0 ${tam * 0.18}px ${alfa(corAcento, 0.45)})` : `drop-shadow(0 ${tam * 0.04}px ${tam * 0.12}px ${alfa(corAcento, 0.18)})`) : '';

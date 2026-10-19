@@ -39,6 +39,9 @@ export const Titulo2L: React.FC<PropsSobre<DefTitulo>> = ({d, at, ini}) => {
 	const tRisca = d.riscaEm !== undefined ? fr(d.riscaEm) - ini : d.risca ? at + 10 : Infinity;
 	const risca = Number.isFinite(tRisca) ? interpolate(frame, [tRisca, tRisca + 8], [0, 1], {easing: Easing.out(Easing.cubic), extrapolateLeft: 'clamp', extrapolateRight: 'clamp'}) : 0;
 	const t2 = px(196) * tam;
+	// acento em maiúscula (Á, É, Ô, Ã...) sobe acima da altura das letras: com a linha condensada colada
+	// (lineHeight .86, margem -4) ele encostava na linha 1 ("PIOR" + "CENÁRIO" virava um Q). Abre espaço.
+	const acentoAlto = /[áéíóúâêîôûãõàÁÉÍÓÚÂÊÎÔÛÃÕÀ]/.test(d.linha2 ?? '');
 	return (
 		<div style={{position: 'absolute', left: SEGURO_LADO, right: SEGURO_LADO, top: (d.y ?? 0.1) * H, display: 'flex', flexDirection: 'column', alignItems: 'center', filter: sombraTexto}}>
 			{d.rotulo ? (
@@ -52,7 +55,7 @@ export const Titulo2L: React.FC<PropsSobre<DefTitulo>> = ({d, at, ini}) => {
 				</div>
 			) : null}
 			{d.linha2 ? (
-				<div style={{position: 'relative', opacity: s2, transform: `scaleY(${1.3 - 0.3 * s2})`, transformOrigin: '50% 100%', filter: s2 < 0.99 ? `blur(${(1 - s2) * 8}px)` : undefined, marginTop: px(-4)}}>
+				<div style={{position: 'relative', opacity: s2, transform: `scaleY(${1.3 - 0.3 * s2})`, transformOrigin: '50% 100%', filter: s2 < 0.99 ? `blur(${(1 - s2) * 8}px)` : undefined, marginTop: acentoAlto && d.linha1 ? t2 * 0.14 : px(-4)}}>
 					<TextoMisto texto={d.linha2} entrada="nenhuma" papel="estreita" tam={t2} gradiente={!d.pb} cor="#FFFFFF" brilho={!d.pb} style={{lineHeight: 0.86}} />
 					{risca > 0 ? (
 						<div
