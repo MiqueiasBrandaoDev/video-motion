@@ -159,8 +159,8 @@ python -I <skill>/scripts/cortar_video.py --entrada gravacao.mp4      # -> publi
 python -I <skill>/scripts/transcrever.py public/voz.wav work/voz_final.json
 python -I <skill>/scripts/legendas.py --palavras work/voz_final.json --marcos-spec marcos.spec.json --destaques "palavra,outra"
 # opcional, texto atrás da pessoa:
-python -I <skill>/scripts/recortar_orador.py public/orador.mp4 public/orador-alfa.webm            # rembg (pesado)
-python -I <skill>/scripts/recortar_orador.py public/orador.mp4 public/orador-alfa.webm --chroma "#64DB08"   # fundo verde
+python -E -P <skill>/scripts/recortar_orador.py public/orador.mp4 public/orador-alfa.webm         # rembg (pesado; -E -P se o rembg está no site do usuário)
+python -E -P <skill>/scripts/recortar_orador.py public/orador.mp4 public/orador-alfa.webm --chroma "#64DB08"   # fundo verde
 ```
 
 O que o `cortar_video.py` garante:

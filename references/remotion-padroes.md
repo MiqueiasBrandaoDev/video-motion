@@ -330,7 +330,9 @@ Só com rosto filmado. O empilhamento é fixo: fundo (vídeo original) -> texto/
 
 ```bash
 pip install "rembg[cpu]"     # uma vez; rembg[gpu] se houver GPU
-python -I <skill>/scripts/recortar_orador.py public/orador.mp4 public/orador-alfa.webm --modelo birefnet-portrait
+python -E -P <skill>/scripts/recortar_orador.py public/orador.mp4 public/orador-alfa.webm --regiao 0.33,0,0.5,1
+# -E -P (não -I) quando o rembg está no site do usuário; modelo padrão u2net_human_seg (~1 GB de RAM).
+# --modelo birefnet-portrait só com GPU ou 32 GB+: ~970 MB, ~7,5 GB de RAM na CPU e muito mais lento.
 # só um trecho (mais rápido): --de 12.0 --ate 18.5  -> na cena use "deRecorte" = frame de 12,0 s
 ```
 
@@ -340,7 +342,8 @@ python -I <skill>/scripts/recortar_orador.py public/orador.mp4 public/orador-alf
    1575 quadros sem aviso). Fonte 16:9 reenquadrada em 9:16: passe `--regiao x,y,l,a` (fração)
    com a fatia que aparece no vídeo e uma folga para punch-in e card (ex.: `0.30,0,0.55,1`); o
    arquivo continua do tamanho da entrada e o resto sai transparente.
-   Custo na CPU: ~0,35-1,5 s por quadro com `u2net_human_seg` (o modelo é a parte cara; em
+   Custo na CPU: ~0,35-1,5 s por quadro com `u2net_human_seg` (medido: 1182 quadros em 512 s com
+   `--regiao 0.33,0,0.5,1`, ~1 GB de RAM; o modelo é a parte cara; em
    notebook o tempo sobe com a temperatura). 1 min a 30 fps = 10-40 min: rode em segundo plano.
    Windows: se o serviço WMI travar, o import do onnxruntime fica parado sem erro; o script já
    contorna (desliga a consulta WMI do `platform`). Alternativas mais estáveis entre quadros:

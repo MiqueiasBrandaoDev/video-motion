@@ -17,14 +17,17 @@ quadros). Use GPU (pip install "rembg[gpu]") ou recorte só os trechos que terã
 (github.com/PeterL1n/RobustVideoMatting) ou BiRefNet em lote; o formato de saída é o mesmo.
 
 Instalação (uma vez): pip install "rembg[cpu]"   (ou rembg[gpu])
-O modelo é baixado pelo rembg na primeira execução (~170 MB para birefnet-portrait).
+O modelo é baixado pelo rembg na primeira execução: u2net_human_seg (padrão) ~170 MB e ~1 GB de RAM;
+birefnet-portrait ~970 MB e ~7,5 GB de RAM na CPU, muito mais lento (medido em 2026-10: nenhum lote de
+60 quadros em 6 min, contra 0,43 s por quadro do u2net_human_seg com --regiao). Numa máquina de 16 GB
+o birefnet trava o resto; use só com GPU ou 32 GB+.
 
 Gravação em fundo verde/azul (chroma key): use --chroma "#64DB08" (cor do fundo, amostre um
 pixel). Só ffmpeg (chromakey + despill), segundos em vez de minutos, sem rembg nem modelo.
 
 Uso:
-  python -I scripts/recortar_orador.py public/orador.mp4 public/orador-alfa.webm
-         [--modelo birefnet-portrait|u2net_human_seg|isnet-general-use] [--fps 30]
+  python -E -P scripts/recortar_orador.py public/orador.mp4 public/orador-alfa.webm
+         [--modelo u2net_human_seg|birefnet-portrait|isnet-general-use] [--fps 30]
          [--de 12.0 --ate 18.5] [--regiao 0.35,0,0.4,1] [--prores]
   python -I scripts/recortar_orador.py public/orador.mp4 public/orador-alfa.webm --chroma "#64DB08"
          [--similaridade 0.13] [--suavidade 0.06]
@@ -52,7 +55,7 @@ def main():
     ap = argparse.ArgumentParser(description="OPCIONAL: recorta o apresentador e gera vídeo com alfa (WebM VP9 / ProRes 4444).")
     ap.add_argument("entrada", help="vídeo do apresentador já cortado igual à voz")
     ap.add_argument("saida", help="vídeo com alfa (.webm)")
-    ap.add_argument("--modelo", default="birefnet-portrait", help="modelo do rembg (padrão birefnet-portrait; mais leve: u2net_human_seg)")
+    ap.add_argument("--modelo", default="u2net_human_seg", help="modelo do rembg (padrão u2net_human_seg, ~1 GB de RAM; birefnet-portrait: borda melhor, mas ~7,5 GB de RAM na CPU e muito mais lento)")
     ap.add_argument("--fps", type=float, default=30.0)
     ap.add_argument("--de", type=float, help="início do trecho (s); o arquivo sai só com o trecho (na cena, \"deRecorte\" = frame desse instante)")
     ap.add_argument("--ate", type=float, help="fim do trecho (s)")
@@ -94,7 +97,8 @@ def main():
         import numpy as np
         from rembg import new_session, remove  # import tardio: --help funciona sem o rembg
     except ImportError:
-        sys.exit('rembg/numpy não encontrados. Instale com: pip install "rembg[cpu]"  (opcional; ver references/remotion-padroes.md)')
+        sys.exit('rembg/numpy não encontrados neste Python. Se já estão instalados no site do usuário (pip install --user), '
+                 'rode com python -E -P em vez de -I; senão: pip install "rembg[cpu]"  (opcional; ver references/remotion-padroes.md)')
 
     # Quadros passam por pipe (ffmpeg -> rembg), sem PNG em disco: 1 min de 1080p em PNG ocupava
     # ~10 GB no temp e uma rodada real saiu com 605 de 1575 quadros sem erro nenhum. Durante a
