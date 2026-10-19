@@ -10,7 +10,7 @@ O que faz, sempre a partir do ORIGINAL (nunca acelera em cima de áudio já acel
   7. loudnorm em 2 passadas: -14 LUFS integrado, true peak -1 dBTP.
 
 Plano (cortes.json), tempos em segundos do original:
-  {"tempo": 1.2, "pausa_max": 0.28, "pos": 0.12, "pre": 0.08, "fade": 0.012,
+  {"tempo": 1.3, "pausa_max": 0.28, "pos": 0.12, "pre": 0.08, "fade": 0.012,
    "silencio_db": -36, "silencio_min_s": 0.22,
    "manter": [{"ini": 0.0, "fim": 8.5, "bloco": "gancho"}, ...],
    "remover": [{"ini": 30.1, "fim": 33.4, "gap": 0.14, "motivo": "..."}]}
@@ -157,10 +157,12 @@ def main():
     raiz = os.path.abspath(a.projeto)
     p = lambda x: x if os.path.isabs(x) else os.path.join(raiz, x)
     plano = json.load(open(p(a.plano), encoding="utf-8"))
-    tempo = float(plano.get("tempo", 1.2))
+    tempo = float(plano.get("tempo", 1.3))
     fade = float(plano.get("fade", 0.012))
     if not 0.5 <= tempo <= 2.0:
-        sys.exit("tempo fora de 0,5-2,0. O padrão para fala é 1,2-1,25.")
+        sys.exit("tempo fora de 0,5-2,0. O padrão para fala é 1,3 (mínimo).")
+    if tempo < 1.3:
+        print(f"AVISO: tempo {tempo} abaixo do mínimo de 1,3 (regra padrão: fala acelerada 1,3x ou mais; ver SKILL.md, fase 6).")
 
     work = os.path.join(raiz, "work")
     os.makedirs(work, exist_ok=True)

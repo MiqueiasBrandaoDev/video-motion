@@ -24,7 +24,7 @@ Teaser (cold open / flash-forward), opcional: campo "teaser" no cortes.json com 
 FRASE DE IMPACTO em segundos do original (a mesma frase precisa estar dentro de um `manter`,
 é o payoff que reaparece no meio do corte):
   "teaser": {"ini": 743.9, "fim": 748.4, "filtro": "megafone", "volta_s": 0.8, "ganho_db": -1,
-             "remover": [], "tempo": 1.15}
+             "remover": [], "tempo": 1.3}
 O trecho vai para o COMEÇO da timeline: voz com filtro de megafone (ou "radio", ou uma cadeia
 ffmpeg própria em "filtro"), depois `volta_s` de silêncio para a transição (o vídeo congela no
 último quadro; a cena `volta` cobre esse tempo) e então o corpo normal. blocos.json ganha os
@@ -141,10 +141,12 @@ def main():
     raiz = os.path.abspath(a.projeto)
     p = lambda x: x if os.path.isabs(x) else os.path.join(raiz, x)
     plano = json.load(open(p(a.plano), encoding="utf-8"))
-    tempo = float(plano.get("tempo", 1.2))
+    tempo = float(plano.get("tempo", 1.3))
     fade = float(plano.get("fade", 0.012))
     if not 0.5 <= tempo <= 2.0:
-        sys.exit("tempo fora de 0,5-2,0. O padrão para fala é 1,2-1,25.")
+        sys.exit("tempo fora de 0,5-2,0. O padrão para fala é 1,3 (mínimo).")
+    if tempo < 1.3:
+        print(f"AVISO: tempo {tempo} abaixo do mínimo de 1,3 (regra padrão: fala acelerada 1,3x ou mais; ver SKILL.md, fase 6).")
 
     entrada = a.entrada if os.path.exists(a.entrada) else p(a.entrada)
     if not os.path.exists(entrada):

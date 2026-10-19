@@ -2,6 +2,7 @@ import React from 'react';
 import {AbsoluteFill, Easing, interpolate, random, useCurrentFrame} from 'remotion';
 import {FiltroRGB, Grao, OSD, Scanlines, Tracking, Triangulos, tremor, Vinheta} from '../comp/Fita';
 import {CamadaVideo, escalaPunch, type Enquadramento} from '../comp/Orador';
+import {CamadaSobre} from '../comp/Sobre';
 import {alfa, CFG, cor, FPS, H, papel, px, SEGURO_LADO, SEGURO_TOPO, W} from '../theme';
 import {fr} from '../tempo';
 import type {CenaTeaser, CenaVolta, PropsCena} from './tipos';
@@ -32,7 +33,10 @@ const frOuNulo = (ref: string | number) => {
 	}
 };
 
-/** teaser: o trecho do payoff em preto e branco, com grão, vinheta, tremor leve opcional e rótulo pequeno. */
+/**
+ * teaser: o trecho do payoff em preto e branco, com grão, vinheta, tremor leve opcional e rótulo pequeno.
+ * Serve também para o ECO no payoff (mesmo visual por 1-2 s quando a frase reaparece no corpo), com `sobre`.
+ */
 export const TeaserCena: React.FC<PropsCena<CenaTeaser>> = ({def, ini, dur}) => {
 	const frame = useCurrentFrame();
 	const enq: Enquadramento = {...ORADOR.enquadramento, ...def.enquadramento};
@@ -49,6 +53,9 @@ export const TeaserCena: React.FC<PropsCena<CenaTeaser>> = ({def, ini, dur}) => 
 			</AbsoluteFill>
 			<Vinheta forca={def.vinheta ?? 0.6} />
 			<Grao forca={def.grao ?? 0.35} id="vm-grao-teaser" />
+			{/* sem recorte aqui: "atras" e "frente" ficam por cima do vídeo (posicione acima da cabeça) */}
+			<CamadaSobre itens={def.sobre} camada="atras" ini={ini} />
+			<CamadaSobre itens={def.sobre} camada="frente" ini={ini} />
 			{def.rotulo ? (
 				<div style={{position: 'absolute', left: 0, right: 0, top: SEGURO_TOPO + px(26), display: 'flex', justifyContent: 'center', opacity: entraRotulo}}>
 					<div

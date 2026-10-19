@@ -46,6 +46,16 @@ Na prática: o storyboard marca qual elemento aparece no frame 0-30 e qual palav
 Duração não pesa contra; o que pesa é densidade de demonstração. Vídeo de 30 s só de rosto
 falando perde para um de 60 s que mostra o produto funcionando.
 
+**Regras de retenção (padrão, valem acima das medidas observadas):**
+1. evento visual a cada **2 s no máximo** (corte, punch-in, troca de enquadramento, componente
+   entrando/saindo, troca rosto/motion; zoom lento não conta). No storyboard, cada bloco lista
+   os eventos com tempo; `cenas_check.py --eventos` confere.
+2. **nunca ler a mesma coisa duas vezes**: quando o título mostra o que está sendo dito, a
+   legenda daquela página some (automático); card não repete card. Prefira títulos que
+   *completam* a fala (o número, a palavra-chave) a títulos que a transcrevem inteira.
+3. **sempre voltar para a pessoa**: rosto -> motion -> rosto; motion puro até ~4 s seguidos.
+4. fala a **1,3x** no mínimo.
+
 ## 3. Estruturas
 
 Proporções = início do bloco em % da duração total (medidas pela palavra-chave na

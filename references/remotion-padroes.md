@@ -321,6 +321,11 @@ frame). Olhe cada componente nas duas variantes antes do render completo.
 
 ## 10. Recorte do apresentador (texto atrás da pessoa)
 
+Medido em 2026-10-19 (16 GB, outra renderização rodando junto): `birefnet-portrait` em 1080p
+com `--regiao` ficou em ~55 s por quadro e 7,4 GB de RAM; foi abortado. Nessa máquina, com
+outra coisa pesada rodando, dispense o recorte (títulos acima da cabeça, `y` ~0,11 com
+`enquadramento.desce`) ou teste antes 30 quadros com `u2net_human_seg`.
+
 Só com rosto filmado. O empilhamento é fixo: fundo (vídeo original) -> texto/letreiro/janela
 -> pessoa recortada (`<OffthreadVideo transparent>`). Fluxo:
 
@@ -432,6 +437,16 @@ pessoa (exige o recorte; sem ele, fica por cima, então posicione acima da cabe�
 
 `cenas_check.py` mede o texto parado de cada sobreposição de texto (do `em` ao `ate` ou ao fim
 da cena); HUD (`rec`, `objecoes`, `pill`, `final`) e `passos` ficam de fora.
+
+### Legenda que não repete a tela (regra 2)
+
+`src/textoTela.ts` levanta do `cenas.json` toda janela de texto de tela (chaves `texto`,
+`texto2`, `linha1`, `linha2`, `rotulo`, `titulo`, `sub`, `marca`, `slogan`, `principal`,
+`prefixo`, `sufixo`, `rodape`, do `em` do item até o `ate` dele ou o fim da cena) e as palavras
+significativas (3+ letras fora das vazias, sem acento, plural simples tirado, hífen quebra:
+"super-heróis" casa com "super-herói"). Em cada frame, a página da legenda (2-4 palavras) que
+tiver palavra já escrita na tela some. `"legenda_repete": true` no config desliga. O
+`cenas_check.py` faz a mesma conta e lista as páginas ocultas.
 
 ### Legenda fantasma
 

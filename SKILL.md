@@ -152,6 +152,15 @@ orador (talking head, palestra), o padrão é alternar frase-chave (~1,5-2 s) e 
 orador enquanto ele desenvolve: frase, orador, frase, orador. Nada de card pequeno com
 tela vazia em volta, nem texto repetindo por segundos o que a legenda já mostra.
 
+**Quatro regras de retenção (padrão, pedido do Miquéias em out/2026; valem para todo vídeo):**
+
+| # | Regra | Como a skill garante |
+|---|---|---|
+| 1 | **Nenhuma imagem parada por mais de 2 s.** A cada 2 s no máximo algo muda de verdade: corte, punch-in/zoom, troca de enquadramento, componente entrando ou saindo, troca rosto/motion. Zoom lento (Ken Burns) sozinho não conta. Sem esse pico a pessoa sai do vídeo. | `cenas_check.py` lista os eventos visuais e avisa cada intervalo acima de 2 s; no QA, `--eventos` mostra todos (o maior não passa de 2 s) |
+| 2 | **Nunca ler a mesma coisa duas vezes.** Se o título ou o componente já mostra as palavras ditas, a legenda some naquele trecho; nenhum card repete o que outro acabou de mostrar. A frase do teaser voltar no payoff é permitido (é fala). | `src/textoTela.ts` esconde sozinho a página da legenda que tem palavra escrita na tela (desliga com `"legenda_repete": true`); `cenas_check.py` lista essas páginas e avisa card repetindo card |
+| 3 | **Sempre voltar para a pessoa.** Rosto, motion, rosto, motion; nenhum trecho sem rosto passa de ~4 s. | `cenas_check.py` avisa trecho sem rosto acima de 4 s (`--sem-rosto`) |
+| 4 | **Fala a 1,3x no mínimo** (atempo + setpts juntos, com sincronia). | padrão `tempo: 1.3` no `cortar.py`/`cortar_video.py`; abaixo disso eles avisam |
+
 Tokens, variantes e regras: [references/direcao-visual.md](references/direcao-visual.md).
 
 ### 4. Roteiro e storyboard
@@ -198,7 +207,7 @@ python -I <skill>/scripts/legendas.py --palavras work/voz_final.json --marcos-sp
 ```
 
 `cortar.py` sempre parte do original: fade 10-15 ms por corte, respiro ~80-150 ms, pausas
-apertadas para ~0,2 s, atempo 1,2-1,25 (tom preservado), highpass 80 Hz, loudnorm 2
+apertadas para ~0,2 s, atempo 1,3 ou mais (regra 4; tom preservado), highpass 80 Hz, loudnorm 2
 passadas (-14 LUFS, TP -1). A **retranscrição da voz final** gera legendas e marcos
 (tempo das palavras-chave). Comandos e parâmetros: [references/audio.md](references/audio.md).
 
@@ -298,12 +307,15 @@ para compartilhar: `python -I <skill>/scripts/comprimir.py out/video.mp4 out/vid
 ### 10. QA obrigatório antes de entregar
 
 ```bash
-python -I <skill>/scripts/cenas_check.py
+python -I <skill>/scripts/cenas_check.py --eventos
 python -I <skill>/scripts/frames_check.py out/video.mp4 --n 18
 python -I <skill>/scripts/transcrever.py out/video.mp4 work/qa_final.json
 ```
 
-`cenas_check.py` sem ERRO: nenhum texto de tela parado mais de ~2,5 s. Abra (Read)
+`cenas_check.py` sem ERRO: nenhum texto de tela parado mais de ~2,5 s; e as quatro regras
+de retenção (fase 3): **liste os intervalos entre eventos visuais (o maior não passa de
+2 s)**, as páginas de legenda ocultas por repetirem a tela, nenhum trecho sem rosto acima
+de 4 s e `tempo` >= 1,3 no `blocos.json`. Abra (Read)
 **cada** frame e a folha de contato: texto cortado, sobreposição, contraste,
 legenda e conteúdo dentro da área segura, dado sensível visível. Nos trechos de
 filmagem, confira a sincronia labial (boca bate com a voz editada; o `cortar_video.py`

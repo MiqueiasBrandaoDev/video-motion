@@ -3,9 +3,12 @@ import {createTikTokStyleCaptions, type Caption} from '@remotion/captions';
 import {AbsoluteFill, interpolate, spring, useCurrentFrame, useVideoConfig} from 'remotion';
 import legendasJson from '../data/legendas.json';
 import {alfa, BASE_LEGENDA, CFG, cor, fonte, H, MOLAS, papel, px, SEGURO_BASE, SEGURO_LADO, tonalidade, VARIANTE, W, ZONA_LEGENDA} from '../theme';
+import {palavrasNaTela, repeteNaTela} from '../textoTela';
 import type {PosLegenda} from './Orador';
 
 const legendas = legendasJson as Caption[];
+/** config.legenda_repete = true desliga a regra de esconder na legenda o que já está escrito na tela. */
+const REPETE = Boolean((CFG as {legenda_repete?: boolean}).legenda_repete);
 
 /** Palavra sem pontuação/acentos, minúscula (para casar com config.legenda_destaques). */
 const norm = (t: string) =>
@@ -29,10 +32,15 @@ const usePagina = () => {
 		return ms >= p.startMs - 60 && ms < fim;
 	});
 	if (idx < 0) return null;
-	const pagina = pages[idx];
-	const ultimo = pagina.tokens[pagina.tokens.length - 1];
+	const inteira = pages[idx];
+	const ultimo = inteira.tokens[inteira.tokens.length - 1];
 	const fimPagina = idx < pages.length - 1 ? pages[idx + 1].startMs : ultimo.toMs + 1500;
 	const someEm = Math.min(fimPagina, ultimo.toMs + 900);
+	// nunca ler a mesma coisa duas vezes: se uma palavra da página já está num título/card na tela,
+	// a página inteira sai naquele trecho (página de 2-4 palavras; tirar só a palavra deixa frase quebrada)
+	const naTela = REPETE ? null : palavrasNaTela(frame);
+	if (naTela?.size && inteira.tokens.some((t) => repeteNaTela(t.text, naTela))) return null;
+	const pagina = inteira;
 	return {pagina, someEm, ms, frame, fps};
 };
 

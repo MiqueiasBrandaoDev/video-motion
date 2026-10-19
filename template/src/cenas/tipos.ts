@@ -149,6 +149,8 @@ export type CenaTeaser = BaseKit & {
 	/** aproximação lenta ao longo da cena (padrão 0,05 = +5%) */
 	aproxima?: number;
 	punch?: PunchIn[];
+	/** sobreposições (titulo etc.), por cima do vídeo: no eco do payoff, o título da frase */
+	sobre?: ItemSobre[];
 };
 /**
  * volta: transição "volta ao começo" (fita VHS rebobinando) entre o teaser e o corpo.

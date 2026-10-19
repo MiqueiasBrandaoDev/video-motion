@@ -65,8 +65,10 @@ fim da última). Corte entre palavras, nunca no meio.
 
 - Tempos sempre do **original**. Nunca acelere em cima de um arquivo já acelerado:
   mude `tempo` e rode de novo a partir do original.
-- `tempo`: 1,2-1,25 é o padrão para fala de vídeo curto (mais denso, tom preservado pelo
-  atempo). Acima de 1,3 começa a soar artificial. Voz TTS: 1,0-1,1.
+- `tempo`: **1,3 é o mínimo padrão** para fala de vídeo curto (regra 4 do SKILL.md, pedido
+  do Miquéias em out/2026: abaixo disso a fala parece lenta no feed); suba se a fala permitir.
+  O tom é preservado pelo atempo; acima de ~1,45 confira se as sílabas não embolam. Voz TTS:
+  1,0-1,1 (já vem no ritmo; os scripts avisam abaixo de 1,3, ignore nesse caso).
 - `pausa_max`: pausas naturais até esse valor ficam; maiores viram `pos + pre` (~0,2 s
   antes do atempo, ~0,17 s depois).
 - `silencio_db`: -36 dB serve para gravação limpa; se a sala tiver ruído, suba para -32;

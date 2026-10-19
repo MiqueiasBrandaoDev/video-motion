@@ -29,6 +29,10 @@ python -I <skill>/scripts/cenas_check.py
 | Item | Esperado |
 |---|---|
 | texto de tela parado (fora a legenda) | nenhum acima de ~2,5 s (`cenas_check.py` sem ERRO) |
+| **regra 1: imagem parada** | `cenas_check.py --eventos`: liste os intervalos entre eventos visuais (corte, punch-in, troca de enquadramento, componente entrando/saindo, troca rosto/motion); **o maior não passa de 2 s**. Zoom lento não conta. Registre o maior intervalo no relatório |
+| **regra 2: ler duas vezes** | nenhuma palavra escrita na tela aparece ao mesmo tempo na legenda: `cenas_check.py` lista as páginas que o `textoTela.ts` esconde; confira 2-3 delas nos frames (legenda sumida enquanto o título está na tela); nenhum AVISO de card repetindo card |
+| **regra 3: volta para a pessoa** | nenhum trecho sem rosto acima de ~4 s (AVISO "sem o rosto" do `cenas_check.py`) |
+| **regra 4: aceleração** | `tempo` >= 1,3 no `cortes.json`/`blocos.json` (o teaser também) |
 | card de texto inteiro | sem AVISO, ou AVISO justificado (ex.: metáfora animada que muda o tempo todo) |
 | alternância com o orador | segue a "presença do orador" do storyboard; sem trecho longo só de texto em "frase e volta" |
 | sincronia labial | nos trechos de filmagem, boca bate com a voz editada em início, meio e fim de cada cena do orador (`frames_check.py --tempos` nesses instantes + ouvir o trecho) |
@@ -36,7 +40,8 @@ python -I <skill>/scripts/cenas_check.py
 | primeiro segundo | no frame de 0,5 s já há um elemento visual além do rosto (título, card, número, janela) |
 | texto atrás da cabeça | legível: pelo menos metade da linha condensada aparece dos lados/acima da cabeça (ajuste `y` do item ou `enquadramento.desce`) |
 | recorte | borda do cabelo sem halo verde/branco, nada da pessoa "cortado" pelo xadrez ou pelo card |
-| legenda fantasma | palavra acesa bate com a fala; não colide com chips, comando ou pill (esconda com `"legenda": "oculta"` quando os chips repetem as palavras) |
+| legenda fantasma | palavra acesa bate com a fala; não colide com chips, comando ou pill (a página que repete o texto da tela já some sozinha; posicione chips longe da legenda, ex. legenda em y 0,72 e chips em 0,80) |
+| teaser (corte de podcast) | 3-5 s em P&B com voz de megafone (`espectro.py --blocos`: >= 90% em 600-3400 Hz); frame do meio da `volta` com OSD e faixas; 1º quadro do corpo colorido e igual ao último da volta; a frase reaparece no corpo; nenhuma palavra alucinada na volta (o `legendas.py` remove a repetição) |
 
 Lição real (reel de palestra): card parado 5-8 s fez o espectador ler a mesma coisa
 várias vezes e perder a fala. Confirme nos frames que a frase é grande e não há card
