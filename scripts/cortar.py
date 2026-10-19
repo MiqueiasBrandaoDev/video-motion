@@ -133,6 +133,13 @@ def planejar(orig, plano, total):
         antes = segs[i - 1]["gap"] if i and segs[i - 1]["gap"] is not None else None
         ini = max(0.0, s["ini"] - (antes if antes is not None else pre))
         fim = min(total, s["fim"] + (0.0 if s["gap"] is not None else pos))
+        # o respiro não pode entrar num trecho removido: quando o `remover` termina no silêncio antes
+        # da fala seguinte, o `pre` padrão trazia de volta os últimos ~80 ms do que saiu (e o `pos`, o começo)
+        for r in remover:
+            if r["ini"] < s["ini"] and ini < r["fim"] <= s["ini"] + 1e-6:
+                ini = r["fim"]
+            if s["fim"] - 1e-6 <= r["ini"] < fim and r["fim"] > s["fim"]:
+                fim = r["ini"]
         if trechos:
             ini = max(ini, trechos[-1]["orig_fim"])
         if fim - ini > 2 * fade:
