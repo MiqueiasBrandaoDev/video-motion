@@ -163,6 +163,15 @@ tela vazia em volta, nem texto repetindo por segundos o que a legenda já mostra
 
 Tokens, variantes e regras: [references/direcao-visual.md](references/direcao-visual.md).
 
+**Fichas de estilo** (`references/estilos/`): estilos medidos em referências reais. Quando o
+pedido ou a pesquisa do nicho apontar para um deles, a ficha sobrescreve o padrão só nos
+pontos da seção "Conflitos" dela; o resto da skill continua valendo.
+
+| Ficha | Quando usar |
+|---|---|
+| [dossiê](references/estilos/dossie.md) | motion puro com locução: explicador de dados com dois lados (política, economia, placar), fundo de papel cinza, dado que vira objeto |
+| [onda sonora](references/estilos/onda-sonora.md) | talking head de selfie em lista curta de sons demonstrados (dicas de edição), cartão de forma de onda, tudo em corte seco |
+
 ### 4. Roteiro e storyboard
 
 Com fala gravada ou roteiro novo, confira a estrutura contra

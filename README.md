@@ -114,6 +114,7 @@ Ajustes posteriores (velocidade da fala, trechos, cenas, trilha, cores, formato)
 SKILL.md          instruções que o Claude Code segue
 references/       guias por fase (áudio, pesquisa, roteiros e ganchos, direção visual, Remotion,
                   sound design, formatos, QA, licenças)
+references/estilos/  fichas de estilo medidas em referências (dossiê, onda sonora)
 scripts/          Python: transcrever, trechos, cortar, cortar_video, legendas, tts, borrar,
                   analisa_musica, gerar_sfx, mixar, frames_check, comprimir, novo_projeto,
                   processos, cenas_check, recortar_orador (opcional)
