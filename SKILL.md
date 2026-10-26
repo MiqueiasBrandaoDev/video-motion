@@ -169,7 +169,7 @@ pontos da seção "Conflitos" dela; o resto da skill continua valendo.
 
 | Ficha | Quando usar |
 |---|---|
-| [dossiê](references/estilos/dossie.md) | motion puro com locução: explicador de dados com dois lados (política, economia, placar), fundo de papel cinza, dado que vira objeto |
+| [dossiê](references/estilos/dossie.md) | explicador de dados com dois lados (política, economia, placar), fundo de papel cinza, dado que vira objeto; melhor dividido com o orador explicando (rosto, dossiê, rosto); também serve só com locução |
 | [onda sonora](references/estilos/onda-sonora.md) | talking head de selfie em lista curta de sons demonstrados (dicas de edição), cartão de forma de onda, tudo em corte seco |
 
 ### 4. Roteiro e storyboard
