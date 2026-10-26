@@ -10,17 +10,24 @@ O que faz, sempre a partir do ORIGINAL (nunca acelera em cima de áudio já acel
   7. loudnorm em 2 passadas: -14 LUFS integrado, true peak -1 dBTP.
 
 Plano (cortes.json), tempos em segundos do original:
-  {"tempo": 1.3, "pausa_max": 0.28, "pos": 0.12, "pre": 0.08, "fade": 0.012,
+  {"tempo": "auto", "pausa_max": 0.28, "pos": 0.12, "pre": 0.08, "fade": 0.012,
    "silencio_db": -36, "silencio_min_s": 0.22,
    "manter": [{"ini": 0.0, "fim": 8.5, "bloco": "gancho"}, ...],
    "remover": [{"ini": 30.1, "fim": 33.4, "gap": 0.14, "motivo": "..."}]}
 
-Saídas: a voz editada (padrão public/voz.wav) e src/data/blocos.json com a duração,
-o início de cada bloco na timeline final (ms) e o mapa trecho original -> novo.
+tempo: "auto" = velocidade-alvo (scripts/velocidade.py): conta as sílabas da fala mantida na
+transcrição do ORIGINAL (--transcricao, padrão work/transcricao.json da fase 1A), divide pela
+duração dos trechos com as pausas já apertadas e escolhe o fator = alvo ÷ medida, com piso.
+Campos opcionais: "alvo_silabas_s" (7.4), "tempo_min" (1.3), "tempo_max" (null = sem teto).
+Número (ex.: 1.4) = fator fixo, como antes; sem o campo, 1.3. Acima de 2,0 o atempo vai em cadeia.
+
+Saídas: a voz editada (padrão public/voz.wav) e src/data/blocos.json com a duração, o fator
+usado ("tempo"), a velocidade medida e a prevista ("velocidade"), o início de cada bloco na
+timeline final (ms) e o mapa trecho original -> novo.
 
 Uso:
   python -I scripts/cortar.py --entrada <gravação> [--projeto .] [--plano cortes.json]
-         [--saida public/voz.wav] [--blocos src/data/blocos.json]
+         [--saida public/voz.wav] [--blocos src/data/blocos.json] [--transcricao work/transcricao.json]
 """
 import argparse
 import json
@@ -28,6 +35,9 @@ import os
 import re
 import subprocess
 import sys
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))  # python -I tira a pasta do script do sys.path
+import velocidade  # noqa: E402
 
 
 def rodar(cmd, checar=True):
@@ -159,17 +169,15 @@ def main():
     ap.add_argument("--plano", default="cortes.json", help="plano de cortes, relativo ao projeto")
     ap.add_argument("--saida", default=os.path.join("public", "voz.wav"), help="voz final, relativa ao projeto")
     ap.add_argument("--blocos", default=os.path.join("src", "data", "blocos.json"), help="blocos.json, relativo ao projeto")
+    ap.add_argument("--transcricao", default=os.path.join("work", "transcricao.json"),
+                    help='transcrição do ORIGINAL com tempo por palavra (fase 1A), para "tempo": "auto"; relativa ao projeto')
     a = ap.parse_args()
 
     raiz = os.path.abspath(a.projeto)
     p = lambda x: x if os.path.isabs(x) else os.path.join(raiz, x)
     plano = json.load(open(p(a.plano), encoding="utf-8"))
-    tempo = float(plano.get("tempo", 1.3))
+    tempo = velocidade.ler_tempo(plano)  # "auto" ou número (validado)
     fade = float(plano.get("fade", 0.012))
-    if not 0.5 <= tempo <= 2.0:
-        sys.exit("tempo fora de 0,5-2,0. O padrão para fala é 1,3 (mínimo).")
-    if tempo < 1.3:
-        print(f"AVISO: tempo {tempo} abaixo do mínimo de 1,3 (regra padrão: fala acelerada 1,3x ou mais; ver SKILL.md, fase 6).")
 
     work = os.path.join(raiz, "work")
     os.makedirs(work, exist_ok=True)
@@ -182,6 +190,7 @@ def main():
     total = duracao(orig)
 
     trechos = planejar(orig, plano, total)
+    tempo, vel = velocidade.resolver(plano, tempo, trechos, p(a.transcricao), total)
 
     # 6) grafo de filtros
     filtros, rot, t_novo = [], [], 0.0
@@ -193,7 +202,7 @@ def main():
         tr["novo_ini"] = round(t_novo / tempo, 3)
         tr["novo_fim"] = round((t_novo + d) / tempo, 3)
         t_novo += d
-    filtros.append("".join(rot) + f"concat=n={len(trechos)}:v=0:a=1,atempo={tempo},highpass=f=80[cat]")
+    filtros.append("".join(rot) + f"concat=n={len(trechos)}:v=0:a=1,{velocidade.atempo(tempo)},highpass=f=80[cat]")
     grafo = os.path.join(work, "cortes_grafo.txt")
     with open(grafo, "w", encoding="utf-8") as f:
         f.write(";\n".join(filtros))
@@ -211,14 +220,14 @@ def main():
         blocos.setdefault(tr["bloco"], round(tr["novo_ini"] * 1000))
     doc = {"_como_usar": "Gerado por scripts/cortar.py. Não edite à mão: edite cortes.json e rode de novo.",
            "original": os.path.basename(a.entrada), "duracao_original_s": round(total, 3),
-           "duracao_s": round(dur_final, 3), "tempo": tempo, "lufs": lufs, "pico_dbfs": pico,
+           "duracao_s": round(dur_final, 3), "tempo": tempo, "velocidade": vel, "lufs": lufs, "pico_dbfs": pico,
            "blocos": blocos, "trechos": trechos}
     destino = p(a.blocos)
     os.makedirs(os.path.dirname(destino), exist_ok=True)
     with open(destino, "w", encoding="utf-8") as f:
         json.dump(doc, f, ensure_ascii=False, indent=1)
 
-    print(f"voz: {saida}  {total:.1f}s -> {dur_final:.1f}s  (atempo {tempo}, {lufs} LUFS, pico {pico} dBFS)")
+    print(f"voz: {saida}  {total:.1f}s -> {dur_final:.1f}s  (atempo {tempo:g}, {lufs} LUFS, pico {pico} dBFS)")
     print(f"{len(trechos)} trechos, blocos: " + ", ".join(f"{k}@{v / 1000:.2f}s" for k, v in blocos.items()))
     print("próximo passo: retranscrever a voz final (transcrever.py) e gerar legendas/marcos (legendas.py)")
 

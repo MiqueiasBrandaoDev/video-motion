@@ -51,7 +51,8 @@ fim da última). Corte entre palavras, nunca no meio.
 
 ```json
 {
-  "tempo": 1.2, "pausa_max": 0.28, "pos": 0.12, "pre": 0.08, "fade": 0.012,
+  "tempo": "auto", "alvo_silabas_s": 7.4, "tempo_min": 1.3, "tempo_max": 2.0,
+  "pausa_max": 0.28, "pos": 0.12, "pre": 0.08, "fade": 0.012,
   "silencio_db": -36, "silencio_min_s": 0.22,
   "manter": [
     {"ini": 0.85, "fim": 8.0, "bloco": "gancho"},
@@ -65,10 +66,41 @@ fim da última). Corte entre palavras, nunca no meio.
 
 - Tempos sempre do **original**. Nunca acelere em cima de um arquivo já acelerado:
   mude `tempo` e rode de novo a partir do original.
-- `tempo`: **1,3 é o mínimo padrão** para fala de vídeo curto (regra 4 do SKILL.md, pedido
-  do Miquéias em out/2026: abaixo disso a fala parece lenta no feed); suba se a fala permitir.
-  O tom é preservado pelo atempo; acima de ~1,45 confira se as sílabas não embolam. Voz TTS:
-  1,0-1,1 (já vem no ritmo; os scripts avisam abaixo de 1,3, ignore nesse caso).
+- `tempo`: **`"auto"` é o padrão**: acelera a fala até a **velocidade-alvo de 7,4 sílabas/s**,
+  nunca abaixo de 1,3x (regra 4 do SKILL.md, pedido do Miquéias em out/2026: abaixo disso a fala
+  parece lenta no feed). O tom é preservado pelo atempo.
+
+  | Ponto | Como |
+  |---|---|
+  | métrica | sílabas faladas da fala mantida ÷ duração dela com as pausas já apertadas (soma dos trechos do corte, sem os respiros das pontas): o que o ouvinte recebe |
+  | sílabas | português, por núcleo vocálico (ditongo conta 1, hiato 2); números por extenso ("2027" = 8, "37,5%" = 13); sigla lida quando é pronunciável (DAS = 1) e soletrada quando não é (IBS = i-bê-esse = 4). Regras no topo de `scripts/velocidade.py` |
+  | alvo | 7,4 = média dos dois vídeos aprovados de 19/10/2026 (6,74 e 8,05 síl/s medidos na voz final, feitos a 1,3x) |
+  | fator | alvo ÷ medida, limitado a `tempo_min` (1,3) e `tempo_max` (2,0; `null` = sem teto). Fala já rápida fica no piso e sai acima do alvo; fala lenta ganha mais que 1,3 |
+  | teto | com o alvo fixo, a velocidade final é a mesma qualquer que seja o fator, e a inteligibilidade só cai perto de 9-10 síl/s (teste abaixo); o que piora com o fator é o atempo, estável até 1,9x e pior em 2,1x. O teto de 2,0 só atua em fala abaixo de ~3,7 síl/s |
+  | fonte | transcrição do ORIGINAL com tempo por palavra (`work/transcricao.json` da fase 1A; outro caminho com `--transcricao`); contam as palavras dentro de `manter` e fora de `remover` |
+  | registro | o `blocos.json` grava o fator usado (`tempo`) e o objeto `velocidade` (medida, alvo, resultado previsto, piso/teto) |
+
+  Medir antes de cortar (mesma conta do `cortar.py`) e conferir depois:
+
+  ```bash
+  python -I <skill>/scripts/velocidade.py work/transcricao.json --de 0 --ate 21.1 --audio gravacao.m4a [--listar]
+  python -I <skill>/scripts/velocidade.py work/voz_final.json --sem-aperto
+  ```
+
+  Sem `--audio`, a duração é estimada pelas pausas entre palavras, que o whisper-1 costuma esconder
+  (deu 4-6% mais lento que a conta real nas tomadas de teste). A contagem segue a grafia do Whisper:
+  na retranscrição da voz acelerada ele às vezes escreve "pro" no lugar de "para o" e "EUA" no lugar
+  de "Estados Unidos", e a medida cai 5-8% sem a fala ter mudado; para conferir, divida as sílabas da
+  transcrição do original pela duração da retranscrição.
+
+  Sobrescrever: `"alvo_silabas_s"` (8,0 mais rápido, 6,8 mais calmo), `"tempo_max"` para limitar,
+  ou um número fixo (`"tempo": 1.4`), que continua valendo como antes. Voz TTS: número 1,0-1,1 (já
+  vem no ritmo; os scripts avisam abaixo de 1,3, ignore nesse caso). Acima de 1,6x o script avisa
+  para ouvir (sílabas embolando, timbre metálico); acima de 2,0 o atempo vai em cadeia (cada estágio
+  <= 2,0). Teste de teto (out/2026, tomada lenta de 5,4 síl/s): o Whisper errou 1-2 de 48 palavras
+  até 1,7x e 7-8 a partir de 1,9x (~10 síl/s); em tomadas mais rápidas os erros começaram mais cedo,
+  na mesma faixa de 9-10 síl/s finais. A periodicidade da voz (indicador de artefato do atempo) fica
+  estável de 1,3x a 1,9x e cai em 2,1x.
 - `pausa_max`: pausas naturais até esse valor ficam; maiores viram `pos + pre` (~0,2 s
   antes do atempo, ~0,17 s depois).
 - `silencio_db`: -36 dB serve para gravação limpa; se a sala tiver ruído, suba para -32;
@@ -79,17 +111,19 @@ fim da última). Corte entre palavras, nunca no meio.
 ## 4. O que o `cortar.py` faz
 
 ```bash
-python -I <skill>/scripts/cortar.py --entrada gravacao.m4a [--projeto .] [--plano cortes.json]
+python -I <skill>/scripts/cortar.py --entrada gravacao.m4a [--projeto .] [--plano cortes.json] [--transcricao work/transcricao.json]
 ```
 
 1. `ffmpeg -i entrada -vn -ac 1 -ar 48000 -c:a pcm_s16le work/orig.wav`
 2. `silencedetect=noise=-36dB:d=0.22` -> ilhas de fala; recorta pelas janelas `manter`
 3. Tira `remover`, junta pausas curtas, põe respiro
-4. Grafo: `atrim` + `asetpts` + `afade` in/out (12 ms) por trecho -> `concat` -> `atempo=1.2` -> `highpass=f=80`
+4. `tempo: "auto"`: sílabas da fala mantida ÷ duração dos trechos -> fator para o alvo (seção 3);
+   imprime a medida, o alvo, o fator e se bateu no piso/teto
+5. Grafo: `atrim` + `asetpts` + `afade` in/out (12 ms) por trecho -> `concat` -> `atempo=<tempo>` -> `highpass=f=80`
    (o grafo vai para `work/cortes_grafo.txt` e é lido com `-/filter_complex` no ffmpeg 7+)
-5. `loudnorm` 2 passadas: mede (`print_format=json`) e aplica com `measured_*` e `linear=true`,
+6. `loudnorm` 2 passadas: mede (`print_format=json`) e aplica com `measured_*` e `linear=true`,
    alvo `I=-14:TP=-1:LRA=11`
-6. Grava `public/voz.wav` (48 kHz mono) e `src/data/blocos.json` (duração, blocos, mapa de trechos)
+7. Grava `public/voz.wav` (48 kHz mono) e `src/data/blocos.json` (duração, `tempo`, `velocidade`, blocos, mapa de trechos)
 
 Comandos úteis à parte:
 
@@ -171,7 +205,7 @@ O que o `cortar_video.py` garante:
 |---|---|
 | mesmo plano da voz | usa `cortar.planejar()` (ilhas de fala, `manter`, `remover`, pausas, respiros) |
 | sem deriva entre corte e boca | cada borda é arredondada para a grade de quadros da fonte; o vídeo corta por número de quadro (`trim=start_frame:end_frame`) e o áudio no mesmo instante (`atrim`) |
-| aceleração junta | `setpts=PTS/tempo` no vídeo e `atempo=tempo` no áudio, depois do `concat=v=1:a=1` |
+| aceleração junta | `setpts=PTS/tempo` no vídeo e `atempo=tempo` no áudio, depois do `concat=v=1:a=1`; com `tempo: "auto"` o fator é medido só no corpo e o teaser usa o mesmo (ou o `tempo` numérico próprio dele) |
 | saída estável | fps fixo (30), lado maior até 1920 px, H.264 CRF 18 com GOP de 1 s (busca rápida do OffthreadVideo), voz normalizada embutida |
 | conferência | conta os quadros do vídeo e compara com a duração da voz; erro acima de 1 quadro |
 

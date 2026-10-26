@@ -10,7 +10,9 @@ apertadas, respiros), mas cortando imagem e som no mesmo grafo do ffmpeg:
   3. Para cada trecho: trim (por número de quadro) + setpts no vídeo; atrim + asetpts +
      fade de 10-15 ms no áudio. Concat v=1 a=1.
   4. Acelera os dois JUNTOS: setpts=PTS/tempo no vídeo e atempo=tempo no áudio (tom preservado).
-     Saída em fps fixo (padrão 30) e lado maior até 1920 px.
+     Saída em fps fixo (padrão 30) e lado maior até 1920 px. Com "tempo": "auto", o fator sai da
+     velocidade-alvo em sílabas/s (scripts/velocidade.py, igual ao cortar.py), medida na transcrição
+     do original (--transcricao, padrão work/transcricao.json) sobre os trechos do corpo.
   5. Voz: highpass 80 Hz + loudnorm 2 passadas (-14 LUFS, TP -1) -> public/voz.wav.
   6. Vídeo: H.264 CRF 18, GOP de 1 s (busca rápida no OffthreadVideo) -> public/orador.mp4,
      com a voz normalizada embutida (o Remotion usa o vídeo mudo + voz.wav/mix.wav).
@@ -25,6 +27,9 @@ FRASE DE IMPACTO em segundos do original (a mesma frase precisa estar dentro de 
 é o payoff que reaparece no meio do corte):
   "teaser": {"ini": 743.9, "fim": 748.4, "filtro": "megafone", "volta_s": 0.8, "ganho_db": -1,
              "remover": [], "tempo": 1.3}
+"tempo" do teaser: número = fator só do teaser; sem o campo (ou "auto") = o fator do corpo, já
+resolvido (com "tempo": "auto" no plano, o mesmo fator calculado para o corpo; o teaser não entra
+na medida, que é só do corpo).
 O trecho vai para o COMEÇO da timeline: voz com filtro de megafone (ou "radio", ou uma cadeia
 ffmpeg própria em "filtro"), depois `volta_s` de silêncio para a transição (o vídeo congela no
 último quadro; a cena `volta` cobre esse tempo) e então o corpo normal. blocos.json ganha os
@@ -34,7 +39,7 @@ objeto "teaser" com os tempos. Som da transição: scripts/som_volta.py.
 Uso:
   python -I scripts/cortar_video.py --entrada gravacao.mp4 [--projeto .] [--plano cortes.json]
          [--video-saida public/orador.mp4] [--saida public/voz.wav] [--blocos src/data/blocos.json]
-         [--fps 30] [--lado-max 1920] [--crf 18] [--sem-audio-no-video]
+         [--fps 30] [--lado-max 1920] [--crf 18] [--sem-audio-no-video] [--transcricao work/transcricao.json]
 
 Depois: retranscreva public/voz.wav (transcrever.py) e gere legendas/marcos (legendas.py).
 Recorte com alfa (texto atrás da pessoa), se quiser: recortar_orador.py public/orador.mp4 ...
@@ -49,6 +54,7 @@ from fractions import Fraction
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, AQUI)  # python -I tira a pasta do script do sys.path; esta é a pasta da skill (confiável)
+import velocidade  # noqa: E402
 from cortar import duracao, filtro_arquivo, loudnorm_2p, planejar, rodar  # noqa: E402
 
 # Voz do teaser. Megafone/corneta: passa-faixa ~700 Hz-3,5 kHz (6 polos embaixo, 4 em cima),
@@ -136,17 +142,15 @@ def main():
     ap.add_argument("--lado-max", type=int, default=1920, help="lado maior do vídeo de saída (px)")
     ap.add_argument("--crf", type=int, default=18)
     ap.add_argument("--sem-audio-no-video", action="store_true", help="não embute a voz no orador.mp4")
+    ap.add_argument("--transcricao", default=os.path.join("work", "transcricao.json"),
+                    help='transcrição do ORIGINAL com tempo por palavra (fase 1A), para "tempo": "auto"; relativa ao projeto')
     a = ap.parse_args()
 
     raiz = os.path.abspath(a.projeto)
     p = lambda x: x if os.path.isabs(x) else os.path.join(raiz, x)
     plano = json.load(open(p(a.plano), encoding="utf-8"))
-    tempo = float(plano.get("tempo", 1.3))
+    tempo = velocidade.ler_tempo(plano)  # "auto" ou número (validado)
     fade = float(plano.get("fade", 0.012))
-    if not 0.5 <= tempo <= 2.0:
-        sys.exit("tempo fora de 0,5-2,0. O padrão para fala é 1,3 (mínimo).")
-    if tempo < 1.3:
-        print(f"AVISO: tempo {tempo} abaixo do mínimo de 1,3 (regra padrão: fala acelerada 1,3x ou mais; ver SKILL.md, fase 6).")
 
     entrada = a.entrada if os.path.exists(a.entrada) else p(a.entrada)
     if not os.path.exists(entrada):
@@ -170,6 +174,7 @@ def main():
     trechos = na_grade(planejar(orig, plano, total), fps_src)
     if not trechos:
         sys.exit("nenhum trecho sobrou depois de alinhar à grade de quadros.")
+    tempo, vel = velocidade.resolver(plano, tempo, trechos, p(a.transcricao), total)  # medida só do corpo
 
     # teaser: a frase de impacto vai para o começo (fora da ordem cronológica, por isso planeja à parte)
     tz = plano.get("teaser")
@@ -203,21 +208,23 @@ def main():
 
     filtros, _ = segmentos(trechos, "", tempo)
     n_t = n_g = 0
+    tempo_t = tempo
     if tz_trechos:
-        tempo_t = float(tz.get("tempo", tempo))
+        t_tz = tz.get("tempo")  # número fixa o do teaser; sem o campo ou "auto", segue o fator do corpo
+        tempo_t = tempo if t_tz is None or str(t_tz).strip().lower() == "auto" else float(t_tz)
         ft, dur_src_t = segmentos(tz_trechos, "t", tempo_t)
         filtros += ft
         n_t = round(float(dur_src_t) / tempo_t * a.fps)            # quadros do teaser na saída
         n_g = max(1, round(float(tz.get("volta_s", 0.8)) * a.fps))  # quadros da transição (silêncio)
         filtros.append(f"[tvc]setpts=PTS/{tempo_t},fps={a.fps},{escala},format=yuv420p,"
                        f"tpad=stop_mode=clone:stop={n_g + 4},trim=end_frame={n_t + n_g},setpts=PTS-STARTPTS[tvout]")
-        filtros.append(f"[tac]atempo={tempo_t},highpass=f=80,{filtro_teaser(tz.get('filtro', 'megafone'))},"
+        filtros.append(f"[tac]{velocidade.atempo(tempo_t)},highpass=f=80,{filtro_teaser(tz.get('filtro', 'megafone'))},"
                        f"apad=whole_dur={n_t / a.fps:.6f},atrim=end={n_t / a.fps:.6f}[taout]")
         filtros.append(f"[vc]setpts=PTS/{tempo},fps={a.fps},{escala},format=yuv420p[vcorpo]")
         filtros.append("[tvout][vcorpo]concat=n=2:v=1:a=0[vout]")
     else:
         filtros.append(f"[vc]setpts=PTS/{tempo},fps={a.fps},{escala},format=yuv420p[vout]")
-    filtros.append(f"[ac]atempo={tempo},highpass=f=80[aout]")
+    filtros.append(f"[ac]{velocidade.atempo(tempo)},highpass=f=80[aout]")
     grafo = os.path.join(work, "cortes_video_grafo.txt")
     with open(grafo, "w", encoding="utf-8") as f:
         f.write(";\n".join(filtros))
@@ -226,7 +233,7 @@ def main():
     bruto = os.path.join(work, "voz_bruta.wav")
     teaser_bruto = os.path.join(work, "teaser_bruto.wav")
     print(f"cortando {len(trechos)} trechos{f' + teaser ({len(tz_trechos)})' if tz_trechos else ''} "
-          f"(vídeo {sv['width']}x{sv['height']} @ {float(fps_src):.3f} fps, tempo {tempo})...")
+          f"(vídeo {sv['width']}x{sv['height']} @ {float(fps_src):.3f} fps, tempo {tempo:g})...")
     rodar(["ffmpeg", "-y", "-hide_banner", "-loglevel", "error", "-i", entrada] + filtro_arquivo(grafo) +
           ["-map", "[vout]", "-c:v", "libx264", "-preset", "medium", "-crf", str(a.crf), "-g", str(a.fps), "-r", str(a.fps),
            "-pix_fmt", "yuv420p", "-movflags", "+faststart", vid_tmp,
@@ -262,7 +269,7 @@ def main():
         payoff = no_corpo(fala_ini)
         payoff_fim = no_corpo(min(float(tz["fim"]), tz_trechos[-1]["orig_fim"]))
         tz_doc = {"orig_ini": float(tz["ini"]), "orig_fim": float(tz["fim"]), "filtro": tz.get("filtro", "megafone"),
-                  "lufs": lufs_t, "quadros": n_t, "quadros_volta": n_g,
+                  "tempo": tempo_t, "lufs": lufs_t, "quadros": n_t, "quadros_volta": n_g,
                   "fim_ms": round(n_t / a.fps * 1000), "volta_ms": round(n_t / a.fps * 1000), "volta_fim_ms": round(t_corpo * 1000),
                   "payoff_ms": round(payoff * 1000) if payoff is not None else None,
                   "payoff_fim_ms": round(payoff_fim * 1000) if payoff_fim is not None else None,
@@ -297,7 +304,7 @@ def main():
         tr.pop("q1", None)
     doc = {"_como_usar": "Gerado por scripts/cortar_video.py. Não edite à mão: edite cortes.json e rode de novo.",
            "original": os.path.basename(a.entrada), "duracao_original_s": round(total, 3),
-           "duracao_s": round(dur_voz, 3), "tempo": tempo, "lufs": lufs, "pico_dbfs": pico,
+           "duracao_s": round(dur_voz, 3), "tempo": tempo, "velocidade": vel, "lufs": lufs, "pico_dbfs": pico,
            "video": {"arquivo": os.path.relpath(vid, os.path.join(raiz, "public")).replace(os.sep, "/"), "fps": a.fps, "quadros": n_q,
                      "largura": sv2.get("width"), "altura": sv2.get("height"), "fonte": f"{sv['width']}x{sv['height']}@{float(fps_src):.3f}",
                      "diferenca_ms": round(dif_ms, 1)},

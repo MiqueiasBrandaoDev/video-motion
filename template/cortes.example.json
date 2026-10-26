@@ -1,6 +1,9 @@
 {
-  "_como_usar": "Plano de edição da voz, lido por scripts/cortar.py. Tempos em segundos do ÁUDIO ORIGINAL (nunca do acelerado). manter = janelas de LOCUÇÃO com o bloco do roteiro. remover = trechos dentro de uma janela mantida que saem (tropeço, repetição, instrução falada para o agente); gap = silêncio que fica no lugar. tempo = aceleração por atempo (tom preservado), mínimo 1,3. pausa_max = pausa natural que fica como está; maior que isso é apertada para pos+pre. silencio_db e silencio_min_s = detecção de silêncio.",
-  "tempo": 1.3,
+  "_como_usar": "Plano de edição da voz, lido por scripts/cortar.py. Tempos em segundos do ÁUDIO ORIGINAL (nunca do acelerado). manter = janelas de LOCUÇÃO com o bloco do roteiro. remover = trechos dentro de uma janela mantida que saem (tropeço, repetição, instrução falada para o agente); gap = silêncio que fica no lugar. tempo = aceleração por atempo (tom preservado): \"auto\" acelera até a velocidade-alvo alvo_silabas_s (padrão 7,4 sílabas/s, medida na transcrição do original work/transcricao.json com as pausas já apertadas), com piso tempo_min (1,3) e teto tempo_max (2,0; null = sem teto); um número fixa o fator (mínimo 1,3). pausa_max = pausa natural que fica como está; maior que isso é apertada para pos+pre. silencio_db e silencio_min_s = detecção de silêncio.",
+  "tempo": "auto",
+  "alvo_silabas_s": 7.4,
+  "tempo_min": 1.3,
+  "tempo_max": 2.0,
   "pausa_max": 0.28,
   "pos": 0.12,
   "pre": 0.08,

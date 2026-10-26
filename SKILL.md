@@ -159,7 +159,7 @@ tela vazia em volta, nem texto repetindo por segundos o que a legenda já mostra
 | 1 | **Nenhuma imagem parada por mais de 2 s.** A cada 2 s no máximo algo muda de verdade: corte, punch-in/zoom, troca de enquadramento, componente entrando ou saindo, troca rosto/motion. Zoom lento (Ken Burns) sozinho não conta. Sem esse pico a pessoa sai do vídeo. | `cenas_check.py` lista os eventos visuais e avisa cada intervalo acima de 2 s; no QA, `--eventos` mostra todos (o maior não passa de 2 s) |
 | 2 | **Nunca ler a mesma coisa duas vezes.** Se o título ou o componente já mostra as palavras ditas, a legenda some naquele trecho; nenhum card repete o que outro acabou de mostrar. A frase do teaser voltar no payoff é permitido (é fala). | `src/textoTela.ts` esconde sozinho a página da legenda que tem palavra escrita na tela (desliga com `"legenda_repete": true`); `cenas_check.py` lista essas páginas e avisa card repetindo card |
 | 3 | **Sempre voltar para a pessoa.** Rosto, motion, rosto, motion; nenhum trecho sem rosto passa de ~4 s. | `cenas_check.py` avisa trecho sem rosto acima de 4 s (`--sem-rosto`) |
-| 4 | **Fala a 1,3x no mínimo** (atempo + setpts juntos, com sincronia). | padrão `tempo: 1.3` no `cortar.py`/`cortar_video.py`; abaixo disso eles avisam |
+| 4 | **Fala na velocidade-alvo de ~7,4 sílabas/s, nunca abaixo de 1,3x** (atempo + setpts juntos, com sincronia). | `tempo: "auto"` no `cortes.json` (padrão do modelo): `cortar.py`/`cortar_video.py` medem as sílabas/s da fala mantida e escolhem o fator (alvo ÷ medida, piso 1,3, teto 2,0); número fixo continua valendo; abaixo de 1,3 ou acima de 1,6 eles avisam |
 
 Tokens, variantes e regras: [references/direcao-visual.md](references/direcao-visual.md).
 
@@ -216,7 +216,8 @@ python -I <skill>/scripts/legendas.py --palavras work/voz_final.json --marcos-sp
 ```
 
 `cortar.py` sempre parte do original: fade 10-15 ms por corte, respiro ~80-150 ms, pausas
-apertadas para ~0,2 s, atempo 1,3 ou mais (regra 4; tom preservado), highpass 80 Hz, loudnorm 2
+apertadas para ~0,2 s, atempo até ~7,4 sílabas/s com piso 1,3 (regra 4; `tempo: "auto"` conta as
+sílabas na `work/transcricao.json` da fase 1A; tom preservado), highpass 80 Hz, loudnorm 2
 passadas (-14 LUFS, TP -1). A **retranscrição da voz final** gera legendas e marcos
 (tempo das palavras-chave). Comandos e parâmetros: [references/audio.md](references/audio.md).
 
@@ -354,7 +355,7 @@ O usuário vai pedir ajustes. Tudo é parametrizado para refazer sem reescrever 
 
 | Pedido | Onde mexer | Depois |
 |---|---|---|
-| fala mais rápida/lenta | `cortes.json` -> `tempo` | cortar -> transcrever -> legendas -> gerar_sfx -> mixar -> render |
+| fala mais rápida/lenta | `cortes.json` -> `alvo_silabas_s` (com `tempo: "auto"`; 7,4 padrão) ou `tempo` fixo; `tempo_max` limita | cortar -> transcrever -> legendas -> gerar_sfx -> mixar -> render |
 | tirar/voltar um trecho | `cortes.json` -> `manter`/`remover` | idem |
 | mais/menos prints, zoom, destaque | `src/data/prints.json`, `cenas.json` | render |
 | trocar cena, texto, ordem | `src/data/cenas.json` | render |
@@ -381,6 +382,7 @@ inteira daquela linha (marcos mudam de tempo). Rode `npx tsc --noEmit` e stills
 | `transcrever.py` | áudio/vídeo -> JSON com tempo por palavra (OpenAI ou local) |
 | `trechos.py` | lista trechos com pistas de instrução/repetição/pausa |
 | `cortar.py` | cortes.json -> voz editada + blocos.json |
+| `velocidade.py` | sílabas/s da fala (PT-BR) e fator para a velocidade-alvo; módulo do `tempo: "auto"` e CLI para medir antes/depois do corte |
 | `cortar_video.py` | cortes.json -> vídeo com rosto + voz cortados juntos (trim/atrim + concat, setpts+atempo), confere a sincronia; com `teaser`, põe a frase de impacto no começo com voz de megafone |
 | `som_volta.py` | som da fita rebobinando (transição do teaser), gerado da própria voz |
 | `espectro.py` | energia por faixa, centroide e crista de um trecho (confere a voz do teaser) |
