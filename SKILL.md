@@ -228,6 +228,10 @@ python -I <skill>/scripts/novo_projeto.py <pasta-do-video> --formato 9:16 --vari
 cd <pasta-do-video> && npm install && npx tsc --noEmit
 ```
 
+Pasta-mãe: com `VIDEO_MOTION_PASTA` definida no ambiente, passe só o nome do vídeo
+(`novo_projeto.py corte-tema`) e o projeto nasce em `<VIDEO_MOTION_PASTA>/corte-tema`; todo vídeo
+fica numa pasta única em vez de espalhado. Caminho completo continua valendo.
+
 Talking head: `--modelo orador` (dados de exemplo do formato, legenda fantasma). Cena
 `orador`: o rosto em tela cheia reenquadrado, com `punch` (punch-in suave nas palavras-chave),
 `pb` (preto e branco no "jeito antigo", 6 frames), `card` (orador encolhe para card, 10

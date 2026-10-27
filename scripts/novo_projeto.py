@@ -12,6 +12,10 @@ Modelos de dados de exemplo:
 Uso:
   python -I scripts/novo_projeto.py <pasta-destino> [--modelo motion|orador] [--formato 9:16|16:9|1:1]
          [--variante escura|clara] [--acento "#RRGGBB"] [--titulo "Nome"]
+
+Pasta-mãe dos vídeos: com a variável de ambiente VIDEO_MOTION_PASTA definida, um destino
+que é só um nome (sem barra) vira <VIDEO_MOTION_PASTA>/<nome>. Caminho com barra ou absoluto
+continua valendo como está.
 """
 import argparse
 import json
@@ -28,7 +32,7 @@ def main():
     sys.stdout.reconfigure(encoding="utf-8")
     sys.stderr.reconfigure(encoding="utf-8")
     ap = argparse.ArgumentParser(description="Cria um projeto Remotion a partir do template da skill video-motion.")
-    ap.add_argument("destino", help="pasta do projeto novo (criada se não existir)")
+    ap.add_argument("destino", help="pasta do projeto novo (criada se não existir); só o nome usa VIDEO_MOTION_PASTA")
     ap.add_argument("--formato", choices=["9:16", "16:9", "1:1"], help="formato do vídeo")
     ap.add_argument("--variante", choices=["escura", "clara"], help="variante do fundo de grade")
     ap.add_argument("--acento", help="cor de acento hex, ex.: #F2A33A")
@@ -37,7 +41,12 @@ def main():
     ap.add_argument("--forcar", action="store_true", help="permite copiar sobre uma pasta que já tem package.json")
     a = ap.parse_args()
 
-    destino = os.path.abspath(a.destino)
+    pasta_mae = os.environ.get("VIDEO_MOTION_PASTA", "").strip()
+    so_nome = not os.path.isabs(a.destino) and not any(s in a.destino for s in ("/", "\\"))
+    if pasta_mae and so_nome:
+        destino = os.path.abspath(os.path.join(pasta_mae, a.destino))
+    else:
+        destino = os.path.abspath(a.destino)
     if os.path.exists(os.path.join(destino, "package.json")) and not a.forcar:
         sys.exit(f"{destino} já tem package.json. Use --forcar para copiar por cima (arquivos de dados existentes são preservados).")
     os.makedirs(destino, exist_ok=True)
