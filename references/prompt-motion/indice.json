@@ -29,6 +29,18 @@
     "rótulo fixo no canto nomeando a tela",
     "headline curta sobreposta à UI desfocada"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#0B0B0C",
+     "#F5F4F0",
+     "#F26A1B",
+     "#2F6BE0",
+     "#9ACD32"
+    ]
+   },
+   "tipografia": "Grotesca neutra de peso médio para headlines centradas, mono pequena em etiquetas laranja; texto aparece por fade com leve subida.",
+   "movimento": "Câmera contínua sobre UI grande: push-ins lentos, pans laterais e chicotes com borrão forte para trocar de produto; foco seletivo desfocando o resto.",
    "familias": [
     "interface",
     "camera",
@@ -74,6 +86,18 @@
     "ícones-tile flutuando junto da câmera",
     "título final com serifa itálica no rabo da frase"
    ],
+   "paleta": {
+    "fundo": "claro",
+    "cores": [
+     "#f9fbfb",
+     "#f2f3f6",
+     "#8db6e6",
+     "#e8704a",
+     "#dbe96a"
+    ]
+   },
+   "tipografia": "Grotesca neutra peso médio no título final com segunda linha em serifa itálica fina; tipografia só entra no card de fechamento, surgindo por revelação suave.",
+   "movimento": "Uma única câmera sem corte: entra com ease-in, cruza a página em velocidade constante, desacelera no rodapé, sobe com zoom-out linear achatando a inclinação e mergulha no hero; elementos descolam com leve mola.",
    "familias": [
     "camera",
     "interface",
@@ -117,6 +141,17 @@
     "teclado com teclas acionadas por impacto e squash",
     "recuo final mostrando o mapa inteiro e loop exato"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#0B0B0C",
+     "#2A2A2D",
+     "#FFFFFF",
+     "#1E7BFF"
+    ]
+   },
+   "tipografia": "sans de sistema estilo iOS, branca sobre carvão; número do tooltip conta e texto aparece como digitado",
+   "movimento": "sem cortes, câmera contínua; molas com overshoot pequeno nos pousos e squash no impacto; cada interação num beat de ~120 BPM; pull-back final de câmera e loop sem emenda",
    "familias": [
     "interface",
     "camera"
@@ -162,6 +197,18 @@
     "clique de cursor com spinner e confirmação",
     "push-in de câmera único por cena"
    ],
+   "paleta": {
+    "fundo": "claro",
+    "cores": [
+     "#F5F5F2",
+     "#0E0E10",
+     "#CDF24F",
+     "#FF6A2A",
+     "#2F6BFF"
+    ]
+   },
+   "tipografia": "Sans geométrica neutra de peso regular (tipo Geist) em UI e frases finais; texto sobe de máscara, sem floreio.",
+   "movimento": "Plano sequência 2D, transições por morph de objeto e por círculo de cor que expande e recolhe, câmera com um push ou pull por cena, sincronia com batida e drop.",
    "familias": [
     "interface",
     "celular",
@@ -206,6 +253,18 @@
     "aura pastel desfocada atrás do vidro",
     "explosão de dezenas de imagens que convergem no logo"
    ],
+   "paleta": {
+    "fundo": "claro",
+    "cores": [
+     "#FFFFFF",
+     "#111214",
+     "#E879C7",
+     "#8B7CF6",
+     "#2E6DB4"
+    ]
+   },
+   "tipografia": "uma única sans neutra (Geist) em preto, digitando com cursor; a palavra destacada recebe gradiente pastel; sem pontos finais na tela",
+   "movimento": "push lento contínuo de 1,0 a 1,04 por cena herdando o zoom da anterior, fades de no mínimo 0,3 s, trocas de imagem rápidas presas à semicolcheia e trocas de cena no início das frases",
    "familias": [
     "foto-colagem",
     "interface",
@@ -251,6 +310,16 @@
     "campo halftone que se expande a partir do centro",
     "último frame igual ao primeiro para loop"
    ],
+   "paleta": {
+    "fundo": "claro",
+    "cores": [
+     "#EFEBE3",
+     "#141414",
+     "#FF4F1F"
+    ]
+   },
+   "tipografia": "Grotesca pesada (tipo Inter Display bold) em caixa mista, letras animadas uma a uma; anel de palavras em caixa alta com perspectiva. Cartão final com rótulo cinza menor acima.",
+   "movimento": "Molas com overshoot curto, ponto com rastro de motion blur no salto, transições por continuidade de objeto em vez de corte; alternância creme/preto a cada cena.",
    "familias": [
     "formas",
     "tipografia",
@@ -296,6 +365,17 @@
     "pílula copiar que vira copiado e depois URL",
     "cortes secos na queda da música"
    ],
+   "paleta": {
+    "fundo": "claro",
+    "cores": [
+     "#f7f6f3",
+     "#0d0d0d",
+     "#f0442c",
+     "#ccf23a"
+    ]
+   },
+   "tipografia": "Grotesca neutra única para UI e títulos grandes, mono para o texto do prompt; tipografia sem animação própria, sempre como parte da página filmada.",
+   "movimento": "Uma câmera que recua, rola, mergulha e empurra, nunca dois movimentos ao mesmo tempo; tudo cravado na batida de 120 BPM, com três cortes secos no drop.",
    "familias": [
     "interface",
     "camera",
@@ -338,6 +418,18 @@
     "cards de UI flutuando em grade com profundidade",
     "enxame de glifos miniatura como partículas"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#0B0907",
+     "#1A1410",
+     "#C8572B",
+     "#F2A35C",
+     "#E9E4DE"
+    ]
+   },
+   "tipografia": "sans geométrica bold branca, frase grande centralizada e subtítulo pequeno; texto entra por fade e sai dissolvendo em partículas",
+   "movimento": "ritmo lento de trailer, fades longos entre blocos escuros; zoom suave no símbolo; partículas com dispersão e reagrupamento; sem cortes secos",
    "familias": [
     "particulas",
     "tipografia",
@@ -382,6 +474,17 @@
     "globo pontilhado com sombra projetada",
     "frase final datilografada com cursor vermelho"
    ],
+   "paleta": {
+    "fundo": "claro",
+    "cores": [
+     "#EFEBDF",
+     "#111111",
+     "#D9452B",
+     "#9A968C"
+    ]
+   },
+   "tipografia": "Serifa clássica de livro para legendas e frase final, caixa alta pequena e espaçada no cabeçalho; frase final digitada letra a letra.",
+   "movimento": "Um objeto se transforma no seguinte sem corte, física crível (quique com perda de energia, revoada), sombras suaves; ritmo calmo e preciso.",
    "familias": [
     "formas",
     "3d",
@@ -426,6 +529,18 @@
     "pill de comando no fechamento",
     "grade de pontos discreta no fundo"
    ],
+   "paleta": {
+    "fundo": "claro",
+    "cores": [
+     "#f4f7f8",
+     "#1c1f24",
+     "#1f7fd1",
+     "#d9343b",
+     "#2aa36b"
+    ]
+   },
+   "tipografia": "Grotesca neo neutra peso médio para frases, mono pequena para chips e comando; texto entra digitado com cursor piscando.",
+   "movimento": "Câmera desliza lateralmente entre amostras, cards entram em perspectiva com easing suave, um card escuro cruza com motion blur; o cursor encolhe, se desloca e reaparece como ponte entre cenas.",
    "familias": [
     "interface",
     "codigo",
@@ -473,6 +588,18 @@
     "bento de ficha técnica (paleta, fonte, easing, BPM)",
     "linha do tempo de keyframes na base de todas as cenas"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#141212",
+     "#E8432E",
+     "#ECE7DF",
+     "#6E6A66",
+     "#0C0B0B"
+    ]
+   },
+   "tipografia": "grotesca larga pesada (Archivo Black) para títulos, mono para comentários e HUD; letras entram individualmente com rotação e assentam",
+   "movimento": "cenas no compasso de 128 BPM, transições com máscara em losango e rotação, curvas de easing explícitas, timeline de keyframes avançando embaixo",
    "familias": [
     "tipografia",
     "diagrama",
@@ -516,6 +643,17 @@
     "linhas de dados com rótulo e barra de progresso",
     "HUD com contador de compasso e batida"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#14120f",
+     "#f05a28",
+     "#efe9dc",
+     "#3a332c"
+    ]
+   },
+   "tipografia": "Grotesca condensada muito pesada em caixa alta para dias e resposta, mono pequena nos rótulos e HUD, gótica japonesa bold na pergunta e na resposta; números entram com contagem.",
+   "movimento": "Tudo marcado na batida (BAR/BEAT no HUD), varredura do seletor com desaceleração até a casa certa, impacto de escala na palavra-resposta, linhas de dados entrando em cascata.",
    "familias": [
     "tipografia",
     "dados",
@@ -559,6 +697,16 @@
     "palavra solta em serifa grande entre imagens",
     "corte seco entre ilustrações com o ponto mantido no mesmo lugar"
    ],
+   "paleta": {
+    "fundo": "claro",
+    "cores": [
+     "#FFFFFF",
+     "#111111",
+     "#D9775B"
+    ]
+   },
+   "tipografia": "Serifa editorial de peso médio-pesado em caixa baixa, centralizada; o ponto final em terracota. Entra por corte, sem efeito por letra aparente.",
+   "movimento": "Cortes rápidos de imagem para imagem, com o elemento vetorial desenhando o próprio contorno (stroke-dashoffset) e o ponto laranja servindo de âncora que atravessa as cenas; zoom lento nas gravuras.",
    "familias": [
     "foto-colagem",
     "textura",
@@ -605,6 +753,18 @@
     "painel de agente com chamadas de ferramenta marcadas",
     "mosaico de templates rolando"
    ],
+   "paleta": {
+    "fundo": "claro",
+    "cores": [
+     "#F2F2F2",
+     "#1A1A1A",
+     "#C9B8F5",
+     "#F07A55",
+     "#2F7BF0"
+    ]
+   },
+   "tipografia": "Grotesca neutra em peso médio nos títulos fixos, mono para código e anotações; só o conteúdo anima, o título fica parado.",
+   "movimento": "Elementos entram em cascata com stagger, transições por desfoque entre capítulos, um quadro preto de respiro; ritmo de demo técnica sem câmera.",
    "familias": [
     "interface",
     "codigo",
@@ -646,6 +806,18 @@
     "ícones 3D suaves (pasta, recipiente) com sombra",
     "trio de ícones com central em destaque"
    ],
+   "paleta": {
+    "fundo": "claro",
+    "cores": [
+     "#F2F2F2",
+     "#1A1A1A",
+     "#F0472D",
+     "#8A8A8A",
+     "#FFFFFF"
+    ]
+   },
+   "tipografia": "grotesca bold com tracking negativo, parte secundária em cinza; palavras entram por desfoque",
+   "movimento": "cortes rápidos de ~1,5 s, push de câmera no mockup, desfoque nas entradas, ícones com mola leve",
    "familias": [
     "interface",
     "tipografia"
@@ -688,6 +860,17 @@
     "parede inclinada de miniaturas rolando",
     "fundo claro com blobs de gradiente quente"
    ],
+   "paleta": {
+    "fundo": "claro",
+    "cores": [
+     "#FFFFFF",
+     "#FBE3D3",
+     "#F28A4B",
+     "#111111"
+    ]
+   },
+   "tipografia": "grotesca neutra semibold em caixa baixa, frases curtas à esquerda; palavras entram por desfoque e saem desfocando",
+   "movimento": "transições por desfoque e deslizamento suave, sem cortes bruscos; easing longo tipo ease-out; câmera estática com elementos deslizando lateralmente; uma ideia a cada ~1,5 s",
    "familias": [
     "celular",
     "tipografia",
@@ -732,6 +915,18 @@
     "stepper de etapas com roteiro digitando",
     "título com segunda metade em cinza"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#0A0A0A",
+     "#F5F5F5",
+     "#7A7A7A",
+     "#7C3AED",
+     "#22C55E"
+    ]
+   },
+   "tipografia": "sans neutra média com metade da frase em cinza, mono minúscula para rótulos e capítulos, número gigante bold; texto digita e embaralha",
+   "movimento": "cortes rápidos por etapa, varredura em grade, contagem do multiplicador, digitação; ritmo compacto de 10 s",
    "familias": [
     "interface",
     "dados",
@@ -771,6 +966,18 @@
     "cenário low-poly com chão de lava rachada",
     "personagem cômico secundário"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#3A0A0A",
+     "#B6FF3A",
+     "#FF3FC8",
+     "#FFC23A",
+     "#6B3FA0"
+    ]
+   },
+   "tipografia": "Sem tipografia visível.",
+   "movimento": "Câmera em travelling acompanhando a queda, quiques marcados nas batidas, flashes de luz curtos; ritmo contínuo sem cortes aparentes nos frames.",
    "familias": [
     "3d",
     "ritmo-som",
@@ -813,6 +1020,18 @@
     "linha desenhada que permanece sob os jogadores",
     "título editorial condensado com filete amarelo"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#12151c",
+     "#2f8a3a",
+     "#f2d23a",
+     "#2fb6e8",
+     "#e8e8e8"
+    ]
+   },
+   "tipografia": "Grotesca condensada extra pesada em caixa alta para títulos no canto superior esquerdo, com filete amarelo acima e parágrafo pequeno; mono nos painéis de dados.",
+   "movimento": "Câmera 3D voando entre pontos do estádio com easing longo, cortes por capítulo, divisória de tela deslizando; um frame branco de transição aparece no meio.",
    "familias": [
     "3d",
     "diagrama",
@@ -855,6 +1074,18 @@
     "diagrama ilustrado com setas e equação",
     "virada de escuro para claro no fecho"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#070B1A",
+     "#4ADE80",
+     "#60A5FA",
+     "#F472B6",
+     "#F3F5F8"
+    ]
+   },
+   "tipografia": "sans geométrica bold com palavra-chave em serifa itálica degradê; rótulos dentro de pills; palavras soltas entram com blur e glow",
+   "movimento": "transições por objeto (páginas sugadas pelo logo, linhas que viram conexões), ease-out suave, câmera com leve profundidade, virada de cena escura para clara no fim",
    "familias": [
     "diagrama",
     "particulas",
@@ -899,6 +1130,18 @@
     "número grande ao lado de imagem cortada em painel",
     "painel de prompt com cursor clicando em gerar"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#120D1C",
+     "#8E5CF0",
+     "#C9B3FF",
+     "#FFFFFF",
+     "#5B2BD6"
+    ]
+   },
+   "tipografia": "Grotesca bold itálica para números e palavras-chave, serifa itálica para frases, mono para rótulos de modelo; texto como máscara de vídeo.",
+   "movimento": "Cortes rápidos por categoria, movimento lento dentro das imagens geradas, mosaico com câmera atravessando, ritmo de reel de marca com flash branco no fim.",
    "familias": [
     "foto-colagem",
     "tipografia",
@@ -945,6 +1188,18 @@
     "faixa de papel rasgado como cartela final",
     "confete e rabiscos no fecho"
    ],
+   "paleta": {
+    "fundo": "claro",
+    "cores": [
+     "#F1EDE4",
+     "#ED5A24",
+     "#141414",
+     "#FFFFFF",
+     "#2B2B2B"
+    ]
+   },
+   "tipografia": "condensada pesada caixa-alta para manchetes, manuscrita casual para o logo e chips; palavras entram por corte e blur, logo escrito à mão",
+   "movimento": "cortes rápidos por frase, bonecos com animação de pose simples, carimbo com impacto, alternância creme/laranja/preto, fecho festivo",
    "familias": [
     "personagem",
     "tipografia",
@@ -985,6 +1240,18 @@
     "selo serrilhado entrando com rotação",
     "texto script dourado"
    ],
+   "paleta": {
+    "fundo": "cor",
+    "cores": [
+     "#F7E2C0",
+     "#6B3E1A",
+     "#F08A1E",
+     "#FFFFFF",
+     "#E8B84A"
+    ]
+   },
+   "tipografia": "Grotesca arredondada black com contorno, script caligráfico dourado e sans regular de apoio.",
+   "movimento": "Pop de escala, raios girando, confete contínuo, círculo expandindo como corte; linguagem de template de aniversário.",
    "familias": [
     "tipografia",
     "formas"
@@ -1026,6 +1293,18 @@
     "mira de rastreamento sobre pupila",
     "fecho silencioso em serifa itálica"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#3A1408",
+     "#E89A3A",
+     "#1A1030",
+     "#FFFFFF",
+     "#4A8FE0"
+    ]
+   },
+   "tipografia": "Grotesca condensada muito pesada com separação RGB para palavras de impacto, mono para telemetria, serifa itálica fina no fecho.",
+   "movimento": "Acúmulo caótico na primeira metade, aceleração com riscos de luz no meio, desaceleração brusca no céu e no olho, silêncio final; contadores correndo o tempo todo.",
    "familias": [
     "dados",
     "particulas",
@@ -1071,6 +1350,17 @@
     "gráfico de linha subindo com número gigante e borrão",
     "ilustração de gravura galopando com linhas de velocidade"
    ],
+   "paleta": {
+    "fundo": "cor",
+    "cores": [
+     "#E3201B",
+     "#0A0A0A",
+     "#F2EFEA",
+     "#FFFFFF"
+    ]
+   },
+   "tipografia": "Grotesca bold com tracking apertado para títulos e números, serifa itálica para frases de apoio, mono no HUD e rótulos.",
+   "movimento": "Cortes por capítulo numerado, alternância vermelho/creme, contadores rolando, push de câmera no gráfico com motion blur e fundo em travelling no cavalo.",
    "familias": [
     "interface",
     "dados",
@@ -1116,6 +1406,18 @@
     "lista reordenável com itens fixados",
     "troca de fundo claro, chocolate e rosa por cena"
    ],
+   "paleta": {
+    "fundo": "cor",
+    "cores": [
+     "#F8EEDC",
+     "#2A1612",
+     "#E95C9F",
+     "#5B2333",
+     "#F2A65A"
+    ]
+   },
+   "tipografia": "display arredondada bold em duas linhas, segunda em rosa; rótulos pequenos caixa alta em pílula; entradas com escala e mola",
+   "movimento": "cortes por whip-pan com motion blur, molas com overshoot visível, itens caindo no pote, raios girando contínuos; ~2,5 s por novidade",
    "familias": [
     "personagem",
     "interface",
@@ -1160,6 +1462,18 @@
     "palavra gigante com motion blur horizontal",
     "HUD com timecode, fps, BPM e contador de compasso"
    ],
+   "paleta": {
+    "fundo": "cor",
+    "cores": [
+     "#0E0E0E",
+     "#EE4B33",
+     "#2E2EF0",
+     "#F1ECE2",
+     "#111111"
+    ]
+   },
+   "tipografia": "grotesca ultra pesada condensada nos títulos, serifa itálica fina como contraponto, mono minúscula no HUD; títulos entram com blur de velocidade",
+   "movimento": "capítulos curtos no compasso de 120 BPM, cortes secos com troca de fundo, comparação lado a lado de easings (linear, expo, back, elastic, bounce), morphs e rotações contínuas",
    "familias": [
     "formas",
     "tipografia",
@@ -1204,6 +1518,18 @@
     "etiqueta em pílula com nome do personagem",
     "palavra-chave da frase em cor de destaque"
    ],
+   "paleta": {
+    "fundo": "claro",
+    "cores": [
+     "#F7F3EC",
+     "#E8590C",
+     "#F4C6DE",
+     "#111111",
+     "#C2185B"
+    ]
+   },
+   "tipografia": "Grotesca muito pesada e apertada com palavra final em laranja, sobrelinha mono com ponto; texto entra por subida curta.",
+   "movimento": "Cortes secos e um wipe circular, cursor guiando as interações, contador ligado ao slider, mascotes com pequeno bounce.",
    "familias": [
     "interface",
     "personagem",
@@ -1248,6 +1574,18 @@
     "texto em gradiente com linhas de glitch",
     "título com cópia vazada logo abaixo"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#0E0A1A",
+     "#2A1440",
+     "#FF4D8D",
+     "#FF8A3D",
+     "#7B5CFF"
+    ]
+   },
+   "tipografia": "Sans estendida muito pesada com eco vazado embaixo, mono pequena no HUD; títulos entram com deslize e escala.",
+   "movimento": "Cortes secos por recurso, wipe do antes e depois, rotação de cards de foto, desintegração em partículas quadradas, pan sobre grade inclinada.",
    "familias": [
     "foto-colagem",
     "celular",
@@ -1290,6 +1628,18 @@
     "título gigante de vidro fosco recortado pela borda do card",
     "wordmark com zoom-smear e halo na cartela final"
    ],
+   "paleta": {
+    "fundo": "claro",
+    "cores": [
+     "#FDFDFB",
+     "#2F6BFF",
+     "#3CC8F0",
+     "#4ED6A0",
+     "#1E2F52"
+    ]
+   },
+   "tipografia": "sans neutra (Inter) em pesos 400-700; texto digitado char a char, frase-chave em preto 600 sobre corpo cinza, wordmark final branco com glow encolhendo",
+   "movimento": "entradas sempre já em movimento com ease-out exponencial, saídas acelerando com rampa de blur direcional, cortes secos 2 quadros antes da batida, uma única pausa congelada perto do fim",
    "familias": [
     "interface",
     "transicao",
@@ -1331,6 +1681,18 @@
     "fórmula tipográfica montando no fecho",
     "linhas horizontais de grade com timecode"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#2A2C31",
+     "#46C7D8",
+     "#E2557A",
+     "#F2A93B",
+     "#9B7BEA"
+    ]
+   },
+   "tipografia": "serifa matemática estilo LaTeX nas fórmulas, mono minúscula no HUD; fórmulas entram por fade e o último termo troca com destaque",
+   "movimento": "lento e contemplativo, traçados contínuos, transições por colapso num ponto de luz; vários trechos ficam quase vazios",
    "familias": [
     "diagrama",
     "particulas"
@@ -1373,6 +1735,18 @@
     "canvas de nós ligados com painel de agente e checklist",
     "toast de confirmação no canvas"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#0D0D0D",
+     "#FFFFFF",
+     "#D88AA0",
+     "#8A8A8A",
+     "#E0352B"
+    ]
+   },
+   "tipografia": "Sans bold (tipo Inter Display) misturada com serifa itálica na mesma frase, centralizada; corpo pequeno cinza. Entrada por máscara de baixo para cima.",
+   "movimento": "Transições suaves por escala e máscara, mosaico com deriva lenta, carrossel deslizando, nós aparecendo em sequência; ritmo de vídeo hero de site, sem pressa.",
    "familias": [
     "interface",
     "foto-colagem"
@@ -1413,6 +1787,18 @@
     "mosaico de telas em perspectiva atrás da frase",
     "grade fina de fundo com marcas de cruz"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#0A0D0B",
+     "#F1F0EA",
+     "#1FCB7A",
+     "#0E5A3A",
+     "#FFFFFF"
+    ]
+   },
+   "tipografia": "Grotesca neo bold com uma palavra em serifa itálica verde, mono nos rótulos e no código.",
+   "movimento": "Alternância entre escuro e claro, wipes em degraus, linhas desenhando com pulso de luz, câmera deslizando sobre o mosaico; ritmo ágil.",
    "familias": [
     "interface",
     "diagrama",
@@ -1455,6 +1841,18 @@
     "rastros circulares de estrelas em torno de globo",
     "linha do tempo final com ícones em círculos"
    ],
+   "paleta": {
+    "fundo": "cor",
+    "cores": [
+     "#F3E9D2",
+     "#E8432A",
+     "#F6B31B",
+     "#1F2C6E",
+     "#E64BA0"
+    ]
+   },
+   "tipografia": "condensada pesada vertical com serifa itálica de apoio e escritas não latinas grandes; mono pequena no cabeçalho e nas notas de rodapé; letras entram com sombra deslocada colorida",
+   "movimento": "uma prancha por era, transições por wipe chapado e pelo fio que conduz, traçados que se desenham, ritmo sincronizado a trilha sintetizada",
    "familias": [
     "diagrama",
     "tipografia",
@@ -1500,6 +1898,18 @@
     "analogia do cotidiano no título de cada conceito",
     "folha de resumo final"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#0B1530",
+     "#E8ECF5",
+     "#E84A3A",
+     "#3AB0F0",
+     "#F2C230"
+    ]
+   },
+   "tipografia": "Sans CJK bold nos títulos com palavra-chave colorida, mono no terminal, sans regular na legenda.",
+   "movimento": "Ritmo de aula, entradas em fade e deslize curto, cada elemento surge junto com a fala, câmera fixa; quase 7 minutos.",
    "familias": [
     "diagrama",
     "codigo",
@@ -1540,6 +1950,17 @@
     "trio de métricas grandes",
     "HUD com capítulo comentado e segmentos de progresso"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#141010",
+     "#E5322D",
+     "#FFFFFF",
+     "#8A8A8A"
+    ]
+   },
+   "tipografia": "Grotesca sans em negrito com uma palavra em serifa itálica vermelha por frase, mono em rótulos e código; entrada por fade com subida.",
+   "movimento": "Cortes secos por capítulo, stagger de cards, digitação, cursor percorrendo a onda; câmera fixa.",
    "familias": [
     "interface",
     "codigo",
@@ -1583,6 +2004,18 @@
     "rastro onion-skin no giro",
     "onomatopeia gigante com contorno e sombra deslocada"
    ],
+   "paleta": {
+    "fundo": "cor",
+    "cores": [
+     "#F23C8C",
+     "#FFD21F",
+     "#2B3FE0",
+     "#3FD4E0",
+     "#1A1A1A"
+    ]
+   },
+   "tipografia": "Grotesca black arredondada em caixa alta com contorno branco e sombra deslocada, estilo pôster; katakana nos letreiros e mono no HUD.",
+   "movimento": "Tudo cravado num BPM alto, cortes na batida, cânone com atraso de décimos de segundo, zoom nos pés, rastro de onion-skin; energia máxima.",
    "familias": [
     "personagem",
     "ritmo-som",
@@ -1627,6 +2060,18 @@
     "túnel de partículas em velocidade",
     "aberração cromática no logo antes de estabilizar"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#0A0A0A",
+     "#F03A1E",
+     "#2B3BE0",
+     "#C8F542",
+     "#EEEAE2"
+    ]
+   },
+   "tipografia": "Grotesca condensada pesada em caixa alta (tipo Anton) e sans espaçada para subtítulos; japonês vertical como detalhe. Letras recebem cores diferentes e glitch na entrada.",
+   "movimento": "Cortes secos com troca de fundo por capítulo, stagger em onda na grade, partículas em espiral e túnel em alta velocidade, glitch RGB que resolve no logo.",
    "familias": [
     "tipografia",
     "particulas",
@@ -1668,6 +2113,18 @@
     "suíte de testes com selos de aprovado em sequência",
     "stepper de quatro etapas com quadrados coloridos no rodapé"
    ],
+   "paleta": {
+    "fundo": "claro",
+    "cores": [
+     "#F4F1E8",
+     "#111111",
+     "#E0552A",
+     "#7A4FE0",
+     "#2FB36A"
+    ]
+   },
+   "tipografia": "Grotesca bold nas headlines, mono para arquivos e rótulos; troca de palavra por substituição no mesmo lugar.",
+   "movimento": "Cards em deriva leve, linhas que se desenham, morph do retângulo preto em janela, entradas em cascata; ritmo médio.",
    "familias": [
     "interface",
     "diagrama",
@@ -1710,6 +2167,18 @@
     "reframe de preço por dia em cartela escura",
     "card de checkout como fecho"
    ],
+   "paleta": {
+    "fundo": "claro",
+    "cores": [
+     "#FFFFFF",
+     "#2563EB",
+     "#1E1B18",
+     "#22C55E",
+     "#8B8378"
+    ]
+   },
+   "tipografia": "serifa de display editorial nos títulos e números grandes, sans pequena na UI; números trocam por contagem e linhas entram por fade curto",
+   "movimento": "sóbrio, transições por corte e fade suave entre telas, elementos surgindo em stagger, ritmo de slide",
    "familias": [
     "dados",
     "interface"
@@ -1754,6 +2223,18 @@
     "blur-dissolve entre cards de vidro",
     "cartão final preto com marca brilhando"
    ],
+   "paleta": {
+    "fundo": "claro",
+    "cores": [
+     "#FDFDFB",
+     "#294376",
+     "#769CC2",
+     "#2F6BFF",
+     "#4ED6A0"
+    ]
+   },
+   "tipografia": "Sans neutra (família tipo Inter) em pesos 400 a 700; títulos de card gigantes com efeito de vidro fosco; texto entra desfocado e firma ao parar.",
+   "movimento": "Câmera nunca parada, aproximações exponenciais, cortes secos na batida após o drop, borrão direcional em todo deslocamento, dissoluções por desfoque no fim.",
    "familias": [
     "interface",
     "camera",
@@ -1799,6 +2280,18 @@
     "legenda bilíngue em caixa na base",
     "linha do tempo desenhada com marcos do processo"
    ],
+   "paleta": {
+    "fundo": "claro",
+    "cores": [
+     "#f6f4ef",
+     "#1a1a1a",
+     "#e07a5f",
+     "#3a63b8",
+     "#2a1f1a"
+    ]
+   },
+   "tipografia": "Letra manuscrita de marcador para títulos e notas, serifa e sans das próprias interfaces capturadas; texto manuscrito surge traço a traço acompanhando a ponta do marcador.",
+   "movimento": "Câmera desliza pelo quadro entre blocos, marcador animado revelando traços, capturas entram com pequeno zoom; ritmo calmo de tutorial guiado pela narração.",
    "familias": [
     "interface",
     "diagrama",
@@ -1845,6 +2338,17 @@
     "fotos em leque sob o número final",
     "letras de serifa itálica caindo em cascata"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#EE5A0E",
+     "#141210",
+     "#F3EEE4",
+     "#2E6BE6"
+    ]
+   },
+   "tipografia": "Grotesca condensada muito pesada para números e perguntas, serifa itálica para legendas, mono em versalete nos rótulos; números contam e letras caem com stagger.",
+   "movimento": "Cortes secos entre blocos de dado, morph contínuo dos pontos dentro do bloco, celulares em slide lateral, alternância escuro, laranja e creme.",
    "familias": [
     "dados",
     "celular",
@@ -1887,6 +2391,18 @@
     "barra de render falsa no meio do vídeo",
     "notificação de e-mail de rejeição no fim"
    ],
+   "paleta": {
+    "fundo": "claro",
+    "cores": [
+     "#FFFFFF",
+     "#1A1A1A",
+     "#E01E1E",
+     "#22E0E6",
+     "#2FB82F"
+    ]
+   },
+   "tipografia": "Times padrão do navegador no título, fontes de efeito datadas (cartoon, impacto) dentro do player, mono verde no timecode; tudo sem animação refinada.",
+   "movimento": "Quase nenhum: cortes secos entre cartelas, efeitos de transição de editor amador, rotação simples do cubo; a graça está na falta de ritmo.",
    "familias": [
     "interface",
     "tipografia",
@@ -1927,6 +2443,18 @@
     "número de item fantasma gigante ao fundo",
     "resumo final em grade 2x3"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#0B1220",
+     "#E8ECF2",
+     "#F07A3A",
+     "#8A6CF0",
+     "#4CC46A"
+    ]
+   },
+   "tipografia": "Grotesca geométrica bold para títulos latinos, sans japonesa bold no subtítulo com sublinhado colorido, mono pequena nos metadados.",
+   "movimento": "Entradas em cascata, wipe diagonal entre itens, micro-animações nas ilustrações; ritmo regular de 8 a 10 segundos por item.",
    "familias": [
     "dados",
     "interface",
@@ -1967,6 +2495,17 @@
     "régua de horário com marcador de pico",
     "botão com borrão de movimento ao ser clicado"
    ],
+   "paleta": {
+    "fundo": "claro",
+    "cores": [
+     "#efedea",
+     "#ffffff",
+     "#e8501f",
+     "#1a1816"
+    ]
+   },
+   "tipografia": "Sans geométrica neutra semibold nos títulos dos cards, regular no corpo; textos aparecem junto com o card, sem animação própria.",
+   "movimento": "Cada etapa entra com escala e fade curtos no centro, cursor em trajetória com easing, cliques com leve compressão do botão; ritmo uniforme de uma etapa por 1,5 s.",
    "familias": [
     "interface"
    ],
@@ -2004,6 +2543,18 @@
     "troca para bloco escuro na seção de comparação",
     "mascote pequeno entrando no canto"
    ],
+   "paleta": {
+    "fundo": "claro",
+    "cores": [
+     "#eef6ef",
+     "#1a1d1f",
+     "#1f6fe0",
+     "#2fbf71",
+     "#0f2a1e"
+    ]
+   },
+   "tipografia": "Grotesca neutra média com metade do título em azul, mono pequena em caixa alta para seções; títulos entram com fade e leve subida.",
+   "movimento": "Cards deslizam e se montam com easing suave, linhas de conexão se desenham, mudança claro para escuro por corte; ritmo moderado de promo SaaS.",
    "familias": [
     "interface",
     "diagrama",
@@ -2045,6 +2596,18 @@
     "medidor circular que vira anel de confirmação",
     "foco seletivo escurecendo o resto da UI"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#0C0F1A",
+     "#1A2032",
+     "#E8B84B",
+     "#34D399",
+     "#E8EAF2"
+    ]
+   },
+   "tipografia": "sans geométrica (Plus Jakarta) em títulos curtos de 2-3 palavras, mono para valores financeiros; números contam e assentam, frases entram por fade discreto",
+   "movimento": "câmera lenta e pesada sobre superfícies inclinadas, ease-out forte sem overshoot, elementos com chegadas defasadas, ritmo que desacelera na parte fiscal",
    "familias": [
     "interface",
     "dados",
@@ -2090,6 +2653,18 @@
     "dispositivo e-ink com flash de atualização",
     "cantoneiras de registro como moldura"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#1C1916",
+     "#E9E4D8",
+     "#F4F1EA",
+     "#8C857A",
+     "#141210"
+    ]
+   },
+   "tipografia": "serifa editorial clássica com segunda linha em itálico, rótulos mono minúsculos espaçados; texto entra por fade com leve blur e itens de lista digitam",
+   "movimento": "calmo e editorial, transições por dissolução granular e troca de matéria (tela para papel), sem bounce; cortes casados a uma trilha suave",
    "familias": [
     "textura",
     "tipografia",
@@ -2134,6 +2709,18 @@
     "linha do tempo com conector ondulado brilhando",
     "card com resposta digitando e pontuação"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#121418",
+     "#2A2E35",
+     "#F0452E",
+     "#F5F5F5",
+     "#3EC77A"
+    ]
+   },
+   "tipografia": "grotesca bold arredondada com palavras-chave em vermelho; entra palavra a palavra; sans regular nos cards",
+   "movimento": "push de câmera lento sobre a parede de cards, entradas com mola, feixe de luz varrendo, digitação; transições por fade escuro; ritmo de ~5 s por cena",
    "familias": [
     "interface",
     "personagem",
@@ -2177,6 +2764,18 @@
     "palavra realçada com bloco de cor atrás",
     "linha de métricas grandes com divisórias"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#0A0A0A",
+     "#1240F0",
+     "#FFFFFF",
+     "#8C8C8C",
+     "#2E3B2A"
+    ]
+   },
+   "tipografia": "Grotesca neo regular grande com entrelinha justa, mono minúscula no HUD; destaque por bloco azul atrás da palavra.",
+   "movimento": "Cortes rápidos com wipes em bloco, câmera deslizando sobre o mosaico, fotos com leve zoom contínuo; ritmo ágil de reel de agência.",
    "familias": [
     "foto-colagem",
     "tipografia",
@@ -2220,6 +2819,18 @@
     "raios de sol atrás da pose final",
     "sombreamento toon com contorno"
    ],
+   "paleta": {
+    "fundo": "cor",
+    "cores": [
+     "#2a2a6a",
+     "#e8312a",
+     "#2d5fd8",
+     "#f5c518",
+     "#ffffff"
+    ]
+   },
+   "tipografia": "Gótica japonesa ultra pesada itálica amarela com contorno vermelho e preto para letreiros e onomatopeias; placas com sans condensada; entram com batida de escala e tremor.",
+   "movimento": "Cortes de anime em sequência: apresentação de cada peça, voo com linhas de velocidade, encaixe com flash e tremor de câmera, close dramático e pose com câmera subindo.",
    "familias": [
     "3d",
     "personagem",
@@ -2263,6 +2874,18 @@
     "credencial convertendo em texto cifrado sob cadeado",
     "moldura com capítulo, timecode e resolução"
    ],
+   "paleta": {
+    "fundo": "cor",
+    "cores": [
+     "#0B0D22",
+     "#F5F6FA",
+     "#3A3FD9",
+     "#8B93F0",
+     "#111111"
+    ]
+   },
+   "tipografia": "grotesca extra-bold com tracking negativo combinada com serifa itálica em azul para a palavra-chave; mono nos rótulos",
+   "movimento": "alternância escuro/claro por capítulo, cards entram com mola e sombra, desfoque de profundidade no caos, cifra com caracteres embaralhando; ~2,5 s por capítulo",
    "familias": [
     "interface",
     "tipografia"
@@ -2307,6 +2930,18 @@
     "metaballs se fundindo",
     "timeline de keyframes visível sob a palavra"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#0E0C12",
+     "#EFECE6",
+     "#E8452A",
+     "#2A3AE0",
+     "#F2B81F"
+    ]
+   },
+   "tipografia": "Grotesca black larga em caixa alta, com uma letra em vermelho; mono minúscula no HUD.",
+   "movimento": "Corte a cada compasso, colunas deslizando defasadas, órbita de câmera, fusão de esferas; ritmo de reel.",
    "familias": [
     "formas",
     "particulas",
@@ -2349,6 +2984,18 @@
     "vórtice de partículas sobre timecode gigante em contorno",
     "régua de ticks na base com HUD de cantoneiras"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#0e0e0e",
+     "#ff4f1a",
+     "#f1ece0",
+     "#f3b523",
+     "#2747d8"
+    ]
+   },
+   "tipografia": "Serifa didone itálica e grotesca larga extra pesada alternadas, mono pequena para dados técnicos; o peso e a largura variam ao vivo com os valores exibidos ao lado.",
+   "movimento": "Cada capítulo usa e exibe uma curva diferente (back, elastic, parábola com gravidade, exponencial), cortes no tempo de 128 BPM, câmera inclinando sobre a grade 3D.",
    "familias": [
     "formas",
     "tipografia",
@@ -2393,6 +3040,17 @@
     "gráfico de área de downloads",
     "fade suave entre seções"
    ],
+   "paleta": {
+    "fundo": "claro",
+    "cores": [
+     "#F2EADB",
+     "#1C1A17",
+     "#C8642E",
+     "#FFFFFF"
+    ]
+   },
+   "tipografia": "serifa de texto clássica grande nas manchetes, sans pequena caixa alta espaçada laranja nos rótulos; entradas por fade",
+   "movimento": "transições suaves por fade e deslize, rolagem lenta dentro das capturas, ritmo uniforme e longo; pouca variação de enquadramento",
    "familias": [
     "interface",
     "foto-colagem"
@@ -2433,6 +3091,18 @@
     "slider de configuração com métricas reagindo",
     "marca d'água gráfica gigante no fundo"
    ],
+   "paleta": {
+    "fundo": "claro",
+    "cores": [
+     "#F2F7FC",
+     "#111827",
+     "#D63B2F",
+     "#2563EB",
+     "#1F2937"
+    ]
+   },
+   "tipografia": "sans neutra média nos títulos com palavra em vermelho, mono para o texto da nota do técnico; texto entra por fade e grifo se desenha da esquerda para a direita",
+   "movimento": "ritmo de demo calmo, cursor clicando, rolagem de listas, cortes suaves entre cartelas e telas; poucas transições de objeto",
    "familias": [
     "interface",
     "dados"
@@ -2477,6 +3147,18 @@
     "cards de screenshot orbitando o texto",
     "confete no fecho"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#050505",
+     "#FFFFFF",
+     "#F2A7C9",
+     "#9B7BE8",
+     "#6A4FD0"
+    ]
+   },
+   "tipografia": "Grotesca bold para headlines, grotesca light enorme com gradiente para as frases emocionais, mono no terminal; palavras entram com desfoque.",
+   "movimento": "Transições suaves por desfoque, dígitos rolando com motion blur vertical, câmera deslizando sobre galeria em perspectiva; ritmo médio de keynote.",
    "familias": [
     "dados",
     "interface",
@@ -2521,6 +3203,18 @@
     "faixas verticais coloridas deslizando",
     "timeline com marcadores no rodapé"
    ],
+   "paleta": {
+    "fundo": "cor",
+    "cores": [
+     "#10297A",
+     "#F2F4F8",
+     "#E8342A",
+     "#F5C518",
+     "#1A1A1A"
+    ]
+   },
+   "tipografia": "Grotesca geométrica bold nas palavras, serifa itálica pequena nas legendas técnicas; réguas tipográficas visíveis.",
+   "movimento": "Capítulos de cerca de 1 segundo demonstrando curvas de easing, squash e física; transição por faixas deslizando; ritmo muito rápido.",
    "familias": [
     "tipografia",
     "formas",
@@ -2568,6 +3262,18 @@
     "cursor dirigindo cliques com zoom de câmera",
     "UI composta sobre vídeo real de parede"
    ],
+   "paleta": {
+    "fundo": "claro",
+    "cores": [
+     "#EEEDE8",
+     "#0B0B0C",
+     "#E2552B",
+     "#4A63D9",
+     "#6B7A3A"
+    ]
+   },
+   "tipografia": "grotesca larga pesada no wordmark e sans geométrica limpa na UI; texto sobe de linha de máscara e troca dentro da forma que morfa",
+   "movimento": "plano-sequência sem corte, molas de passo fechado, zoom de câmera acompanhando o cursor, uma ação por batida a 120 BPM, flood de ~0,3 s entre cenas e loop no último quadro",
    "familias": [
     "interface",
     "foto-colagem",
@@ -2612,6 +3318,18 @@
     "gráfico de barras com valor percentual grande",
     "layout da direita para a esquerda"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#1B2340",
+     "#E8B44A",
+     "#C8202F",
+     "#6A3FA0",
+     "#F3E9D2"
+    ]
+   },
+   "tipografia": "Sans árabe em negrito para títulos e números condensados muito pesados para anos; entradas por deslize simples.",
+   "movimento": "Cortes secos de evento em evento, elementos deslizando ou crescendo; ritmo lento, de apresentação de slides.",
    "familias": [
     "dados",
     "diagrama",
@@ -2657,6 +3375,17 @@
     "tríptico de fotos com legenda",
     "sublinhado desenhado sob palavra-chave"
    ],
+   "paleta": {
+    "fundo": "claro",
+    "cores": [
+     "#f2f6fb",
+     "#1a9be8",
+     "#111a2e",
+     "#ffffff"
+    ]
+   },
+   "tipografia": "Grotesca geométrica muito pesada em caixa alta e baixa, palavra de destaque em azul; nas frases cinéticas as letras entram em alturas diferentes e assentam na linha de base.",
+   "movimento": "Ritmo de promo com cortes rápidos entre cenas, entradas com mola e leve overshoot, transição por wipe diagonal escuro/azul, cards e fotos com escala suave; contador avança em passos.",
    "familias": [
     "tipografia",
     "interface",
@@ -2702,6 +3431,18 @@
     "barras de cor verticais varrendo com glitch",
     "rótulos de figura técnica (FIG.03) com descrição"
    ],
+   "paleta": {
+    "fundo": "cor",
+    "cores": [
+     "#E8231E",
+     "#2B33E6",
+     "#C8F542",
+     "#F1EEE6",
+     "#0B0B0B"
+    ]
+   },
+   "tipografia": "Grotesca condensada pesada em caixa alta (tipo Anton/Helvetica Condensed Black), mono pequena nos rótulos de figura e HUD.",
+   "movimento": "Cortes secos por capítulo com fundo de cor plena, rotação contínua dos toros, metaballs se fundindo, glitch e barras de cor como transição.",
    "familias": [
     "formas",
     "3d",
@@ -2743,6 +3484,18 @@
     "wordmark digitado com cursor",
     "vinheta radial escura"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#0A090E",
+     "#F2EEEA",
+     "#E8606A",
+     "#F4D27C",
+     "#2B3A5C"
+    ]
+   },
+   "tipografia": "sans geométrica bold para o nome, regular pequena no slogan; nome entra letra a letra com cursor colorido",
+   "movimento": "montagem progressiva e lenta, peças com trajetórias curvas e rotação até assentar; zoom in no ícone e recuo para o lockup; easing suave sem overshoot",
    "familias": [
     "formas",
     "particulas"
@@ -2781,6 +3534,18 @@
     "árvore hierárquica desenhada com linhas de nível tracejadas",
     "legenda de narração sob o quadro"
    ],
+   "paleta": {
+    "fundo": "claro",
+    "cores": [
+     "#F7F6F0",
+     "#2E3A40",
+     "#1E1E1E",
+     "#2A4FB0",
+     "#C0303A"
+    ]
+   },
+   "tipografia": "Manuscrita tipo marcador para títulos sublinhados e equações, sans pequena nas legendas; texto aparece como se escrito pela caneta.",
+   "movimento": "Câmera fixa no quadro, desenho progressivo acompanhando a fala, corte seco ao trocar de quadro; ritmo lento de aula.",
    "familias": [
     "diagrama",
     "textura"
@@ -2822,6 +3587,18 @@
     "palavra riscada à mão por traço colorido",
     "palavra-chave em bloco de cor no título"
    ],
+   "paleta": {
+    "fundo": "claro",
+    "cores": [
+     "#F6F2EA",
+     "#3A6FF0",
+     "#E8466E",
+     "#3DBE6B",
+     "#F07A3A"
+    ]
+   },
+   "tipografia": "Grotesca sans bold (tipo Inter Display) em caixa mista, com pesos fortes no título e cinza no apoio; legenda em chip escuro com palavra destacada em amarelo.",
+   "movimento": "Cortes por cena a cada 3 s, cursores e cliques simulados, traços de risco desenhados com stroke, transições claro/escuro/azul por corte; ritmo de explainer SaaS.",
    "familias": [
     "interface",
     "diagrama",
@@ -2867,6 +3644,18 @@
     "galáxia espiral de partículas",
     "anel de texto girando em volta do logo"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#0D0C0B",
+     "#E2B25A",
+     "#F03C9A",
+     "#F3ECDD",
+     "#C9A878"
+    ]
+   },
+   "tipografia": "grotesca condensada ultra-bold nos números e na palavra ONE, serifa itálica nas frases e no wordmark, mono minúscula nos rótulos",
+   "movimento": "um capítulo por batida dupla a 120 BPM com cortes secos, motion blur no número, rotação e morph com easing rápido, partículas em espiral contínua",
    "familias": [
     "formas",
     "particulas",
@@ -2909,6 +3698,18 @@
     "gráfico de área com barras coloridas por faixa e tooltip",
     "fatura com total em contagem embaralhada"
    ],
+   "paleta": {
+    "fundo": "cor",
+    "cores": [
+     "#0E2C40",
+     "#F5C518",
+     "#E8452E",
+     "#F3EFE6",
+     "#C9D3DC"
+    ]
+   },
+   "tipografia": "sans geométrica bold para números grandes, mono minúscula nas legendas de capítulo; números contam com dígitos rolando",
+   "movimento": "capítulos de ~2 s com cortes e trocas de cor de fundo, desfoque de movimento na palavra, rotações 3D suaves nos cards, contadores com easing de desaceleração",
    "familias": [
     "dados",
     "interface",
@@ -2950,6 +3751,18 @@
     "linhas de velocidade horizontais",
     "letra miúda irônica no rodapé"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#0A0A0A",
+     "#FFFFFF",
+     "#E8352A",
+     "#F5C518",
+     "#2A6AF0"
+    ]
+   },
+   "tipografia": "Grotesca black itálica em caixa alta, matriz de pontos de LED no letreiro, sans pequena entre parênteses para as piadas.",
+   "movimento": "Cortes secos de comercial, profundidade de campo, objetos com luz dramática, palavras batendo no tempo; ritmo de anúncio.",
    "familias": [
     "3d",
     "tipografia",
@@ -2991,6 +3804,17 @@
     "texto extrudado com sombra em camadas",
     "troca de fundo creme, terracota e escuro por frase"
    ],
+   "paleta": {
+    "fundo": "cor",
+    "cores": [
+     "#F1ECE1",
+     "#C95A3C",
+     "#1C1A17",
+     "#FFFFFF"
+    ]
+   },
+   "tipografia": "Grotesca arredondada muito pesada, mono de largura fixa e versões extrudadas; letras caem, giram e encaixam com mola.",
+   "movimento": "Cortes rápidos com troca de fundo, desenho de linha, quedas com overshoot, ritmo de uma frase por segundo e pouco.",
    "familias": [
     "tipografia"
    ],
@@ -3032,6 +3856,18 @@
     "título editorial condensado com contador de capítulo",
     "legenda de cores fixa no canto"
    ],
+   "paleta": {
+    "fundo": "claro",
+    "cores": [
+     "#E6E8EA",
+     "#F5B800",
+     "#2F6BFF",
+     "#E8604C",
+     "#2EC4B6"
+    ]
+   },
+   "tipografia": "Grotesca condensada muito pesada nos títulos de capítulo, sans pequena no texto de apoio e nos callouts; títulos entram com corte seco.",
+   "movimento": "Câmera contínua e lenta orbitando e aproximando a maquete, objetos se separando em explosão controlada, partículas correndo por tubos; ritmo de reportagem.",
    "familias": [
     "3d",
     "diagrama",
@@ -3076,6 +3912,17 @@
     "log de agentes com status em execução",
     "cursor em bloco piscando após a palavra"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#0A0D0A",
+     "#B8F02B",
+     "#E8E8E8",
+     "#6E6E6E"
+    ]
+   },
+   "tipografia": "Grotesca sans moderna em peso médio misturada com fonte de matriz de pontos para números e palavras de impacto; mono no terminal e na telemetria.",
+   "movimento": "Digitação, pixels acendendo e dispersando, cortes secos por seção, faixa diagonal atravessando, listas entrando em stagger.",
    "familias": [
     "codigo",
     "interface",
@@ -3118,6 +3965,18 @@
     "mapa de pontos com clusters de avatares",
     "entrada e saída com blur"
    ],
+   "paleta": {
+    "fundo": "claro",
+    "cores": [
+     "#EEF1F6",
+     "#0F1115",
+     "#2F6BEF",
+     "#22C55E",
+     "#F59E0B"
+    ]
+   },
+   "tipografia": "grotesca pesada apertada em duas linhas, segunda linha em azul ou verde, rótulo mono caixa-alta; texto entra por blur e fade",
+   "movimento": "cena por recurso com troca por blur, contadores e barras animando dentro do card, ritmo rápido e regular",
    "familias": [
     "interface",
     "dados"
@@ -3159,6 +4018,18 @@
     "grade de itens com bandeira e check em cascata",
     "rótulo de seção numerado e título de duas linhas com cor"
    ],
+   "paleta": {
+    "fundo": "claro",
+    "cores": [
+     "#eef2f8",
+     "#0d1117",
+     "#2f86d6",
+     "#2fbf71",
+     "#f2a33a"
+    ]
+   },
+   "tipografia": "Grotesca pesada com espaçamento negativo, primeira linha preta e segunda azul, rótulo mono numerado acima; números grandes com contagem.",
+   "movimento": "Cortes por seção alternando claro, azul e escuro; gráficos se desenhando com easing, contadores rolando, itens de lista em cascata; ritmo regular de um recurso por 3 s.",
    "familias": [
     "dados",
     "interface",
@@ -3200,6 +4071,17 @@
     "laço circular com etapas rotuladas",
     "sobrelinha mono com ponto colorido"
    ],
+   "paleta": {
+    "fundo": "claro",
+    "cores": [
+     "#F4F4F2",
+     "#111111",
+     "#C6F04D",
+     "#9A9A9A"
+    ]
+   },
+   "tipografia": "Grotesca em negrito misturada com serifa regular na mesma linha, última palavra em cinza; sobrelinhas mono espaçadas; palavras entram em sequência.",
+   "movimento": "Revelação palavra a palavra, cards e nós aparecendo em stagger, barras enchendo; cortes secos entre cenas, câmera fixa.",
    "familias": [
     "diagrama",
     "interface",
@@ -3244,6 +4126,17 @@
     "número gigante com desfoque de movimento e faixa diagonal",
     "palavra marcada por bloco de cor no título"
    ],
+   "paleta": {
+    "fundo": "claro",
+    "cores": [
+     "#F3EEE6",
+     "#111111",
+     "#F0187E",
+     "#2B4BE8"
+    ]
+   },
+   "tipografia": "Grotesca ultracondensada pesada em caixa alta para títulos e números; mono para rótulos e corpo das janelas. Números rolam como odômetro e títulos entram com borrão lateral.",
+   "movimento": "Whip-pans horizontais com motion blur forte entre capítulos, janelas que entram com mola curta, faixas que cruzam a tela; cortes marcados pelo som.",
    "familias": [
     "interface",
     "diagrama",
@@ -3290,6 +4183,18 @@
     "close de personagem como pausa cômica",
     "rastro de velocidade horizontal"
    ],
+   "paleta": {
+    "fundo": "cor",
+    "cores": [
+     "#3A1F5C",
+     "#E2558E",
+     "#F7C948",
+     "#F3E27A",
+     "#2B1A3F"
+    ]
+   },
+   "tipografia": "fonte pixel bitmap caixa-alta em caixas amarelas e onomatopeias grandes com contorno; texto digita letra a letra",
+   "movimento": "câmera fixa com o bumerangue em arcos cada vez maiores, aceleração progressiva, flashes de fase, corte para close e explosão final",
    "familias": [
     "personagem",
     "textura",
@@ -3333,6 +4238,18 @@
     "linha de batimento com pontos contando nascimentos",
     "título com textura de grão e brilho"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#050608",
+     "#f2efe8",
+     "#e8532a",
+     "#8fb4ff",
+     "#ffc768"
+    ]
+   },
+   "tipografia": "Grotesca pesada para números com unidade em peso leve, serifa itálica para a frase explicativa, mono minúscula para rótulos e notas; números contam rápido e assentam.",
+   "movimento": "Câmera contínua viajando no espaço entre Terra e Sol, órbitas e rastros com easing longo, contadores sincronizados com a barra de tempo; ritmo crescente até o fecho em silêncio.",
    "familias": [
     "dados",
     "3d",
@@ -3373,6 +4290,18 @@
     "reflexo de sol no mar",
     "legenda de manobra em caixa alta espaçada no rodapé"
    ],
+   "paleta": {
+    "fundo": "cor",
+    "cores": [
+     "#2A2347",
+     "#E8853D",
+     "#8B5FC7",
+     "#F3E6CF",
+     "#2E9E6B"
+    ]
+   },
+   "tipografia": "Serifa didone em caixa alta para o título empilhado e caixa baixa para a frase; legendas em sans espaçada. Texto entra por fade, fixo no centro enquanto a câmera se move.",
+   "movimento": "Câmera contínua acompanhando o avião, com banking, mergulho em espiral e horizonte inclinado; sem cortes visíveis, ritmo de plano-sequência.",
    "familias": [
     "3d",
     "camera",
@@ -3418,6 +4347,18 @@
     "rastro de eco na palavra em script",
     "fundo alternando laranja, preto e azul"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#0A0A0A",
+     "#FF6A1A",
+     "#2E45F0",
+     "#FFFFFF",
+     "#F4B48A"
+    ]
+   },
+   "tipografia": "Mistura de serifa itálica, script itálico e grotesca black, um estilo por capítulo; mono pequena no HUD com rótulos técnicos.",
+   "movimento": "Cortes rápidos por capítulo, eco de movimento, onda radial com atraso por distância, câmera orbitando o nó; ritmo de reel.",
    "familias": [
     "particulas",
     "formas",
@@ -3460,6 +4401,18 @@
     "texto revelado por fenda horizontal",
     "moldura HUD com timecode e barra de progresso"
    ],
+   "paleta": {
+    "fundo": "cor",
+    "cores": [
+     "#2B45F5",
+     "#0B0D10",
+     "#F2EEE4",
+     "#FFC21A",
+     "#F2542D"
+    ]
+   },
+   "tipografia": "Grotesca larga e pesada, vazada nas faixas e cheia nos anéis; mono pequena no HUD.",
+   "movimento": "Cortes secos com troca de cor de fundo, rotação contínua dos anéis, rolagem horizontal; trecho final sem conteúdo, com aparência de render quebrado.",
    "familias": [
     "tipografia",
     "formas"
@@ -3499,6 +4452,17 @@
     "troca de estado de selo (agendado para no ar)",
     "curva de crescimento com miniaturas nos pontos"
    ],
+   "paleta": {
+    "fundo": "claro",
+    "cores": [
+     "#FFFFFF",
+     "#111111",
+     "#1E7D5A",
+     "#C24A2B"
+    ]
+   },
+   "tipografia": "Grotesca sans em negrito para títulos de uma palavra com ponto final, numeral pequeno colorido acima; títulos trocam por fenda vertical.",
+   "movimento": "Narrativa linear de expansão (um para muitos), cards em stagger com borrão de deslocamento, curva desenhando-se; cortes secos entre capítulos.",
    "familias": [
     "interface",
     "dados"
@@ -3540,6 +4504,18 @@
     "estatísticas gigantes empilhadas com rótulos mono",
     "moldura com capítulo, resolução, fps e BPM"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#0E0A1F",
+     "#5B3FD6",
+     "#A99BF5",
+     "#F2F2F5",
+     "#2FCB7A"
+    ]
+   },
+   "tipografia": "grotesca bold grande com ponto final colorido, mono para código e rótulos; segunda linha da manchete em roxo",
+   "movimento": "cortes no tempo de 120 BPM, chips convergem com easing de atração, pulsos percorrem paths, digitação real, troca de fundo escuro/claro por capítulo",
    "familias": [
     "codigo",
     "diagrama",
@@ -3585,6 +4561,18 @@
     "contador com dígitos embaralhando",
     "virada tipográfica com reticências em cor"
    ],
+   "paleta": {
+    "fundo": "claro",
+    "cores": [
+     "#EEEBE6",
+     "#111111",
+     "#E5352B",
+     "#7A746C",
+     "#FFFFFF"
+    ]
+   },
+   "tipografia": "grotesca condensada-justa bold com tracking negativo nas viradas, sans regular nas legendas entre colchetes, mono no terminal; palavras-chave trocam para vermelho",
+   "movimento": "cortes limpos entre cenas e entradas com escala e fade curtos; pontos da matriz acendem em cascata; dígitos rolam como slot; ritmo de locução, ~4 s por ideia",
    "familias": [
     "interface",
     "dados",
@@ -3628,6 +4616,18 @@
     "contador de capítulo e legenda de cores fixa",
     "câmera orbitando e aproximando entre escalas"
    ],
+   "paleta": {
+    "fundo": "claro",
+    "cores": [
+     "#e6e8ea",
+     "#7c8088",
+     "#f2b632",
+     "#3d7bf0",
+     "#e8735f"
+    ]
+   },
+   "tipografia": "Grotesca condensada bold para o título do capítulo no canto inferior esquerdo, sans pequena para o parágrafo e legendas de chamada; entram com fade curto.",
+   "movimento": "Câmera contínua que viaja da escala da rede elétrica até o chip e volta, com orbit suave e easing longo; peças se separam em explosão ordenada; fluxos animados em loop.",
    "familias": [
     "3d",
     "diagrama",
@@ -3670,6 +4670,18 @@
     "contador de meta da equipe chegando a 100%",
     "silhueta de figura em linha neon no fecho"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#0B0C0E",
+     "#C8F31D",
+     "#E05A6B",
+     "#3A4A6B",
+     "#F0F0F0"
+    ]
+   },
+   "tipografia": "grotesca extra larga pesada nos números e no slogan com glow verde, sans leve nas frases narrativas; números contam e cronômetro desce",
+   "movimento": "ritmo narrativo lento que acelera no placar, contagens contínuas, linha que se desenha montanha acima, pausas no escuro entre atos",
    "familias": [
     "dados",
     "interface",
@@ -3710,6 +4722,18 @@
     "tela inicial dentro de moldura dourada",
     "rastro de pinceladas ao encontrar item"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#1d3a7a",
+     "#3b63b8",
+     "#f2d14a",
+     "#2b3a2a",
+     "#e8a33a"
+    ]
+   },
+   "tipografia": "Serifa clássica itálica no título e nos cartões de descoberta, pequena e discreta sobre o jogo; entra com fade.",
+   "movimento": "Câmera subjetiva contínua com balanço de passo e giros suaves de olhar; HUD estático; destaque de descoberta com rastro amarelo rápido.",
    "familias": [
     "3d",
     "textura",
@@ -3752,6 +4776,18 @@
     "legenda inferior com trecho em cor de acento",
     "narrativa que volta à mesma conversa no fim"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#1A1A19",
+     "#D4F542",
+     "#F2F2EE",
+     "#2A2A28",
+     "#8A8A84"
+    ]
+   },
+   "tipografia": "sans neutra média com trecho em lima, mono pequena caixa-alta nos rótulos de passo; texto digita dentro das janelas",
+   "movimento": "calmo e linear por passos, digitação e checks em sequência, fade entre etapas, sem câmera",
    "familias": [
     "interface",
     "tipografia"
@@ -3795,6 +4831,18 @@
     "aberração cromática RGB na tipografia",
     "linha de luz ondulante"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#0A0A0C",
+     "#F2EEE4",
+     "#E5322B",
+     "#F2C81F",
+     "#2F3FE0"
+    ]
+   },
+   "tipografia": "Grotesca larga black em caixa alta com split RGB e motion blur; mono minúscula no HUD.",
+   "movimento": "Ritmo rápido em grade de 120 BPM, capítulos de cerca de 1,5 s, transição por continuidade de forma (a linha vira barras, as formas viram volumes), motion blur forte.",
    "familias": [
     "formas",
     "3d",
@@ -3839,6 +4887,17 @@
     "faixas de texto rolando com linha destacada",
     "HUD com cantoneiras e rótulo de capítulo"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#0d0d0d",
+     "#e2502e",
+     "#f1ece2",
+     "#2f3fe8"
+    ]
+   },
+   "tipografia": "Grotesca neo extra pesada para frases e nome, serifa itálica pontual, mono pequena para HUD e parâmetros; números de porcentagem rolam como contador.",
+   "movimento": "Cortes secos por capítulo, molas visíveis com parâmetros na tela, câmera isométrica fixa, distorções de grade; tela de render resume o reel antes do fim.",
    "familias": [
     "formas",
     "tipografia",
@@ -3882,6 +4941,18 @@
     "lista de opções rolando com item central em foco",
     "contador em pílula no canto"
    ],
+   "paleta": {
+    "fundo": "claro",
+    "cores": [
+     "#FFFFFF",
+     "#111111",
+     "#C77AF0",
+     "#F08A8A",
+     "#7AB8F0"
+    ]
+   },
+   "tipografia": "sans neutra regular de interface, sem manchetes; todo o texto é UI",
+   "movimento": "ritmo lento e repetitivo, entradas por escala e fade, pilha de cards deslizando, digitação em tempo real; muitos quadros com área vazia",
    "familias": [
     "interface",
     "foto-colagem"
@@ -3919,6 +4990,18 @@
     "formulário com sugestão de correção e cursor",
     "hub radial de integrações ligado ao ícone central"
    ],
+   "paleta": {
+    "fundo": "cor",
+    "cores": [
+     "#120B2E",
+     "#5B3FE0",
+     "#F4F2FB",
+     "#2FCB7A",
+     "#111111"
+    ]
+   },
+   "tipografia": "grotesca extra-bold com tracking negativo, segunda linha em cinza-roxo; mono nos rótulos de etapa e e-mails",
+   "movimento": "wipe circular de abertura, cards entram com mola, a aba ativa desliza entre itens como fio condutor das cenas, contador da nota; ~2,5 s por caso de uso",
    "familias": [
     "interface",
     "transicao"
@@ -3961,6 +5044,18 @@
     "arcos de atenção ligando palavras com barras de peso",
     "campo de partículas âmbar no fecho"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#0D0C0B",
+     "#E8E4DC",
+     "#E8742C",
+     "#C9883A",
+     "#3A3530"
+    ]
+   },
+   "tipografia": "Grotesca condensada pesada em caixa alta para títulos, mono pequena para rótulos e metadados, sans regular para a legenda; títulos entram por revelação curta.",
+   "movimento": "Ritmo documental, câmera praticamente fixa, cada capítulo se constrói em camadas (régua avança, diagrama desenha, título entra), transições por fade no escuro.",
    "familias": [
     "diagrama",
     "tipografia",
@@ -4005,6 +5100,18 @@
     "card de mensagem com linhas cinza de resposta pendente",
     "título condensado gigante ocupando a tela em fundo creme"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#0B0B0B",
+     "#D9775B",
+     "#7A8CF0",
+     "#E9E4D6",
+     "#F0F0F0"
+    ]
+   },
+   "tipografia": "Mono para quase tudo (HUD, tokens, editor), serifa itálica para a palavra de efeito e grotesca condensada pesada para o título gigante; texto digitado caractere a caractere.",
+   "movimento": "Cortes rápidos de bloco a bloco, digitação, barras crescendo, carimbos com pop; HUD fixo dá continuidade enquanto o conteúdo troca. Ritmo picotado com pausas de tela vazia.",
    "familias": [
     "codigo",
     "interface",
@@ -4048,6 +5155,18 @@
     "painel com gráfico de barras empilhadas e cursor",
     "texto mono digitado com cursor em bloco"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#07080B",
+     "#3BD16F",
+     "#F2C230",
+     "#F0483E",
+     "#E8A070"
+    ]
+   },
+   "tipografia": "Mono bold para frases e nome (tipo JetBrains Mono), sans pequena dentro dos cards; texto aparece por digitação.",
+   "movimento": "Morph contínuo da mesma pílula entre estados (fechada, notificação, card, painel) com mola suave; câmera fixa, glow pulsando; ritmo calmo de demo.",
    "familias": [
     "interface",
     "transicao"
@@ -4091,6 +5210,18 @@
     "contadores grandes ao lado de card com gráfico de barras e linha",
     "fitas de linhas onduladas atrás de frase serifada"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#0A0A0C",
+     "#FF5A1F",
+     "#2E4BFF",
+     "#ECE9E2",
+     "#1A1F5C"
+    ]
+   },
+   "tipografia": "Mistura grotesca pesada (EASING, números), serifa itálica (frase final) e mono pequena no HUD; letras entram em sequência com desfoque horizontal.",
+   "movimento": "Cada capítulo tem um gesto próprio; transições por corte entre capítulos, easing com overshoot visível, partículas que se agregam e se dispersam, rotação lenta de câmera nas cenas 3D de pontos.",
    "familias": [
     "tipografia",
     "particulas",
@@ -4131,6 +5262,18 @@
     "fundo de ruído pixelado em cor chapada",
     "corte seco entre cases de identidade"
    ],
+   "paleta": {
+    "fundo": "cor",
+    "cores": [
+     "#1E9B3A",
+     "#2F7A74",
+     "#F2E01A",
+     "#E5532A",
+     "#000000"
+    ]
+   },
+   "tipografia": "Grotesca sans em negrito para chamadas, condensada pesada de pôster, serifada mono em texto miúdo; frases sobem por máscara linha a linha.",
+   "movimento": "Cortes secos de case em case sem fio condutor visual; movimentos internos simples (rolagem, máscara, apagamento de texto); final aparentemente em preto.",
    "familias": [
     "foto-colagem",
     "tipografia"
@@ -4172,6 +5315,18 @@
     "curva de crescimento com teto riscado à mão",
     "brilho e linhas radiais quando a bola absorve os itens"
    ],
+   "paleta": {
+    "fundo": "claro",
+    "cores": [
+     "#EFEDE6",
+     "#1A2A24",
+     "#3FD1B5",
+     "#A3412E",
+     "#2D2D2D"
+    ]
+   },
+   "tipografia": "Grotesca condensada pesada (Anton) com sombra dura para a frase gigante, manuscrita (Caveat) para notas, serifa para o slogan final e mono para eixos.",
+   "movimento": "Física de quique com squash, follow-through e overlap, notas que se escrevem, cortes duros claro/escuro sincronizados com a queda da bateria; uma ação principal por transição.",
    "familias": [
     "diagrama",
     "tipografia",
@@ -4218,6 +5373,18 @@
     "chefe final com barra de vida",
     "explosão de subida de nível com raios e confete pixel"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#0B0B14",
+     "#B6F23A",
+     "#F23C8C",
+     "#6A4CF0",
+     "#3ED6F0"
+    ]
+   },
+   "tipografia": "Fonte pixel bitmap em caixa alta com glow, mono no código, letreiros pixelados grandes com motion blur nas celebrações.",
+   "movimento": "Corte a cada nível, score subindo, timer regressivo, personagem pulando, raios girando, transição por blocos pixel; ritmo de música rápida.",
    "familias": [
     "personagem",
     "interface",
@@ -4263,6 +5430,17 @@
     "selo de status no canto ao atingir a meta",
     "pílula de comando com botão de copiar"
    ],
+   "paleta": {
+    "fundo": "claro",
+    "cores": [
+     "#EEEAE3",
+     "#161514",
+     "#EE6A3A",
+     "#FFFFFF"
+    ]
+   },
+   "tipografia": "grotesca larga extra-bold caixa alta nas manchetes com hífen em laranja, mono nos rótulos e terminal, sans neutra nos subtítulos",
+   "movimento": "capítulos com fade e leve slide, digitação em tempo real, cursor com trajetória suave e clique com pulso; ritmo de README, ~3 s por capítulo",
    "familias": [
     "interface",
     "codigo",
@@ -4306,6 +5484,18 @@
     "virada para cena escura com dropdown e cards de arquivo",
     "símbolos de markdown como partículas no fecho"
    ],
+   "paleta": {
+    "fundo": "claro",
+    "cores": [
+     "#F6EFE6",
+     "#2A211C",
+     "#B5532F",
+     "#E0835A",
+     "#2B2522"
+    ]
+   },
+   "tipografia": "serifa de display pesada com segunda linha em itálico terracota, rótulos em mono caixa-alta pequenos e sans neutra no corpo; palavras entram por máscara e montagem de caracteres",
+   "movimento": "ritmo médio por seções, entradas com ease-out e leve blur, cortes casados à música, uma inversão claro/escuro para a seção de exportação",
    "familias": [
     "tipografia",
     "interface",
@@ -4349,6 +5539,18 @@
     "comando de terminal dentro de chip colorido",
     "onda de partículas como chão no cartão final"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#0B0B0B",
+     "#D9481F",
+     "#F2EFE8",
+     "#FFFFFF",
+     "#8A3A1A"
+    ]
+   },
+   "tipografia": "Sans geométrica bold (tipo Plus Jakarta/Inter Display) para palavras e números, mono para nomes de pacote e comandos; lista em sans bold cinza com o item ativo em branco sobre laranja.",
+   "movimento": "Câmera atravessando planos em profundidade, cortes secos para os números, rolagem vertical da lista com destaque andando, alternância preto/laranja/creme.",
    "familias": [
     "camera",
     "interface",
@@ -4390,6 +5592,18 @@
     "contador de capítulo com ícone (01/08)",
     "vinheta quente de papel"
    ],
+   "paleta": {
+    "fundo": "claro",
+    "cores": [
+     "#EFE8DA",
+     "#1F1E1C",
+     "#D9473A",
+     "#2E7D4F",
+     "#8A8378"
+    ]
+   },
+   "tipografia": "Serifa editorial leve e condensada (itálico nos destaques), mono nos cartões de prompt; cartões entram por deslize e grifo vermelho corre sobre o texto.",
+   "movimento": "Câmera fixa, cartões entrando em sequência, grifos passando, cortes secos por capítulo; ritmo de leitura.",
    "familias": [
     "interface",
     "tipografia"
@@ -4432,6 +5646,18 @@
     "grade de variações de estilo lado a lado",
     "bento de recursos com mini demos"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#050505",
+     "#7C3AED",
+     "#F472B6",
+     "#FB923C",
+     "#F4F4F5"
+    ]
+   },
+   "tipografia": "sans neutra bold centralizada com segunda linha em degradê; legendas em pill roxa sobre o vídeo; títulos somam palavras uma a uma",
+   "movimento": "cortes limpos entre vídeo real e telas de UI, legendas sincronizadas à fala, alternância de fundo preto e claro, ritmo médio",
    "familias": [
     "celular",
     "tipografia",
@@ -4475,6 +5701,18 @@
     "legenda em pílula sob cada tela",
     "dashboard com gráfico de área e tabela"
    ],
+   "paleta": {
+    "fundo": "claro",
+    "cores": [
+     "#F4F4F2",
+     "#111111",
+     "#E5242B",
+     "#2A8BD8",
+     "#1DB46A"
+    ]
+   },
+   "tipografia": "grotesca bold com tracking negativo, duas linhas com a palavra final colorida (cor muda por cena); rótulos pequenos caixa alta",
+   "movimento": "push de câmera lento sobre telas, transição por desfoque, cards entrando com mola suave; ~5 s por benefício, ritmo uniforme",
    "familias": [
     "interface",
     "tipografia"
@@ -4517,6 +5755,18 @@
     "painel de contadores, barras e anel de porcentagem",
     "letras entrando uma a uma com arco e borrão sobre régua de timing"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#0E0E10",
+     "#F0EDE6",
+     "#C6F432",
+     "#FF4A22",
+     "#3B2A8C"
+    ]
+   },
+   "tipografia": "Grotesca extra larga e pesada (tipo Druk Wide/Archivo Black) em caixa alta, mono minúscula no HUD; letras saltam individualmente com rotação e desfoque.",
+   "movimento": "Cortes por capítulo com cor de fundo trocando a cada cena, stagger por distância do centro na grade, ondulação contínua nas linhas de relevo, montagem final letra a letra com mola.",
    "familias": [
     "tipografia",
     "formas",
@@ -4561,6 +5811,18 @@
     "página HTML sem estilo como caso base",
     "retorno pela pilha revisitando os gêneros"
    ],
+   "paleta": {
+    "fundo": "cor",
+    "cores": [
+     "#F7E9D7",
+     "#3B2DB5",
+     "#E6B85C",
+     "#25D366",
+     "#F06292"
+    ]
+   },
+   "tipografia": "muda por gênero: grotesca pesada corporativa, fonte pixel, serifa itálica de documentário, letras infantis infladas, serifa dourada de trailer, mono de terminal e Times padrão no caso base",
+   "movimento": "cortes rápidos entre gêneros a cada chamada, mergulho em profundidade e subida inversa; dentro de cada gênero, o movimento típico dele (rolagem de jogo, ken burns de natureza, zoom de trailer)",
    "familias": [
     "transicao",
     "personagem",
@@ -4605,6 +5867,18 @@
     "rastro de patinhas como elemento decorativo",
     "HUD com nome do capítulo técnico e timecode"
    ],
+   "paleta": {
+    "fundo": "claro",
+    "cores": [
+     "#F4F5F3",
+     "#1E1E1E",
+     "#20B39A",
+     "#BFEFE3",
+     "#9A9A9A"
+    ]
+   },
+   "tipografia": "Grotesca sans bold com tracking apertado (tipo Inter Display) em caixa mista, segunda linha em cinza; mono no HUD. Palavras entram por subida curta.",
+   "movimento": "Easing suave sem overshoot, path draw progressivo, câmera inclinada em perspectiva sobre a grade com desfoque de profundidade, cortes secos entre capítulos.",
    "familias": [
     "interface",
     "dados",
@@ -4647,6 +5921,18 @@
     "gráfico de cubic-bezier com pílulas animadas pela curva",
     "rótulo de capítulo com subtítulo em serifa itálica"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#0B0B0B",
+     "#F1ECE0",
+     "#2D3BF5",
+     "#FF5A1A",
+     "#E85A2A"
+    ]
+   },
+   "tipografia": "Grotesca extra larga e pesada em caixa alta para palavras-tema, serifa itálica fina para legendas e assinatura, mono no HUD e na fórmula da curva.",
+   "movimento": "Cortes secos por capítulo com fundo trocando de cor, órbitas contínuas, pílulas obedecendo a curva mostrada; HUD contínuo dá unidade.",
    "familias": [
     "tipografia",
     "particulas",
@@ -4690,6 +5976,17 @@
     "régua de capítulos com playhead na base",
     "letras do nome tombando no lugar"
    ],
+   "paleta": {
+    "fundo": "claro",
+    "cores": [
+     "#eeeeee",
+     "#1b1d22",
+     "#2f7cf6",
+     "#e8364f"
+    ]
+   },
+   "tipografia": "Grotesca condensada extra pesada em caixa alta para frases-tema, letra manuscrita azul e vermelha nas anotações, mono pequena no timecode; letras entram em stagger e caem com rotação.",
+   "movimento": "Alternância claro/escuro por corte, cada princípio demonstrado literalmente (squash, stretch, ease, follow-through, antecipação), molas visíveis e trilhas de fantasma; ritmo de um princípio a cada segundo e meio.",
    "familias": [
     "diagrama",
     "tipografia",
@@ -4734,6 +6031,18 @@
     "título em duas cores (branco e ciano)",
     "moldura com cantoneiras e rótulos mono"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#0A1A24",
+     "#1EA7E1",
+     "#E5383B",
+     "#FFFFFF",
+     "#F5A623"
+    ]
+   },
+   "tipografia": "Sans muito pesada em caixa alta com segunda linha em ciano, mono pequena nos rótulos; títulos entram por subida curta.",
+   "movimento": "Cortes secos por argumento, contadores com easing, wipe de luz no antes e depois, linhas desenhando com pulsos; brilho suave em todos os cards.",
    "familias": [
     "interface",
     "dados",
@@ -4778,6 +6087,18 @@
     "halo de luz atrás do objeto",
     "itens bloqueados em cinza ao lado dos conquistados"
    ],
+   "paleta": {
+    "fundo": "claro",
+    "cores": [
+     "#e9eaee",
+     "#0c1230",
+     "#2a3f8f",
+     "#d9b25a",
+     "#ffffff"
+    ]
+   },
+   "tipografia": "Sans de sistema iOS em peso médio, título do selo maior em branco, subtítulo cinza; entra em fade curto.",
+   "movimento": "Inclinação com amortecimento sem overshoot, partículas com gravidade leve, zoom de câmera suave; tudo rápido e contido.",
    "familias": [
     "celular",
     "interface",
@@ -4818,6 +6139,18 @@
     "capas de playlist em leque com leve perspectiva",
     "capas convergindo e dobrando no ícone final"
    ],
+   "paleta": {
+    "fundo": "cor",
+    "cores": [
+     "#1ED760",
+     "#0D3B1E",
+     "#0F0F10",
+     "#FFFFFF",
+     "#C9B8F0"
+    ]
+   },
+   "tipografia": "Sans única (tipo Inter/Geist) em pesos regular e bold, tamanhos contidos de anúncio de produto; segunda linha em verde. Revelação por máscara vertical curta.",
+   "movimento": "Molas criticamente amortecidas, match-move da capa entre estados, stagger curto nas linhas, perspectiva sutil na entrada da UI; um gesto por segundo sem crossfade de tela cheia.",
    "familias": [
     "interface",
     "transicao"
@@ -4861,6 +6194,17 @@
     "cards de competência espalhados em volta da frase",
     "barra de progresso fina na base"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#0b0b0b",
+     "#ff5a1f",
+     "#f2f2f2",
+     "#e9e9ee"
+    ]
+   },
+   "tipografia": "Grotesca neo extra pesada em caixa alta para nome e números, serifa itálica laranja para palavras de destaque, sans pequena para legendas; letras embaralham antes de assentar.",
+   "movimento": "Cortes secos alternando escuro, laranja e claro; contadores rolando, anel girando contínuo, pontos do mapa surgindo em enxame; ritmo rápido de um fato por segundo e meio.",
    "familias": [
     "tipografia",
     "dados",
@@ -4907,6 +6251,18 @@
     "cards de oferta com selo de nova venda pulando",
     "chat de agente com bolha"
    ],
+   "paleta": {
+    "fundo": "cor",
+    "cores": [
+     "#2B7FF5",
+     "#FFC414",
+     "#F25A4A",
+     "#1A1E3A",
+     "#F4F6F9"
+    ]
+   },
+   "tipografia": "Grotesca black de cantos suaves com entrelinha apertada, em caixa normal; cards com sans bold.",
+   "movimento": "Wipes de cor chapada entre cenas, cards entrando com mola e leve rotação, arraste com cursor; ritmo animado e alegre.",
    "familias": [
     "interface",
     "celular",
@@ -4951,6 +6307,18 @@
     "blob morfando sobre grade polar com fórmula",
     "cartela tipográfica com ponto de acento brilhando"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#0B0B0B",
+     "#F0EBDD",
+     "#F0441F",
+     "#3B3BF5",
+     "#5A5A5A"
+    ]
+   },
+   "tipografia": "grotesca extra pesada larga nos títulos gigantes, mono pequena caixa-alta no HUD; títulos entram por corte e escala",
+   "movimento": "capítulos curtos trocados no compasso de 130 BPM, cortes secos, rotações contínuas e morph de forma; câmera fixa com elementos girando",
    "familias": [
     "formas",
     "tipografia",
@@ -4994,6 +6362,17 @@
     "dissolução pixelada em blocos",
     "fundo de matriz de pontos"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#0A0A0A",
+     "#FF4500",
+     "#FFFFFF",
+     "#3DDC84"
+    ]
+   },
+   "tipografia": "Grotesca sans em negrito para frases com palavra-chave em laranja, mono pequena em checklist; texto entra por digitação ou fade simples.",
+   "movimento": "Cortes secos entre cenas, mascote salta, cresce e borra de uma cena para outra; digitação em ritmo constante; ritmo mais lento, de demo narrada.",
    "familias": [
     "personagem",
     "interface"
@@ -5036,6 +6415,18 @@
     "pills de público-alvo",
     "rótulo com traço fino acima da seção"
    ],
+   "paleta": {
+    "fundo": "claro",
+    "cores": [
+     "#F5EDE2",
+     "#2B211B",
+     "#B4572F",
+     "#E6D9C4",
+     "#8C6A4F"
+    ]
+   },
+   "tipografia": "serifa de texto elegante (estilo Cormorant) com itálico terracota, sans pequena caixa-alta para rótulos; texto digita ou entra por fade",
+   "movimento": "ritmo de slide calmo, fotos entrando em stagger com leve subida, troca de seção por fade, alternância creme/marrom",
    "familias": [
     "foto-colagem",
     "tipografia"
@@ -5076,6 +6467,18 @@
     "anéis de texto orbitando com miniaturas",
     "título em caixa alta com tracking largo"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#050302",
+     "#FFB531",
+     "#E8721C",
+     "#FFFFFF",
+     "#6FD3A0"
+    ]
+   },
+   "tipografia": "Grotesca bold em caixa alta com espaçamento largo, branca e centralizada; entra e sai em fade curto.",
+   "movimento": "Câmera voando por campos de partículas, órbitas contínuas, crescendo dramático com cortes em flash; a última parte fica carregada e confusa.",
    "familias": [
     "particulas",
     "3d",
@@ -5115,6 +6518,18 @@
     "contadores de vida e mana em ícones",
     "partida jogada sozinha"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#1C2340",
+     "#2E6B3A",
+     "#3A5AC8",
+     "#E8A828",
+     "#C83A3A"
+    ]
+   },
+   "tipografia": "Fonte bitmap pixelada em caixa alta pequena, números pixelados nos contadores.",
+   "movimento": "Pouca animação: cartas sobem e crescem, seta aparece, faixa desliza; parece captura de gameplay mais que peça de motion.",
    "familias": [
     "interface",
     "personagem"
@@ -5154,6 +6569,18 @@
     "barra de cor sólida varrendo como wipe",
     "chip de terminal com cursor no topo"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#E8601C",
+     "#111111",
+     "#F7F3EC",
+     "#FFFFFF",
+     "#D94A2A"
+    ]
+   },
+   "tipografia": "Sans geométrica bold (tipo Inter/Manrope) para frases e números, mono para chips e logs; números contam rápido, frases entram por fade com subida.",
+   "movimento": "Cortes entre fundos laranja, preto e creme, contadores acelerando, chips à deriva com desfoque de profundidade, wipe vertical por barra de cor; ritmo de anúncio SaaS.",
    "familias": [
     "dados",
     "interface",
@@ -5199,6 +6626,18 @@
     "ponto laranja como fio condutor que vira letra",
     "fundo trocando creme, azul e preto no corte"
    ],
+   "paleta": {
+    "fundo": "cor",
+    "cores": [
+     "#EDE8DE",
+     "#111111",
+     "#FF5A1F",
+     "#2B35E8",
+     "#F2EFE6"
+    ]
+   },
+   "tipografia": "Grotesca black em caixa alta (condensada e larga alternando), prefixo fixo menor no topo e o verbo enorme ocupando o quadro; leve aberração cromática.",
+   "movimento": "Molas com overshoot proposital, squash and stretch, motion blur forte, cortes na batida; ritmo rápido e brincalhão.",
    "familias": [
     "tipografia",
     "formas",
@@ -5242,6 +6681,17 @@
     "legenda em pílula escura com destaque de cor",
     "rótulo de etapa numerado no canto"
    ],
+   "paleta": {
+    "fundo": "claro",
+    "cores": [
+     "#1F1C19",
+     "#F7F1EA",
+     "#F26B1D",
+     "#8A847C"
+    ]
+   },
+   "tipografia": "Serifa editorial para frases grandes com uma palavra laranja, sans neutra para UI e legendas; texto entra palavra por palavra acompanhando a locução.",
+   "movimento": "Transição escuro para claro, ponto laranja que cresce ou desliza para abrir a cena seguinte, rotação constante do radar, digitação, cortes suaves.",
    "familias": [
     "interface",
     "diagrama",
@@ -5286,6 +6736,18 @@
     "barras de áudio sob palavra",
     "wireframe 3D girando"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#0D0D0F",
+     "#D7F23A",
+     "#E5502E",
+     "#7C5CF0",
+     "#F2EEE6"
+    ]
+   },
+   "tipografia": "grotesca condensada pesada caixa-alta nos títulos, mono pequena no HUD; glitch e corte seco nas entradas",
+   "movimento": "cenas curtas no compasso de 128 BPM, cortes secos, rotações e ondas contínuas, explosões de partículas",
    "familias": [
     "formas",
     "particulas",
@@ -5330,6 +6792,18 @@
     "capítulos numerados com HUD de timecode",
     "cartão final grotesca pesada com serifa itálica"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#0d0d0f",
+     "#ff5a1f",
+     "#3346f0",
+     "#f1ece2",
+     "#e86bd9"
+    ]
+   },
+   "tipografia": "Grotesca extra pesada larga para palavras-tema e nome, serifa itálica para subtítulo, mono minúscula nos rótulos; letras deslizam com máscara e a palavra WEIGHT varia o peso continuamente.",
+   "movimento": "Cortes secos a cada capítulo marcados por batida (120 BPM no HUD), transições geométricas entre padrões, câmera isométrica no bloco de voxels; easing forte com overshoot.",
    "familias": [
     "formas",
     "tipografia",
@@ -5374,6 +6848,18 @@
     "faixas de pílulas em marquee em sentidos opostos",
     "card de compra com clique de cursor e toast"
    ],
+   "paleta": {
+    "fundo": "cor",
+    "cores": [
+     "#EEF1F7",
+     "#1F3BE0",
+     "#0B1230",
+     "#FFD43B",
+     "#FFFFFF"
+    ]
+   },
+   "tipografia": "grotesca bold em caixa baixa com tracking justo nas manchetes, sans regular nos detalhes; frases entram por bloco",
+   "movimento": "cortes limpos com troca de cor de fundo por cena, entradas com slide e mola suave, marquee contínuo, cursor com clique; ritmo de ~4 s por benefício",
    "familias": [
     "interface",
     "diagrama",
@@ -5414,6 +6900,18 @@
     "bento de recursos com mini UIs",
     "palavra com preenchimento em gradiente multicolor"
    ],
+   "paleta": {
+    "fundo": "claro",
+    "cores": [
+     "#f4f6fb",
+     "#0b0e1e",
+     "#5b6cf0",
+     "#41d18b",
+     "#f06aa8"
+    ]
+   },
+   "tipografia": "Grotesca neutra bold para títulos, mono pequena em rótulos de etapa; números e palavras-chave com gradiente verde-azul-rosa; texto sobe com fade.",
+   "movimento": "Alternância escuro/claro, janelas entram girando em 3D leve, cards flutuam em deriva, cortes suaves; ritmo de promo SaaS.",
    "familias": [
     "interface",
     "tipografia"
@@ -5457,6 +6955,18 @@
     "palavra fatiada em faixas deslocadas (glitch)",
     "grão de filme e vinheta"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#0D0D0D",
+     "#B5E61D",
+     "#F04E3E",
+     "#7B5CFF",
+     "#EDEBE4"
+    ]
+   },
+   "tipografia": "Grotesca muito pesada em caixa alta, ora extrudada, ora fatiada, ora vazada no blob; mono pequena no HUD.",
+   "movimento": "Cortes secos de capítulo em ritmo constante; dentro das cenas, ondas radiais, rotação contínua, morph orgânico do blob e glitch de fatias horizontais.",
    "familias": [
     "formas",
     "tipografia",
@@ -5498,6 +7008,18 @@
     "chicote com borrão para transição clara",
     "blob de gradiente pastel no fecho"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#050505",
+     "#FF5A1F",
+     "#3BD16F",
+     "#FFFFFF",
+     "#C9A7F5"
+    ]
+   },
+   "tipografia": "Grotesca geométrica em negrito para frases curtas com palavra em gradiente, mono para números; texto sobe rolando como contador.",
+   "movimento": "Mistura cortes secos e chicotes borrados; contadores sobem com easing de saída; cards giram em perspectiva; inversão escuro para claro no final.",
    "familias": [
     "dados",
     "interface",
@@ -5544,6 +7066,17 @@
     "borrão de movimento horizontal em palavra",
     "troca de cor de fundo a cada capítulo no compasso"
    ],
+   "paleta": {
+    "fundo": "cor",
+    "cores": [
+     "#0E0E0E",
+     "#EE4B32",
+     "#2B2BF0",
+     "#F1EDE4"
+    ]
+   },
+   "tipografia": "Grotesca pesada e larga para palavras-título, serifa itálica fina como contraponto, mono minúscula nos rótulos do HUD; palavras entram com borrão de velocidade e escala.",
+   "movimento": "Cortes secos por capítulo no ritmo de 120 BPM, morphs suaves dentro da cena, easing variado de propósito (expo, back, elastic), rotação lenta contínua nas formas radiais.",
    "familias": [
     "tipografia",
     "formas",
@@ -5590,6 +7123,18 @@
     "colagem desfocada de todas as cenas como fundo do fecho",
     "cartela final com botão e cursor"
    ],
+   "paleta": {
+    "fundo": "cor",
+    "cores": [
+     "#2D47D9",
+     "#F2CF48",
+     "#1F7A55",
+     "#E8603C",
+     "#F4B5B0"
+    ]
+   },
+   "tipografia": "grotesca pesada apertada para os rótulos e 'Just ask.', serifa itálica para a frase de autoria e para o conto, mono no código; rótulos digitam ou entram com o card",
+   "movimento": "cortes secos com troca de cor a cada item, cards entram com mola leve e já animam por dentro, fecho com colagem que recua",
    "familias": [
     "interface",
     "tipografia",
@@ -5634,6 +7179,18 @@
     "linhas empilhadas em relevo de onda",
     "barras de cor de teste como fecho"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#0c0d12",
+     "#ccf23a",
+     "#6a4cf0",
+     "#ff5a2a",
+     "#e8448f"
+    ]
+   },
+   "tipografia": "Grotesca geométrica extra pesada em caixa alta com sombra deslocada colorida, mono pequena para subtítulo digitado e HUD.",
+   "movimento": "Cortes secos por capítulo, rotações contínuas, partículas em espiral, contadores dos cards rolando; um frame quase vazio entre capítulos como respiro.",
    "familias": [
     "formas",
     "tipografia",
@@ -5674,6 +7231,18 @@
     "número grande com fração tipográfica",
     "mistura de camadas de líquido em borrão"
    ],
+   "paleta": {
+    "fundo": "claro",
+    "cores": [
+     "#F5F0E6",
+     "#EAD9C0",
+     "#4A2E20",
+     "#B46A3C",
+     "#CFE0E8"
+    ]
+   },
+   "tipografia": "Manuscrita casual (tipo Caveat/Kalam) para título, passos e números; mono pequena para rótulos de seção. Números contam junto com o líquido.",
+   "movimento": "Ritmo lento e didático, uma etapa a cada ~5 s, garrafas com entrada e rotação suave, líquido subindo com easing; nada de cortes, cena única que evolui.",
    "familias": [
     "diagrama",
     "dados"
@@ -5717,6 +7286,18 @@
     "linha vermelha em laço no cartão final",
     "cantoneiras com timecode e contador de capítulo"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#0a0a0a",
+     "#efe9dc",
+     "#ff3b1f",
+     "#2347ff",
+     "#b8b8b8"
+    ]
+   },
+   "tipografia": "Grotesca extra larga pesada em caixa alta alternando com serifa itálica de contraste alto em minúsculas; palavras entram com desfoque e escala, cortadas pela borda.",
+   "movimento": "Cortes secos por capítulo com flash de cor, flips 3D das formas, câmera inclinando sobre planos, rotação lenta da esfera; easing forte e motion blur nas entradas.",
    "familias": [
     "formas",
     "3d",
@@ -5762,6 +7343,18 @@
     "eclipse como clímax final",
     "contador de compasso no rodapé"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#120806",
+     "#E8501E",
+     "#F6C46A",
+     "#F2EBDD",
+     "#D9452B"
+    ]
+   },
+   "tipografia": "serifa itálica fina para versos sussurrados e serifa pesada de display para palavras de impacto; palavras entram por verso, espaçam e explodem com a batida",
+   "movimento": "sincronizado à voz palavra a palavra, trocas de cena por compasso, crescimento do sol e flashes nos picos, desaceleração até o eclipse",
    "familias": [
     "tipografia",
     "ritmo-som",
@@ -5805,6 +7398,17 @@
     "interface de editor com timeline e forma de onda revelando o próprio vídeo",
     "letras do nome caindo com rotação"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#0e0e0e",
+     "#ff5a1f",
+     "#f2eee6",
+     "#9a9a9a"
+    ]
+   },
+   "tipografia": "Grotesca geométrica pesada em caixa alta, depois extrudada; mono no HUD e no editor; o nome final cai letra a letra e assenta torto antes de alinhar.",
+   "movimento": "Cortes secos por capítulo a 128 BPM, câmera em ângulo baixo nas peças 3D, giro do celular com sombra suave; o editor funciona como recapitulação.",
    "familias": [
     "3d",
     "tipografia",
@@ -5850,6 +7454,18 @@
     "túnel de quadrados aninhados girando",
     "HUD com capítulo e timecode"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#0B0B0D",
+     "#F0521E",
+     "#2E3BF0",
+     "#C3E63A",
+     "#F2F0EC"
+    ]
+   },
+   "tipografia": "condensada pesada caixa-alta, sans fina espaçada para 'SMOOTH', mono no HUD; entradas por escala, motion blur e eco",
+   "movimento": "capítulos rápidos com cortes secos, física de quique na abertura, rotações em túnel, troca de fundo por capítulo",
    "familias": [
     "formas",
     "tipografia",
@@ -5889,6 +7505,18 @@
     "relógio gigante com lista de tarefas concluídas",
     "dois cards sobrepostos em profundidade"
    ],
+   "paleta": {
+    "fundo": "claro",
+    "cores": [
+     "#f6efe8",
+     "#e9dff2",
+     "#1f2a6b",
+     "#f06a3a",
+     "#ffffff"
+    ]
+   },
+   "tipografia": "Serifa editorial (estilo transicional) em azul-marinho, segunda linha itálica; corpo em sans pequena cinza; títulos entram em fade com leve subida.",
+   "movimento": "Cards entram com rotação 3D leve e assentam com easing suave, deriva lenta contínua, cortes macios entre seções; ritmo calmo de lançamento corporativo.",
    "familias": [
     "interface",
     "tipografia"
@@ -5929,6 +7557,17 @@
     "contorno de objeto traçado pelo feixe",
     "leituras de canal (V/div, BPM, T+) no rodapé"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#050806",
+     "#3EE07A",
+     "#1E7A43",
+     "#B8F5C8"
+    ]
+   },
+   "tipografia": "sans hangul bold em contorno com brilho, mono pequena nas leituras do instrumento; palavras surgem e se sobrepõem com ghosting",
+   "movimento": "sinais em movimento contínuo, persistência de fósforo deixando rastro, troca de frase por crossfade com fantasma; ritmo de 110 BPM",
    "familias": [
     "textura",
     "dados",
@@ -5973,6 +7612,18 @@
     "padrão de pontos com tamanhos variando",
     "ilustração plana com sombra deslocada em outra cor"
    ],
+   "paleta": {
+    "fundo": "claro",
+    "cores": [
+     "#EFEAE0",
+     "#F0569A",
+     "#2A73C0",
+     "#F4D21E",
+     "#1F7A3A"
+    ]
+   },
+   "tipografia": "Sans coreana pesada (gótica bold) em tinta chapada com grão, centralizada; uma frase por cena com entrada por corte ou deslize curto.",
+   "movimento": "Cenas curtas de diagrama a cada 4-6 s, formas que entram com pop, faders deslizando, nuvens em travelling; ritmo de apresentação tranquila.",
    "familias": [
     "textura",
     "diagrama",
@@ -6018,6 +7669,18 @@
     "moiré op-art radial preto e branco",
     "moldura com nome do capítulo e timecode"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#0B0B0C",
+     "#EE4023",
+     "#2B2BF0",
+     "#C8F03C",
+     "#F3EEE6"
+    ]
+   },
+   "tipografia": "grotesca condensada ultra-bold caixa alta com tracking apertado, mono nos rótulos de capítulo, sans bold no wordmark final",
+   "movimento": "um capítulo a cada ~2 s com cortes secos, cada um mostrando um princípio; campo de vetores e moiré em movimento contínuo; personagem com quique e sombra elástica",
    "familias": [
     "formas",
     "particulas",
@@ -6062,6 +7725,17 @@
     "ondas senoidais sobrepostas com escala espectral",
     "rótulo de capítulo e contador no topo"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#0A0A0A",
+     "#F2F2F2",
+     "#8B6CF0",
+     "#4CFF1A"
+    ]
+   },
+   "tipografia": "Mono e slab de máquina em tamanho gigante e em rótulos; texto entra por scramble de caracteres e glitch.",
+   "movimento": "Cortes no compasso de 120 BPM, inclinações de câmera em 3D, travelling por fila de painéis, glitch nos números e decodificação no fecho.",
    "familias": [
     "textura",
     "camera",
@@ -6102,6 +7776,18 @@
     "campo de estrelas com profundidade",
     "sonda 3D simples como referência de escala"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#000000",
+     "#F5EBDD",
+     "#C08A55",
+     "#6B4A2E",
+     "#E3A24A"
+    ]
+   },
+   "tipografia": "sans CJK regular nas legendas, mono pequena na telemetria laranja e branca",
+   "movimento": "ritmo contemplativo, aproximação lenta e contínua da câmera, fades longos; números de telemetria atualizando em tempo real",
    "familias": [
     "3d",
     "dados",
@@ -6146,6 +7832,17 @@
     "cubo 3D com tipografia nas faces",
     "rótulos de capítulo numerados no canto"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#0b0d0c",
+     "#d06e55",
+     "#f1efe6",
+     "#1a1a1a"
+    ]
+   },
+   "tipografia": "Grotesca neo pesada (estilo Helvetica bold) em caixa alta; nas faixas as palavras rolam em velocidades distintas e no cubo ganham motion blur no giro.",
+   "movimento": "Cortes secos entre capítulos, formas com easing suave, partículas com dispersão e reagrupamento, cubo girando com borrão de movimento.",
    "familias": [
     "formas",
     "particulas",
@@ -6189,6 +7886,18 @@
     "transição por mosaico de quadrados que cobrem a tela",
     "HUD com timecode, resolução e BPM nas bordas"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#0B0C0A",
+     "#C6F53A",
+     "#F2EEE6",
+     "#F06A5A",
+     "#8B7CF0"
+    ]
+   },
+   "tipografia": "Sans grotesca bold com serifa itálica intercalada na mesma frase, mono para HUD e domínio; legenda karaokê em sans pesada com palavra em bloco amarelo.",
+   "movimento": "Cortes na batida (120 BPM marcado no HUD), cascata em stagger no mosaico, wipe por blocos de pixel para o fechamento, alternância escuro/creme.",
    "familias": [
     "interface",
     "celular",
@@ -6234,6 +7943,18 @@
     "túnel de anéis concêntricos dentro de blob orgânico",
     "colagem final de tipografia rotacionada e formas Bauhaus"
    ],
+   "paleta": {
+    "fundo": "claro",
+    "cores": [
+     "#EFEBE0",
+     "#141210",
+     "#D8331F",
+     "#2337C6",
+     "#ECC12E"
+    ]
+   },
+   "tipografia": "grotesca ultra-bold larga (tipo Archivo Black) caixa alta, cortada pela borda e rotacionada; mono pequena nos metadados do pôster",
+   "movimento": "escalada em atos (pressão, expansão, ruptura, caos, recomposição); cortes no tempo da música, escalas bruscas, inclinações 3D; densidade crescente até a colagem",
    "familias": [
     "tipografia",
     "formas",
@@ -6277,6 +7998,18 @@
     "aberração cromática e vinheta",
     "moldura HUD com rótulos"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#0E0A14",
+     "#F4F0F4",
+     "#E83E8C",
+     "#7FD6E8",
+     "#F28A3C"
+    ]
+   },
+   "tipografia": "Quase sem texto; mono minúscula nos cantos do HUD.",
+   "movimento": "Rotação e zoom contínuos rumo ao centro, flashes brancos fazendo o papel de corte, pulso hipnótico; vários quadros ficam estourados em branco, o que dilui o ritmo.",
    "familias": [
     "formas",
     "camera",
@@ -6318,6 +8051,18 @@
     "grade de ações com ícones",
     "fundo claro com blobs pastel desfocados"
    ],
+   "paleta": {
+    "fundo": "claro",
+    "cores": [
+     "#EEF1F8",
+     "#2A2E3A",
+     "#E8574A",
+     "#2FA56A",
+     "#F1B64A"
+    ]
+   },
+   "tipografia": "sans geométrica bold centralizada em duas linhas, rótulo pequeno caixa alta espaçada acima; texto entra por fade e escala",
+   "movimento": "cenas de ~3 s com cortes suaves, varredura linear, pílulas flutuando com leve deriva, digitação na busca",
    "familias": [
     "interface",
     "celular"
@@ -6360,6 +8105,18 @@
     "flare de luz como transição",
     "HUD com REC, resolução e rótulo de capítulo"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#0A1418",
+     "#2F6FC7",
+     "#E6EEF2",
+     "#2DD27A",
+     "#7A8A90"
+    ]
+   },
+   "tipografia": "Serifa didone/transicional pesada para frases (tipo Fraunces/Tiempos), mono no HUD e no split-flap; palavras-chave em azul.",
+   "movimento": "Cortes calmos com fade, partículas caindo com física simples, rotação constante do radar, placas virando em sequência; ritmo mais sóbrio que os outros reels.",
    "familias": [
     "dados",
     "interface",
@@ -6405,6 +8162,18 @@
     "barra de URL com trecho grifado e chips",
     "alternância creme, preto e laranja por seção"
    ],
+   "paleta": {
+    "fundo": "claro",
+    "cores": [
+     "#F1EEE8",
+     "#E8501E",
+     "#0D0B0A",
+     "#2A2522",
+     "#F6C3A8"
+    ]
+   },
+   "tipografia": "serifa de display leve e grande com palavra de destaque em laranja, rótulos mono caixa-alta pequenos em laranja; texto entra por fade e leve subida",
+   "movimento": "seções curtas numeradas com corte limpo, pontos acendendo em onda, rotação lenta do globo, ritmo regular e elegante",
    "familias": [
     "formas",
     "dados",
@@ -6447,6 +8216,17 @@
     "grão de filme sobre fundo preto",
     "subtítulo romanizado em caixa alta espaçada"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#0D0D0D",
+     "#D4002A",
+     "#F2EEE6",
+     "#5A0A14"
+    ]
+   },
+   "tipografia": "Serifa japonesa (mincho) pesada para os ideogramas e gótica arredondada para o nome; romanização em sans condensada espaçada. Entra por fade e por adição de palavra.",
+   "movimento": "Abertura calma com fades, depois sunburst em rotação lenta e faixa que entra em diagonal com leve escala; selo aparece por pop. Ritmo de vinheta de TV.",
    "familias": [
     "tipografia",
     "formas",
@@ -6491,6 +8271,18 @@
     "nome em grotesca larga com eco vazado atrás",
     "tagline em serifa itálica com palavra colorida"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#0A0F1C",
+     "#7FD8F0",
+     "#C9D3E6",
+     "#8C6CF0",
+     "#F2F4F8"
+    ]
+   },
+   "tipografia": "grotesca extra larga cromada no nome, mono no terminal e no HUD, serifa itálica na tagline; títulos entram por blur-in e eco de contorno",
+   "movimento": "sequência rápida de cenas ligadas por flash e blur, partículas em deriva lenta, câmera levemente orbitando os planos isométricos",
    "familias": [
     "particulas",
     "codigo",
@@ -6530,6 +8322,18 @@
     "feixes coloridos escoando para barra-espectro (tipo sankey)",
     "número grande com legenda ao lado"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#0C1420",
+     "#E9EEF2",
+     "#7A6CF0",
+     "#E0508A",
+     "#4FD6A8"
+    ]
+   },
+   "tipografia": "serifa condensada elegante nas manchetes e no wordmark, mono minúscula nos dados de fundo, sans pequena nas legendas",
+   "movimento": "rolagem vertical lenta das frases, hélice girando e se desenrolando de forma contínua, feixes fluindo com easing; fade no logo; ritmo calmo",
    "familias": [
     "dados",
     "particulas",
@@ -6575,6 +8379,18 @@
     "árvore de decisão com nó escolhido em pílula preenchida",
     "fecho minimalista com fórmula em fundo preto"
    ],
+   "paleta": {
+    "fundo": "claro",
+    "cores": [
+     "#F2EEE6",
+     "#1E1C19",
+     "#4E7A57",
+     "#0B0B0B",
+     "#FFFFFF"
+    ]
+   },
+   "tipografia": "sans humanista semibold com tracking justo, palavra-chave em verde; frases montadas palavra por palavra com as seguintes em cinza claro",
+   "movimento": "cortes suaves entre cenas claras e escuras, entradas com mola curta, rolo de palavras com motion blur vertical, linhas da árvore desenhando; ritmo calmo de ~3 s por ideia",
    "familias": [
     "interface",
     "celular",
@@ -6621,6 +8437,18 @@
     "ponto vermelho como fio condutor",
     "script itálico com sublinhado que se desenha"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#0A0A0A",
+     "#EFECE6",
+     "#2B3BF0",
+     "#E8402A",
+     "#F2C230"
+    ]
+   },
+   "tipografia": "Um estilo por capítulo: script itálico, serifa itálica e grotesca black; mono minúscula no HUD.",
+   "movimento": "Cortes na batida, morph de grade com atraso por índice, rotação 3D lenta, refração; ritmo de reel.",
    "familias": [
     "formas",
     "particulas",
@@ -6661,6 +8489,18 @@
     "personagem reduzido a contorno branco no fim",
     "chão contínuo em linha que vira trilha final"
    ],
+   "paleta": {
+    "fundo": "cor",
+    "cores": [
+     "#7EC8E3",
+     "#6A2BD6",
+     "#F08A3A",
+     "#B0B4BC",
+     "#12162E"
+    ]
+   },
+   "tipografia": "Sans fina e pequena só no HUD (idade em número grande, rótulo da fase em caixa alta mínima) e relógio digital bold na fase de trabalho.",
+   "movimento": "Travelling lateral contínuo com o personagem andando no mesmo eixo, troca de cenário por wipe, ritmo cardíaco desacelerando o vídeo junto com a idade; câmera fixa na altura do chão.",
    "familias": [
     "personagem",
     "transicao",
@@ -6706,6 +8546,18 @@
     "ponto laranja como fio condutor",
     "letras entrando com motion blur"
    ],
+   "paleta": {
+    "fundo": "cor",
+    "cores": [
+     "#0A0B10",
+     "#2F4BF5",
+     "#D4F23A",
+     "#FF5A1F",
+     "#F2F2F2"
+    ]
+   },
+   "tipografia": "Grotesca black em minúsculas com ponto laranja final; entra com motion blur forte.",
+   "movimento": "Ritmo rápido, cortes por continuidade de forma (a bola laranja atravessa as cenas), motion blur em tudo.",
    "familias": [
     "formas",
     "3d",
@@ -6752,6 +8604,17 @@
     "espiral de texto em anéis concêntricos girando",
     "hub com braços líquidos ligando integrações"
    ],
+   "paleta": {
+    "fundo": "cor",
+    "cores": [
+     "#E2FF1F",
+     "#151515",
+     "#F0F0EA",
+     "#FFFFFF"
+    ]
+   },
+   "tipografia": "Grotesca larga extendida em caixa alta, mono minúscula nas legendas, número gigante bold no medidor.",
+   "movimento": "Transições por gota e líquido, morph orgânico, rotação lenta dos anéis de texto; ritmo médio e fluido.",
    "familias": [
     "formas",
     "diagrama",
@@ -6796,6 +8659,17 @@
     "cursor clicando em botões de destaque",
     "mosaico de fotos esmaecido atrás do logo"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#0E0D0B",
+     "#F2B629",
+     "#FFFFFF",
+     "#8A8A8A"
+    ]
+   },
+   "tipografia": "Sans bold (tipo Inter) em caixa mista para legendas, caixa alta com palavra amarela no slogan, mono para rótulos de passo.",
+   "movimento": "Cortes por passo, UI entrando com escala leve, desfoque que resolve em foto nítida, cursor guiando; ritmo de tutorial acelerado.",
    "familias": [
     "interface",
     "foto-colagem"
@@ -6838,6 +8712,17 @@
     "headline com palavra em amarelo",
     "moldura HUD com barra de progresso"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#0B0B0A",
+     "#F5C518",
+     "#EDEDED",
+     "#5A5A50"
+    ]
+   },
+   "tipografia": "Grotesca black para headlines e numerais gigantes, mono para código e HUD; palavra-chave em amarelo.",
+   "movimento": "Cortes rápidos por etapa, scramble de caracteres, barras preenchendo; ritmo ágil.",
    "familias": [
     "codigo",
     "tipografia",
@@ -6882,6 +8767,17 @@
     "cursor com etiqueta de nome de colaborador",
     "toast de notificação entrando"
    ],
+   "paleta": {
+    "fundo": "claro",
+    "cores": [
+     "#EDEBE6",
+     "#FFFFFF",
+     "#111111",
+     "#F2542D"
+    ]
+   },
+   "tipografia": "Sans neutra de interface com números de impacto grandes em laranja; textos trocam no painel por corte.",
+   "movimento": "Câmera contínua de zoom e pan como navegação real no canvas, seleção que salta de frame em frame, um zoom out geral no meio e no fim.",
    "familias": [
     "interface",
     "camera",
@@ -6929,6 +8825,18 @@
     "campo de números miúdos como textura de fundo",
     "celular entrando por baixo em grade"
    ],
+   "paleta": {
+    "fundo": "claro",
+    "cores": [
+     "#F3EFE6",
+     "#1F3FE0",
+     "#FFE04A",
+     "#121212",
+     "#A8A8A8"
+    ]
+   },
+   "tipografia": "Serifa de alto contraste em tamanho de pôster e grotesca pesada em caixa alta nas faixas, ora vazada ora cheia; texto passa em pan lateral.",
+   "movimento": "Wipes de painel e cortes secos em ritmo rápido, saltos em parábola do personagem, marquees em sentidos alternados.",
    "familias": [
     "tipografia",
     "personagem",
@@ -6972,6 +8880,17 @@
     "túnel radial de palavras esticadas",
     "grade de círculos com aberração cromática"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#0B0B0B",
+     "#EE4423",
+     "#F1ECE2",
+     "#2F3BFF"
+    ]
+   },
+   "tipografia": "Grotesca variável indo de fina a black na mesma palavra, serifa itálica de contraponto, estendida pesada no fecho e mono no HUD.",
+   "movimento": "Capítulos cortados no tempo da música, interpolação de peso, shader girando, partículas convergindo, zoom radial no túnel.",
    "familias": [
     "tipografia",
     "formas",
@@ -7015,6 +8934,18 @@
     "cards de métrica entrando em stagger",
     "corte seco na batida com troca de fundo"
    ],
+   "paleta": {
+    "fundo": "cor",
+    "cores": [
+     "#4B4DE8",
+     "#FFFFFF",
+     "#0B0B0F",
+     "#0F9D7A",
+     "#F3F4F6"
+    ]
+   },
+   "tipografia": "grotesca arredondada extra pesada minúscula e enorme, com ponto final preto ou azul; a palavra entra por escala e corte na batida",
+   "movimento": "cortes rápidos na batida, palavra e widget entram juntos com mola curta, alternância azul/preto/branco; ritmo social acelerado",
    "familias": [
     "tipografia",
     "interface",
@@ -7059,6 +8990,18 @@
     "curva harmonógrafa se desenhando",
     "texto repetido em contorno no fundo"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#0c0d14",
+     "#ff5a1f",
+     "#ffd23c",
+     "#2b45f0",
+     "#f2efe8"
+    ]
+   },
+   "tipografia": "Grotesca extra larga e pesada em caixa alta com serifa itálica para subtítulos, mono pequena nos parâmetros; palavras entram com escala de 1,7 para 1 em easing exponencial.",
+   "movimento": "Cortes secos a 128 BPM, escala com desaceleração forte, padrões que se rearranjam por célula, túnel e dobra com câmera avançando.",
    "familias": [
     "formas",
     "tipografia",
@@ -7103,6 +9046,18 @@
     "parede de miniaturas inclinada",
     "logo dissolvendo em partículas"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#141a33",
+     "#f3f5fa",
+     "#5b7cf0",
+     "#4fd18b",
+     "#f06aa8"
+    ]
+   },
+   "tipografia": "Grotesca neutra bold para títulos curtos e frases empilhadas, mono pequena nos rótulos HUD, letra manuscrita nas anotações do desenho; palavras acendem uma a uma na legenda.",
+   "movimento": "Alterna claro e escuro por corte, câmera em perspectiva nos carrosséis e na parede, traços revelados progressivamente, ritmo amarrado ao BPM marcado no HUD; fecha com explosão de partículas.",
    "familias": [
     "interface",
     "diagrama",
@@ -7148,6 +9103,18 @@
     "contador de menções rolando no canto",
     "logo em gradiente surgindo da poeira"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#0A1E3D",
+     "#5CE1E6",
+     "#F2D27A",
+     "#E86A8A",
+     "#FFFFFF"
+    ]
+   },
+   "tipografia": "Sans geométrica larga (tipo Syne/Unbounded) para legendas na parte inferior e logo; mono pequena para o contador. Legendas entram por fade com leve deslocamento e saem antes da próxima.",
+   "movimento": "Morph contínuo do mesmo sistema de partículas entre formas (mapa, grafo, gráfico, logo), com rastro de velocidade nos traços; câmera parada, sem cortes, legenda trocando a cada beat de 2-3 s.",
    "familias": [
     "particulas",
     "dados",
@@ -7192,6 +9159,18 @@
     "revelação de texto por desfoque",
     "fundo creme com vinheta"
    ],
+   "paleta": {
+    "fundo": "claro",
+    "cores": [
+     "#f2efe8",
+     "#111214",
+     "#8b3fe0",
+     "#f07a2a",
+     "#d8243a"
+    ]
+   },
+   "tipografia": "Serifa editorial de contraste médio em peso regular, palavra-chave em itálico colorido; entra com desfoque e leve subida.",
+   "movimento": "Cortes suaves por fade, janelas entram com escala curta, troca de cor instantânea sincronizada entre UI e texto, terminal digitando; ritmo calmo e enxuto.",
    "familias": [
     "interface",
     "tipografia",
@@ -7231,6 +9210,18 @@
     "constelação desenhada ponto a ponto",
     "texto bitmap entrando caractere a caractere"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#1E1440",
+     "#F7D77A",
+     "#E84AA8",
+     "#3FD6E0",
+     "#F07A2A"
+    ]
+   },
+   "tipografia": "Fonte bitmap pixelada, coreano em laranja e latim em rosa claro, digitada por caractere no canto superior esquerdo.",
+   "movimento": "Câmera parada, animação em ciclos de poucos quadros, brilhos pontuais e elementos que surgem em camadas; ritmo calmo de cartão animado.",
    "familias": [
     "personagem",
     "textura"
@@ -7272,6 +9263,17 @@
     "timeline inferior com keyframes marcando o capítulo",
     "letras com rotação 3D caindo no lugar"
    ],
+   "paleta": {
+    "fundo": "claro",
+    "cores": [
+     "#ECECEC",
+     "#1A1C20",
+     "#2F7BF0",
+     "#E8334A"
+    ]
+   },
+   "tipografia": "Grotesca condensada muito pesada em caixa alta para frases, script manuscrito azul e vermelho para anotações; letras entram com stagger e esticamento elástico.",
+   "movimento": "Alterna cenas claras e escuras por corte seco, cada uma ilustrando um princípio; mola com overshoot, borrão de velocidade e rastros; timeline inferior avança como scrubber.",
    "familias": [
     "diagrama",
     "tipografia",
@@ -7316,6 +9318,17 @@
     "texto dissolvido em matriz de pontos",
     "HUD com cantoneiras e contador de frame"
    ],
+   "paleta": {
+    "fundo": "cor",
+    "cores": [
+     "#f1ede4",
+     "#ff5a1f",
+     "#ccff2e",
+     "#0b0b0b"
+    ]
+   },
+   "tipografia": "Grotesca neo pesada, ora normal, ora estendida até a borda; cada palavra se deforma conforme o significado (estica, parte, derrete em pontos).",
+   "movimento": "Cortes secos de cor no tempo da batida, deformações com easing forte, algumas cartelas vazias de respiro; ritmo rápido e uniforme.",
    "familias": [
     "tipografia",
     "formas",
@@ -7359,6 +9372,18 @@
     "legendas em caixa amarela tipo fita rotuladora",
     "fecho em vinheta circular com respiro"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#0E1030",
+     "#F5D33B",
+     "#F08A3C",
+     "#E86AA8",
+     "#3A5BE0"
+    ]
+   },
+   "tipografia": "serifa bold extrudada em camadas coloridas com sombra deslocada, serifa itálica rosa para 'breathe.', mono pequena no HUD e nas etiquetas; palavras orbitam, empilham e se repetem",
+   "movimento": "cortes rápidos entre colagens, zoom e rotação contínuos, flashes, glitch no clímax e desaceleração brusca para o fecho calmo",
    "familias": [
     "foto-colagem",
     "tipografia",
@@ -7403,6 +9428,18 @@
     "contador de frames renderizados",
     "HUD com compasso e BPM"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#0b0b0d",
+     "#ef4a23",
+     "#2e46e6",
+     "#f1ece2",
+     "#d6f24a"
+    ]
+   },
+   "tipografia": "Grotesca condensada pesada para palavras empilhadas, larga extra pesada no nome, serifa itálica para subtítulos e palavra fluida, mono no HUD.",
+   "movimento": "Cortes secos a cada compasso, molas e squash visíveis, partículas em rotação lenta, contador com dígitos rolando.",
    "familias": [
     "formas",
     "particulas",
@@ -7443,6 +9480,16 @@
     "marcador mono de cue com barra de progresso no topo",
     "composição final construída pelas palavras anteriores"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#102820",
+     "#F4E9D5",
+     "#F2B544"
+    ]
+   },
+   "tipografia": "Serifa de alto contraste para a fala, grotesca larga e pesada para as palavras que sustentam, mono minúscula para os cues; palavras se movem como peças físicas com peso.",
+   "movimento": "Lento e deliberado, cada frase altera a estrutura do quadro; rotações e descidas com easing suave, um zoom através da letra como única transição.",
    "familias": [
     "tipografia",
     "transicao"
@@ -7486,6 +9533,18 @@
     "contador em pill sincronizado com o preenchimento",
     "texto entra desfocado e ganha foco"
    ],
+   "paleta": {
+    "fundo": "claro",
+    "cores": [
+     "#3B2350",
+     "#7A4FA0",
+     "#F3EEF7",
+     "#2B2B2B",
+     "#FFFFFF"
+    ]
+   },
+   "tipografia": "Serifa display de alto contraste; a segunda palavra de cada frase em itálico roxo; entra com desfoque para foco.",
+   "movimento": "Cenas ligadas por fades claros, parede de ícones em deriva diagonal contínua, objetos do quarto surgem em sequência junto com o contador; ritmo calmo e acolhedor.",
    "familias": [
     "tipografia",
     "celular",
@@ -7530,6 +9589,18 @@
     "checklist sendo riscada item a item",
     "texto digitando com cursor"
    ],
+   "paleta": {
+    "fundo": "claro",
+    "cores": [
+     "#FBF3EA",
+     "#2A2420",
+     "#C9731E",
+     "#7B5CC6",
+     "#1E6B3A"
+    ]
+   },
+   "tipografia": "serifa editorial clássica com palavra em script itálico laranja e sublinhado em marca-texto, sans pequena na UI; títulos digitam e os cards entram em stagger",
+   "movimento": "suave e acolhedor, cascatas de cards com ease-out, desfoque do celular para destacar notificação, ritmo constante",
    "familias": [
     "celular",
     "interface",
@@ -7573,6 +9644,16 @@
     "matriz de glifos paramétricos com conexões",
     "wordmark serifado gigante cortado na base com grade de construção"
    ],
+   "paleta": {
+    "fundo": "claro",
+    "cores": [
+     "#EFEBDF",
+     "#2A24C9",
+     "#111111"
+    ]
+   },
+   "tipografia": "serifa de texto clássica para números e wordmark, grotesca condensada caixa alta e serifa itálica em choque no capítulo de tipo, sans pequena nas legendas de figura",
+   "movimento": "cortes secos por capítulo no tempo de 128 BPM, quadrados preenchendo em cascata, pictograma em poses na batida, grade em perspectiva rotacionando; contador de frames visível",
    "familias": [
     "formas",
     "tipografia",
@@ -7616,6 +9697,18 @@
     "faixas de letterbox e legenda com nome do falante",
     "luz quente contra ambiente frio"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#1C2340",
+     "#F2B35A",
+     "#D94A3A",
+     "#6B5A8C",
+     "#F7E3B0"
+    ]
+   },
+   "tipografia": "Só legendas pequenas em sans com nome do personagem; a narrativa é visual.",
+   "movimento": "Planos de cinema com pans lentos e cortes de montagem, parallax entre camadas, partículas de chuva constantes, animação de personagem simples.",
    "familias": [
     "personagem",
     "camera",
@@ -7658,6 +9751,18 @@
     "balões de raciocínio digitando ao lado do tabuleiro",
     "trio de cards de saída (lista, PDF, vídeo)"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#0B1020",
+     "#F5B83D",
+     "#E7E9EE",
+     "#2BD4A4",
+     "#C79A5A"
+    ]
+   },
+   "tipografia": "sans bold CJK centralizada com trecho em dourado, mono no bloco de código; títulos entram com fade e leve subida",
+   "movimento": "estrutura de slides: título entra, conteúdo monta embaixo em stagger, fade para a próxima seção; ritmo lento e uniforme",
    "familias": [
     "interface",
     "codigo"
@@ -7698,6 +9803,17 @@
     "paleta de comandos com filtro digitado",
     "loop com último quadro igual ao primeiro"
    ],
+   "paleta": {
+    "fundo": "claro",
+    "cores": [
+     "#F3F2ED",
+     "#111111",
+     "#FFFFFF",
+     "#1F9D57"
+    ]
+   },
+   "tipografia": "sans de UI limpa (Geist) pequena e regular; texto troca por desfoque dentro do componente",
+   "movimento": "plano único sem cortes, molas fechadas com overshoot mínimo, eventos em cada batida; nas folhas o elemento aparece pequeno no quadro, com bastante área vazia, apesar do zoom pedido",
    "familias": [
     "interface",
     "transicao"
@@ -7737,6 +9853,18 @@
     "lanternas flutuantes surgindo na água",
     "ave solitária atravessando o quadro"
    ],
+   "paleta": {
+    "fundo": "cor",
+    "cores": [
+     "#f29a8a",
+     "#e877b8",
+     "#6a4fa8",
+     "#232a5c",
+     "#f6e3a8"
+    ]
+   },
+   "tipografia": "Caligráfica/serifa chinesa em coluna vertical, pequena, com assinatura ao lado; caracteres surgem um a um em fade lento.",
+   "movimento": "Plano praticamente fixo com deriva lenta, mudanças de cor e luz em transição contínua, sem cortes; ritmo contemplativo.",
    "familias": [
     "textura",
     "tipografia",
@@ -7779,6 +9907,18 @@
     "elementos voando em órbita ao redor do personagem",
     "troca de cenário a cada verso"
    ],
+   "paleta": {
+    "fundo": "cor",
+    "cores": [
+     "#2F8FD8",
+     "#F4D21F",
+     "#E8452C",
+     "#E85FA8",
+     "#6B4A2E"
+    ]
+   },
+   "tipografia": "quase sem texto; só balões e números pequenos dentro da cena",
+   "movimento": "cortes por verso com trocas de cenário, personagem em pose fixa com pequenas variações, objetos orbitando, ritmo de clipe",
    "familias": [
     "personagem",
     "textura",
@@ -7822,6 +9962,17 @@
     "terminal digitando código",
     "grade fina de fundo"
    ],
+   "paleta": {
+    "fundo": "claro",
+    "cores": [
+     "#1A1A1A",
+     "#F5F4EF",
+     "#8A8A8A",
+     "#FFFFFF"
+    ]
+   },
+   "tipografia": "Grotesca neo em peso regular, grande e com entrelinha justa; linhas em dois tons (cinza para o contexto, preto ou branco para o novo); mono no terminal.",
+   "movimento": "Cortes secos no tempo da trilha, troca de palavra por substituição instantânea, lista que cresce para baixo, cursor piscando; sem câmera.",
    "familias": [
     "tipografia",
     "codigo",
@@ -7869,6 +10020,18 @@
     "gráfico de payoff com áreas verde e vermelha",
     "indicador de escala no canto"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#05070A",
+     "#1FBF8F",
+     "#E0485A",
+     "#6C8CFF",
+     "#DDE3EA"
+    ]
+   },
+   "tipografia": "Grotesca e mono tabular pequenas para os dados, números tabulares grandes nos zooms, slogan em cinza fino.",
+   "movimento": "Câmera contínua no estilo potências de dez, zooms com easing longo e sem corte, ritmo contemplativo.",
    "familias": [
     "camera",
     "interface",
@@ -7912,6 +10075,18 @@
     "logo circular com órbitas finas",
     "grão de filme e vinheta em tudo"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#0E0E10",
+     "#F2531F",
+     "#F04FA0",
+     "#2B3BE0",
+     "#C8F542"
+    ]
+   },
+   "tipografia": "Grotesca extra larga pesada em caixa alta (tipo Archivo Black) para frases e logo, mono no HUD e nos rótulos de curva.",
+   "movimento": "Cortes por capítulo com fundos de cor plena, física de queda no texto, comparação lado a lado de easings, avanço contínuo no túnel, deformação orgânica do blob.",
    "familias": [
     "formas",
     "tipografia",
@@ -7952,6 +10127,18 @@
     "wordmark pesado itálico com ponto final",
     "mistura de grotesca pesada e serifa itálica na mesma frase"
    ],
+   "paleta": {
+    "fundo": "cor",
+    "cores": [
+     "#0A0A0C",
+     "#1E5BFF",
+     "#8EC5FF",
+     "#E9EDF5",
+     "#FFFFFF"
+    ]
+   },
+   "tipografia": "grotesca extra pesada itálica no wordmark, serifa itálica fina para a segunda metade das frases; texto entra por blur e escala",
+   "movimento": "objeto 3D flutuando com leve rotação, cards que surgem com blur e mola curta, troca de fundo escuro para azul e depois branco",
    "familias": [
     "3d",
     "interface",
@@ -7993,6 +10180,18 @@
     "esfera de pontos 3D com anéis orbitais",
     "grade bento de nove micro-animações em loop"
    ],
+   "paleta": {
+    "fundo": "cor",
+    "cores": [
+     "#0C1020",
+     "#2B2BE0",
+     "#FF5233",
+     "#FFC93C",
+     "#E9EDF5"
+    ]
+   },
+   "tipografia": "grotesca condensada extra-bold caixa alta (uma linha em contorno), mono minúscula nas legendas técnicas; palavras entram por bloco de cor",
+   "movimento": "um capítulo por segundo e pouco, cortes secos; cada cena demonstra um princípio (timing, morph, partículas, profundidade); easing visível na miniatura do canto; fecho estático com barras tricolores",
    "familias": [
     "formas",
     "particulas",
@@ -8038,6 +10237,18 @@
     "rótulo de caso em mono laranja",
     "barra de progresso fina no rodapé"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#0A0807",
+     "#F2EEEA",
+     "#FF5A2A",
+     "#8A8580",
+     "#3A1A12"
+    ]
+   },
+   "tipografia": "Grotesca black com gradiente cinza-metálico nos números e headlines, mono para rótulos e terminal.",
+   "movimento": "Contadores rolando, cortes secos com pulso de luz, fileiras de nomes deslizando sem parar; ritmo rápido.",
    "familias": [
     "dados",
     "tipografia",
@@ -8080,6 +10291,18 @@
     "whip pan com borrão entre capítulos",
     "logo dentro de círculo de luz"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#0E1A20",
+     "#F2EEE8",
+     "#9CC3D6",
+     "#E8A060",
+     "#EEF1F2"
+    ]
+   },
+   "tipografia": "Grotesca bold com destaque em serifa itálica azul-clara, mono no HUD, número em contorno fino.",
+   "movimento": "Whip pans com motion blur, palavras entrando com desfoque, máscaras de texto; ritmo de reel cinematográfico.",
    "familias": [
     "foto-colagem",
     "tipografia",
@@ -8120,6 +10343,18 @@
     "luz de fim de tarde com poste acendendo",
     "texto de contexto como legenda de abertura"
    ],
+   "paleta": {
+    "fundo": "cor",
+    "cores": [
+     "#E8B48F",
+     "#1F6B5C",
+     "#EFEDE6",
+     "#F2A65A",
+     "#14403A"
+    ]
+   },
+   "tipografia": "sans arredondada bold em balões e legenda; balões entram com mola",
+   "movimento": "dolly-in suave até o mascote, reações com pequenas molas, dolly-out para o fecho; ritmo tranquilo",
    "familias": [
     "3d",
     "personagem",
@@ -8165,6 +10400,18 @@
     "bento de recursos com micro-interações",
     "kanban com card mudando de coluna"
    ],
+   "paleta": {
+    "fundo": "cor",
+    "cores": [
+     "#F1EEE8",
+     "#0F1626",
+     "#7B7FF0",
+     "#F08A2C",
+     "#1A1A1A"
+    ]
+   },
+   "tipografia": "grotesca semibold com palavra de destaque em azul-lavanda, mono para código e rótulos; frases entram e saem por desfoque",
+   "movimento": "redimensionamento de painéis com mola, transições por desfoque e wipe circular, linha de roteamento acende com brilho; ~3 s por recurso",
    "familias": [
     "interface",
     "codigo",
@@ -8205,6 +10452,18 @@
     "contador numérico subindo até a prova social",
     "frase em duas cores por linha"
    ],
+   "paleta": {
+    "fundo": "claro",
+    "cores": [
+     "#EAF4FB",
+     "#1B2A3A",
+     "#3E86C6",
+     "#F2C230",
+     "#FFFFFF"
+    ]
+   },
+   "tipografia": "Grotesca bold centralizada, segunda linha em azul; entradas por fade e leve deslize.",
+   "movimento": "Fades simples entre cenas, chips com flutuação lenta, contador com ease-out; ritmo lento e linear.",
    "familias": [
     "tipografia",
     "dados",
@@ -8247,6 +10506,18 @@
     "redemoinho de centenas de miniaturas",
     "abertura e fecho espelhados (loop narrativo)"
    ],
+   "paleta": {
+    "fundo": "cor",
+    "cores": [
+     "#F1EEE7",
+     "#1E1B4B",
+     "#7A5BA8",
+     "#E86A4A",
+     "#F3C33C"
+    ]
+   },
+   "tipografia": "manuscrita casual para a anotação, sans bold no logo; texto quase ausente no miolo",
+   "movimento": "transições por flash e zoom através do túnel, rotação contínua nos redemoinhos, motion blur nas faixas; muda de mundo a cada 3-4 s; fecho reencontra o enquadramento inicial",
    "familias": [
     "transicao",
     "particulas",
@@ -8286,6 +10557,18 @@
     "esteira de miniaturas com borrão horizontal",
     "diagrama a lápis surgindo em fade"
    ],
+   "paleta": {
+    "fundo": "claro",
+    "cores": [
+     "#F8F7F0",
+     "#1A1A2E",
+     "#3FCF5A",
+     "#4A6CF0",
+     "#E0307A"
+    ]
+   },
+   "tipografia": "Grotesca pesada em 2-3 linhas para títulos, sans regular cinza no apoio, rótulo pequeno colorido em caixa alta (STEP 1); entra com fade e leve subida.",
+   "movimento": "Ritmo de explainer calmo, cards deslizam com sombra suave, barra de progresso contínua no topo, transição whip com motion blur horizontal entre blocos.",
    "familias": [
     "interface",
     "diagrama"
@@ -8328,6 +10611,18 @@
     "texto em anéis concêntricos girando em sentidos opostos",
     "tubo listrado tricolor com motion blur"
    ],
+   "paleta": {
+    "fundo": "cor",
+    "cores": [
+     "#111113",
+     "#E8412F",
+     "#3036E8",
+     "#F3C43A",
+     "#F1ECE3"
+    ]
+   },
+   "tipografia": "grotesca geométrica extra-bold caixa alta para impacto, mono minúscula nos rótulos do HUD, serifa clássica no wordmark final; letras entram em escala e saem cortadas pela borda",
+   "movimento": "cortes secos sincronizados à batida de 120 BPM, cada compasso um cenário; easing rápido com overshoot leve nas formas; rotação contínua nos anéis de texto; motion blur no tubo",
    "familias": [
     "formas",
     "tipografia",
@@ -8374,6 +10669,18 @@
     "parede de telas em perspectiva no fechamento",
     "barra de navegação inferior marcando o capítulo"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#0B0A1A",
+     "#5B5BE6",
+     "#FFFFFF",
+     "#2FCB6B",
+     "#E35B8F"
+    ]
+   },
+   "tipografia": "Sans bold (tipo Inter/SF) para manchetes em duas linhas com segunda linha roxa, mono para rótulos e números de capítulo; números com rolagem tipo odômetro.",
+   "movimento": "Abertura agressiva com glitch, depois ritmo de apresentação de produto com cards entrando por mola e inclinação 3D; flashes roxos como transição de capítulo.",
    "familias": [
     "interface",
     "dados",
@@ -8414,6 +10721,18 @@
     "parede de exemplos com faixa de logos",
     "botão de chamada em pílula no fecho"
    ],
+   "paleta": {
+    "fundo": "claro",
+    "cores": [
+     "#F3F0EA",
+     "#1B2A4A",
+     "#2E5AA8",
+     "#E8EEF8",
+     "#FFFFFF"
+    ]
+   },
+   "tipografia": "sans neutra semibold nas manchetes, regular nas descrições; números em badge circular",
+   "movimento": "layout repetido com slide e fade por recurso, cursor com cliques, ritmo uniforme de ~7 s por recurso; sem variação de câmera",
    "familias": [
     "interface"
    ],
@@ -8454,6 +10773,17 @@
     "mockup de celular com busca digitando",
     "campo de estrelas em velocidade no fecho"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#0A0B0D",
+     "#C9CDD2",
+     "#E8B53A",
+     "#3A8DFF"
+    ]
+   },
+   "tipografia": "Grotesca condensada muito pesada com gradiente cromado ou dourado, mono pequena nos rótulos e tabelas; palavras entram com glitch e números rolam por dígito.",
+   "movimento": "Cortes secos por recurso do app, desenho progressivo de linhas, contadores rolando, glitch horizontal nas palavras, aceleração com estrelas no final.",
    "familias": [
     "diagrama",
     "dados",
@@ -8500,6 +10830,18 @@
     "pêndulo de Newton e quadrados em loop",
     "nuvem de partículas em espiral"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#0B0B0B",
+     "#F04A1E",
+     "#2B33F5",
+     "#C8F542",
+     "#F1ECE0"
+    ]
+   },
+   "tipografia": "Grotesca extra larga pesada em caixa alta, serifa itálica para assinatura, mono no HUD; texto do cilindro em grotesca bold espaçada com pontos separadores.",
+   "movimento": "Cortes secos na batida, cada capítulo com um princípio (timing, squash, morph, loop), rotação contínua do cilindro de texto, glitch como transição.",
    "familias": [
     "tipografia",
     "formas",
@@ -8540,6 +10882,17 @@
     "rolagem vertical de palavras com desfoque",
     "alternância de fundo índigo e lavanda por corte"
    ],
+   "paleta": {
+    "fundo": "cor",
+    "cores": [
+     "#1f1fa8",
+     "#d7dcf8",
+     "#f25a2a",
+     "#ffffff"
+    ]
+   },
+   "tipografia": "Grotesca geométrica redonda em peso médio, minúsculas, com uma palavra em serifa clássica para contraste; palavras entram pela linha de base e rolam na vertical com desfoque.",
+   "movimento": "Fio contínuo de linha e ponto amarrando as cenas, cortes de cor no lugar de transições, easing suave com pequenas molas no ponto; ritmo rápido de uma palavra por batida.",
    "familias": [
     "tipografia",
     "formas",
@@ -8583,6 +10936,18 @@
     "conectores entre entidades A, B, C e um recipiente central",
     "comparação lado a lado com checks e X"
    ],
+   "paleta": {
+    "fundo": "claro",
+    "cores": [
+     "#FBF8EE",
+     "#F07FD6",
+     "#9EE8F0",
+     "#8EE07A",
+     "#F2C94C"
+    ]
+   },
+   "tipografia": "grotesca condensada extra-bold caixa alta nos títulos, mono nos relógios e rótulos; títulos entram palavra a palavra com destaque em marca-texto",
+   "movimento": "cena por capítulo com corte seco, elementos entram com pop e leve overshoot; barras animam linearmente como tempo real; cartões trocam de dono com carimbo; ritmo de locução",
    "familias": [
     "diagrama",
     "interface"
@@ -8624,6 +10989,18 @@
     "câmera recuando para a casa ficar pequena",
     "fumaça em espiral subindo da chaminé"
    ],
+   "paleta": {
+    "fundo": "cor",
+    "cores": [
+     "#F2B98A",
+     "#7A6AB0",
+     "#2A2340",
+     "#1A1410",
+     "#FFD98A"
+    ]
+   },
+   "tipografia": "Serifa itálica clássica (tipo Cormorant/Garamond Italic) clara dentro de placa escura; frases trocam por fade.",
+   "movimento": "Lento e contínuo, sem cortes: luz e cor do céu mudam, silhuetas deslizam em camadas, uma frase por plano de 5-6 s; recuo final de câmera.",
    "familias": [
     "personagem",
     "textura",
@@ -8670,6 +11047,18 @@
     "evento a cada batida de 120 BPM",
     "loop com último quadro igual ao primeiro"
    ],
+   "paleta": {
+    "fundo": "claro",
+    "cores": [
+     "#ECECE8",
+     "#0A0A0A",
+     "#FFFFFF",
+     "#F07A4A",
+     "#8A5CF0"
+    ]
+   },
+   "tipografia": "Grotesca geométrica limpa (estilo Geist) em pesos médio e bold; número grande bold no card do gráfico; textos trocam com desfoque curto de saída e entrada.",
+   "movimento": "Morph contínuo sem corte, molas com overshoot mínimo, câmera que aproxima para cada estado ocupar o quadro, mudança cravada na batida e motion blur por subquadros; o arraste segue o cursor e solta com mola.",
    "familias": [
     "interface",
     "transicao",
@@ -8715,6 +11104,18 @@
     "forma de onda de batida como barra inferior",
     "texto fantasma empilhado atrás da palavra principal"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#F0501E",
+     "#1E2BE0",
+     "#C8F542",
+     "#0B0B0B",
+     "#F1F0EA"
+    ]
+   },
+   "tipografia": "Grotesca extra pesada em caixa alta, às vezes itálica nas faixas; legendas e HUD em mono pequena. Entra por corte seco e por troca de palavra, sem animação por letra visível nos frames.",
+   "movimento": "Cortes secos rápidos entre cenas de estilos muito diferentes, faixas em rolagem contínua, rotação lenta e constante dos objetos cromados; a segunda metade tem ritmo de slide a slide.",
    "familias": [
     "tipografia",
     "formas",
@@ -8756,6 +11157,18 @@
     "legenda palavra a palavra lateral",
     "rótulo numerado de capítulo no canto"
    ],
+   "paleta": {
+    "fundo": "cor",
+    "cores": [
+     "#c87428",
+     "#d8435a",
+     "#f7b8d8",
+     "#f6d21e",
+     "#161616"
+    ]
+   },
+   "tipografia": "Sans grotesca bold branca para legendas palavra a palavra ao lado do rosto; nos universos a letra muda de estilo (cômica em balão, rótulo mono pequeno de capítulo).",
+   "movimento": "Cortes secos sincronizados com a fala, pops de escala para balões e contador, trocas de estilo instantâneas como gag; barra de progresso vermelha na base.",
    "familias": [
     "personagem",
     "foto-colagem",
@@ -8799,6 +11212,18 @@
     "portal circular com linhas de velocidade radiais",
     "letreiro final dourado com bisel"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#120A24",
+     "#8A3FC7",
+     "#E0336B",
+     "#F2B84A",
+     "#F5F5F5"
+    ]
+   },
+   "tipografia": "Sans condensada bold para legendas com nome do falante em cor; letreiro final em display pesada dourada com contorno.",
+   "movimento": "Planos de câmera variados (geral, contra-plongée, close) com cortes de edição narrativa, feixe e clarão como pontuação, travelling em alta velocidade no portal.",
    "familias": [
     "3d",
     "personagem",
@@ -8841,6 +11266,18 @@
     "inversão de cor do editor no drop",
     "campo ASCII verde pulsando com o grave"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#0B1014",
+     "#7FD4E0",
+     "#A8E05F",
+     "#F2C14E",
+     "#E0407A"
+    ]
+   },
+   "tipografia": "Mono em toda a peça, com realce de sintaxe; caracteres trocam aleatoriamente no glitch e formam imagens no ASCII.",
+   "movimento": "Rolagem do código guiada pela música, flashes por token, cortes e inversões no drop, ruído de caracteres que cresce até tomar a tela.",
    "familias": [
     "codigo",
     "ritmo-som",
@@ -8883,6 +11320,18 @@
     "marcas verticais de evento em verde e vermelho",
     "legenda de fase trocando no topo"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#0D1117",
+     "#4A9EFF",
+     "#3FB950",
+     "#F85149",
+     "#E3B341"
+    ]
+   },
+   "tipografia": "Mono única (tipo SF Mono/JetBrains) em tamanhos diferentes; número grande em mono leve, troca de valor por corte.",
+   "movimento": "Simulação contínua sem cortes, tudo derivado do tempo: barras somem e voltam, gráfico avança da esquerda para a direita, log rola; sem easing decorativo.",
    "familias": [
     "dados",
     "diagrama",
@@ -8926,6 +11375,18 @@
     "cabeçalho mono de relatório fixo",
     "linha de progresso fina no rodapé"
    ],
+   "paleta": {
+    "fundo": "claro",
+    "cores": [
+     "#FFFFFF",
+     "#F8F6EF",
+     "#111111",
+     "#A8413A",
+     "#E89A90"
+    ]
+   },
+   "tipografia": "Grotesca neo bold grande com destaque em vermelho-tijolo, mono pequena no cabeçalho; revelação por máscara linha a linha.",
+   "movimento": "Revelação subindo de máscara, pontos acendendo em sequência, contadores rolando, cortes secos; ritmo rápido.",
    "familias": [
     "dados",
     "tipografia"
@@ -8969,6 +11430,18 @@
     "HUD de canto com timecode e URL",
     "light leak atravessando a tela"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#050505",
+     "#F4F4F6",
+     "#B9A6FF",
+     "#7B5CE0",
+     "#5AB8FF"
+    ]
+   },
+   "tipografia": "grotesca extra pesada caixa-alta com glow lilás, mono para frases técnicas digitando; palavras batem uma por vez com escala e aberração",
+   "movimento": "cortes duros na batida, uma palavra por golpe, zoom de impacto, flashes e inversão de cor; ritmo de edit de anime com crescendo até o personagem",
    "familias": [
     "tipografia",
     "3d",
@@ -9011,6 +11484,18 @@
     "faixa de luz varrendo atrás do texto",
     "anel circular expandindo como transição"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#05070F",
+     "#0E1B3D",
+     "#5B7BE8",
+     "#C7D2F5",
+     "#B04FD0"
+    ]
+   },
+   "tipografia": "sans geométrica bold espaçada no logo, grotesca bold nos nomes; entradas com glitch e flicker",
+   "movimento": "cortes rápidos no tempo da batida, zoom para dentro do warp, flicker de glitch nas trocas; contagem de itens 01 a 12",
    "familias": [
     "tipografia",
     "particulas"
@@ -9051,6 +11536,18 @@
     "legenda fixa na base em caixa escura",
     "ponto percorrendo a curva com tangente"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#111823",
+     "#5ec8e6",
+     "#f2c94c",
+     "#f08a3c",
+     "#8fd46a"
+    ]
+   },
+   "tipografia": "Sans CJK para títulos amarelos no canto e legendas; fórmulas em LaTeX com cor por termo; aparecem por escrita progressiva e transformação entre equações.",
+   "movimento": "Ritmo pedagógico lento, construção incremental (traçar eixo, curva, ponto), transformações de equação no estilo Manim, sem cortes bruscos; uma ideia por tela.",
    "familias": [
     "diagrama",
     "dados"
@@ -9093,6 +11590,18 @@
     "cada quique toca a próxima nota",
     "pergunta-gancho fixa no topo"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#0A0A14",
+     "#F25AC8",
+     "#8A4CF0",
+     "#4A7AF0",
+     "#5AE0F0"
+    ]
+   },
+   "tipografia": "Grotesca geométrica bold branca, contador na cor do anel atual, legenda pequena cinza.",
+   "movimento": "Física contínua sem corte, quiques sonorizados, aberturas girando, partículas na quebra; tensão crescente até a fuga.",
    "familias": [
     "formas",
     "ritmo-som",
@@ -9135,6 +11644,18 @@
     "imagem voando de um painel para outro",
     "profundidade com painel de fundo desfocado"
    ],
+   "paleta": {
+    "fundo": "claro",
+    "cores": [
+     "#F6EFE6",
+     "#2A2420",
+     "#5A3A28",
+     "#8CC46A",
+     "#FFFFFF"
+    ]
+   },
+   "tipografia": "Sans de UI neutra; legenda em pill com uma palavra em verde; serifa no corpo do e-mail.",
+   "movimento": "Câmera contínua com zoom e pan, desfoque de profundidade, imagem em trajetória de arco; ritmo calmo de demo.",
    "familias": [
     "interface",
     "camera"
@@ -9173,6 +11694,18 @@
     "monitor do cenário mostrando código, progresso e check",
     "tela de giz com texto mono de abertura"
    ],
+   "paleta": {
+    "fundo": "claro",
+    "cores": [
+     "#F1E6C8",
+     "#D9603B",
+     "#4FA39A",
+     "#1F2A44",
+     "#E05A7A"
+    ]
+   },
+   "tipografia": "Mono verde em tela escura na abertura, serifa itálica na placa de nome, letra manuscrita nas placas; pouco texto, quase tudo é ilustração.",
+   "movimento": "Câmera fixa no cenário, ação contada por troca de expressão e entrada de adereços com mola; mudança gradual de luz para marcar o tempo.",
    "familias": [
     "personagem",
     "textura"
@@ -9211,6 +11744,18 @@
     "vapor do café em loop",
     "luz dos abajures acendendo no inverno"
    ],
+   "paleta": {
+    "fundo": "cor",
+    "cores": [
+     "#C97B8E",
+     "#4B2A6B",
+     "#8CC46B",
+     "#E07B39",
+     "#EDEFF5"
+    ]
+   },
+   "tipografia": "sem texto na tela",
+   "movimento": "câmera totalmente parada, só a paisagem corre em velocidades diferentes por camada; transição gradual e contínua de estação, ritmo lento e ambiente",
    "familias": [
     "formas",
     "particulas",
@@ -9253,6 +11798,18 @@
     "logotipo gigante cortado na base do quadro",
     "transição de seção por rolagem vertical"
    ],
+   "paleta": {
+    "fundo": "claro",
+    "cores": [
+     "#E9EBEE",
+     "#111111",
+     "#2A1E2E",
+     "#E06A3A",
+     "#C9A33A"
+    ]
+   },
+   "tipografia": "Grotesca larga bold nas headlines, serifa na seção de viagem, mono pequena nos metadados; logotipo final gigante cortado pela borda.",
+   "movimento": "Tudo amarrado ao progresso da rolagem, sem cortes; seções se sucedem por deslize vertical e cada uma tem sua micro-interação.",
    "familias": [
     "interface",
     "foto-colagem"
@@ -9293,6 +11850,18 @@
     "globo de linhas com pontos e arcos tracejados",
     "cartão final com ícone, chips e pílula de URL"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#0C1E2A",
+     "#D4F542",
+     "#F4F4EC",
+     "#2F6B8A",
+     "#1E4A2E"
+    ]
+   },
+   "tipografia": "Grotesca condensada pesada (tipo Anton/Bebas) em caixa alta, com palavras em verde-limão para ênfase; sans pequena para apoio. Entra deslizando de lado e passa do tamanho do quadro.",
+   "movimento": "Cortes no ritmo da música, texto que atravessa a tela em travelling, troca de tema da quadra por corte casado, globo girando devagar com arcos desenhando; fechamento estático.",
    "familias": [
     "tipografia",
     "celular",
@@ -9335,6 +11904,17 @@
     "anel de fogo no chão no impacto",
     "kanji gigante translúcido no fecho"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#1A0505",
+     "#E0301E",
+     "#FF9A1F",
+     "#FFD45A"
+    ]
+   },
+   "tipografia": "Kanji em serifa vertical com legenda em versalete espaçado; troca por corte a cada golpe.",
+   "movimento": "Câmera fixa, poses interpoladas com acelerações bruscas nos golpes, rastros e explosões de partículas no pico de cada movimento.",
    "familias": [
     "personagem",
     "particulas"
@@ -9375,6 +11955,18 @@
     "voo em câmera de perseguição sobre terreno procedural",
     "cartão final com métricas do projeto"
    ],
+   "paleta": {
+    "fundo": "claro",
+    "cores": [
+     "#c9c2b4",
+     "#6b7a4a",
+     "#c8b48a",
+     "#f2efe6",
+     "#2b2b2b"
+    ]
+   },
+   "tipografia": "Estêncil condensada pesada para o nome do avião no canto inferior, sans neutra nas legendas e no painel; legendas trocam por fade.",
+   "movimento": "Órbita lenta de câmera ao redor do modelo, animação mecânica das partes ao clicar, perseguição suave em voo; transições por fade entre legendas.",
    "familias": [
     "3d",
     "interface"
@@ -9413,6 +12005,18 @@
     "profundidade de campo e flare de sol",
     "plano final de afastamento até o horizonte"
    ],
+   "paleta": {
+    "fundo": "cor",
+    "cores": [
+     "#2A1E2E",
+     "#C77A8A",
+     "#F2A65A",
+     "#F5F1EA",
+     "#3A2A20"
+    ]
+   },
+   "tipografia": "sem texto",
+   "movimento": "linguagem de curta cinematográfico com cortes entre planos, câmera em travelling acompanhando o personagem, close-ups de detalhe e plano geral de saída; movimento contínuo e lento",
    "familias": [
     "3d",
     "personagem",
@@ -9454,6 +12058,18 @@
     "frase final com palavra itálica colorida",
     "nome do app em fonte pixelada"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#1A1412",
+     "#D9B98A",
+     "#F5F0E6",
+     "#E8A33D",
+     "#1A1A1A"
+    ]
+   },
+   "tipografia": "Serifa clássica nas letras das peças e na frase final com destaque itálico laranja, fonte de matriz de pontos no nome do app.",
+   "movimento": "Câmera 3D alternando plano geral e closes, peças com pulos em mola, atuação por olhos e sobrancelhas, iluminação quente de mesa.",
    "familias": [
     "3d",
     "personagem"
@@ -9496,6 +12112,18 @@
     "progressão do dia até a noite",
     "roda de personagens sobre raios no fecho"
    ],
+   "paleta": {
+    "fundo": "claro",
+    "cores": [
+     "#F2E8D5",
+     "#F2C230",
+     "#6FA8DC",
+     "#8BB174",
+     "#1F2A4A"
+    ]
+   },
+   "tipografia": "Manuscrita tipo marcador, uma palavra por vez em tamanho grande; onomatopeias pequenas e tortas.",
+   "movimento": "Personagens com balanço e pulinhos, zooms profundos como transição, câmera passeando pelo cenário, mudança de luz ao longo do dia.",
    "familias": [
     "personagem",
     "textura",
@@ -9541,6 +12169,18 @@
     "card de resumo com checklist",
     "abertura com texto desfocado e número fantasma"
    ],
+   "paleta": {
+    "fundo": "claro",
+    "cores": [
+     "#F3EADB",
+     "#1E1A16",
+     "#F5D9A8",
+     "#D9533A",
+     "#8A8070"
+    ]
+   },
+   "tipografia": "Serifa editorial leve em títulos grandes, mono minúscula nos rótulos, serifa de livro no texto do app; entradas por fade.",
+   "movimento": "Calmo, cortes suaves, celular quase parado com o conteúdo trocando, marca-texto seguindo a narração.",
    "familias": [
     "celular",
     "interface",
@@ -9582,6 +12222,18 @@
     "gráfico de velas despencando como golpe final",
     "troca de matiz do cenário conforme o elemento"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#1d1838",
+     "#3a2a5a",
+     "#f3c84b",
+     "#e8452e",
+     "#7fd1f0"
+    ]
+   },
+   "tipografia": "Fonte pixel bitmap em caixa alta para nomes de golpe, contadores e palavra final; números sobem e somem como em jogo.",
+   "movimento": "Ciclos de animação de sprite, explosões com partículas e flash de tela, contador de dano sobe com tremor; cada golpe dura poucos segundos e escala em intensidade.",
    "familias": [
     "personagem",
     "particulas",
@@ -9627,6 +12279,17 @@
     "número grande com borrão de movimento entrando",
     "cortes travados na grade de batidas da música"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#F4EFEA",
+     "#0E0D0D",
+     "#FF6A3D",
+     "#FFFFFF"
+    ]
+   },
+   "tipografia": "Sans geométrica limpa (tipo Inter/Geist) com tracking apertado, peso médio a semibold; números grandes com desfoque de movimento na entrada, texto final some por fade.",
+   "movimento": "Corte em todo downbeat, transição de claro para escuro abrindo um círculo a partir do botão, whip com motion blur até o clipe herói, empurrões curtos de câmera; ritmo constante de 2 s por ideia.",
    "familias": [
     "interface",
     "celular",
@@ -9671,6 +12334,18 @@
     "stepper horizontal com checks preenchendo",
     "título com sombra deslocada estilo sticker"
    ],
+   "paleta": {
+    "fundo": "claro",
+    "cores": [
+     "#FBF8F3",
+     "#E2525F",
+     "#A3283A",
+     "#CFE6EE",
+     "#F2A33A"
+    ]
+   },
+   "tipografia": "display arredondada pesada com sombra deslocada no título e nos números; sans leve para subtítulo e rótulos; números trocam a cada passo",
+   "movimento": "ritmo de passo a passo didático, cada etapa ~5 s; entradas com rotação e assentamento suave das garrafas; nível do líquido sobe com easing; sem cortes, cena única fixa",
    "familias": [
     "diagrama",
     "interface"
@@ -9713,6 +12388,18 @@
     "fichas de dados com aparência de papel colado",
     "título manuscrito em azul"
    ],
+   "paleta": {
+    "fundo": "claro",
+    "cores": [
+     "#E9E9E6",
+     "#2A2A2A",
+     "#3B4BC8",
+     "#C8393B",
+     "#F2D46B"
+    ]
+   },
+   "tipografia": "Mono de máquina de escrever nas legendas e fichas, script manuscrito azul nos títulos; legenda digita letra a letra.",
+   "movimento": "Taxa de quadros baixa com tremor de linha, elementos desenhando-se ou surgindo em degrau, troca de cena por corte; termômetro sobe e desce com valor.",
    "familias": [
     "diagrama",
     "textura",
@@ -9757,6 +12444,18 @@
     "profundidade de campo e vinheta escura",
     "câmera acompanhando o personagem pelo código"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#1C1F45",
+     "#3BB3A5",
+     "#8A7FE0",
+     "#E0607A",
+     "#F5C94A"
+    ]
+   },
+   "tipografia": "sem tipografia legível; o código vira forma (pílulas e parênteses)",
+   "movimento": "linguagem de curta de animação: câmera que segue, closes no personagem, perseguição com aceleração, desfoque de profundidade; ritmo narrativo com pausas",
    "familias": [
     "personagem",
     "codigo",
@@ -9800,6 +12499,18 @@
     "título serifado itálico com timecode e barra de progresso",
     "brilho radial nos tambores ao bater"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#0A0F1A",
+     "#3FA9B5",
+     "#E39A3B",
+     "#7C5CE0",
+     "#E5566A"
+    ]
+   },
+   "tipografia": "serifa itálica fina no título, mono minúscula nos metadados e no timecode",
+   "movimento": "câmera fixa, movimento dirigido por física (gravidade e quique), ritmo ditado pela música; acendimentos curtos com decaimento",
    "familias": [
     "particulas",
     "ritmo-som",
@@ -9841,6 +12552,18 @@
     "enquadramento cinemascope com barras",
     "narrativa sem texto conduzida por luz"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#1b2328",
+     "#4a5a62",
+     "#d9a24a",
+     "#6a4a2e",
+     "#c8d2d6"
+    ]
+   },
+   "tipografia": "Sem tipografia; a narrativa é só imagem e som.",
+   "movimento": "Planos fixos ou com travelling lento, cortes de cinema entre ambientes, feixe girando em loop, chuva constante; ritmo lento e atmosférico.",
    "familias": [
     "personagem",
     "textura"
@@ -9884,6 +12607,18 @@
     "tela dividida com duas imagens se completando",
     "pintura com efeito de mosaico pixelado"
    ],
+   "paleta": {
+    "fundo": "claro",
+    "cores": [
+     "#f4f3ee",
+     "#0b0d0c",
+     "#2fe08a",
+     "#3e7a3a",
+     "#ffffff"
+    ]
+   },
+   "tipografia": "Grotesca neutra semibold para títulos com palavra-chave em verde, mono para números de etapa e dados dos cards; texto revela com desfoque e deslize curto.",
+   "movimento": "Abertura escura com glow, transição para claro, troca de etapa por deslize do card e avanço da barra superior, contadores e gráfico se desenhando dentro do card; fecho em imagem cheia com divisória vertical.",
    "familias": [
     "interface",
     "foto-colagem",
@@ -9924,6 +12659,18 @@
     "linhas de atrações entrando em cascata",
     "botão de ingresso em pill no fecho"
    ],
+   "paleta": {
+    "fundo": "cor",
+    "cores": [
+     "#C9B6F0",
+     "#1E1A3D",
+     "#7B7BF5",
+     "#F3956A",
+     "#F4A6C6"
+    ]
+   },
+   "tipografia": "grotesca larga pesada para nomes principais, condensada média para atrações menores; linhas entram em cascata e o fantasma desliza",
+   "movimento": "cortes rápidos por dia, cascata de nomes de cima para baixo, fitas ondulando devagar, ritmo publicitário curto",
    "familias": [
     "tipografia",
     "formas"
@@ -9965,6 +12712,18 @@
     "card de aprovação com botões e cursor",
     "barra de progresso verde na base"
    ],
+   "paleta": {
+    "fundo": "escuro",
+    "cores": [
+     "#060806",
+     "#1A1D1A",
+     "#3BE84A",
+     "#F2F2F2",
+     "#E8C44A"
+    ]
+   },
+   "tipografia": "grotesca bold com tracking negativo à esquerda, mono minúscula na moldura; trechos-chave em verde",
+   "movimento": "capítulos com fade e slide, barras crescendo com easing, digitação, orbe pulsando; ~6 s por capítulo, ritmo regular",
    "familias": [
     "interface",
     "dados"
