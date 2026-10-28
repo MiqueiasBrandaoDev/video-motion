@@ -172,6 +172,25 @@ pontos da seção "Conflitos" dela; o resto da skill continua valendo.
 | [dossiê](references/estilos/dossie.md) | explicador de dados com dois lados (política, economia, placar), fundo de papel cinza, dado que vira objeto; melhor dividido com o orador explicando (rosto, dossiê, rosto); também serve só com locução |
 | [onda sonora](references/estilos/onda-sonora.md) | talking head de selfie em lista curta de sons demonstrados (dicas de edição), cartão de forma de onda, tudo em corte seco |
 
+**Catálogo de direções do prompt-motion.com** (`references/prompt-motion/`): 45 direções visuais
+destiladas dos 234 vídeos de motion feitos com Opus 5.5 que o site reúne (tipografia cinética,
+morph de UI, partículas, 3D, colagem de foto, dados, diagramas...), cada uma com quando usar, como
+fazer no Remotion e os vídeos de referência. Serve para não repetir a mesma linguagem vídeo após
+vídeo. Em todo vídeo, depois da pesquisa do nicho e antes de fechar a direção:
+
+```bash
+python -I <skill>/scripts/rodizio.py sugerir --encaixe orador --categorias kinetic-type
+python -I <skill>/scripts/prompt_motion.py frames <slug> --completo --n 9 --saida work/ref
+```
+
+O rodízio propõe 3 direções de famílias diferentes que não foram usadas nos últimos 5 vídeos
+(`--encaixe`: `motion`, `orador`, `produto`, `dados`, `explainer`, `teaser`, `cta`). Abra (Read) a
+folha de contato da referência antes de decidir, escolha 1 ou 2 e combine com o estilo padrão: a
+direção troca só o que a ficha dela diz; marca, paleta e as quatro regras de retenção ficam.
+Quando o usuário mandar um link do site ("vi esse, puxa isso"): `prompt_motion.py ver <slug>` +
+`frames` e siga a ficha. Leitura do site (não há API pública), regras da fonte e atualização:
+[references/prompt-motion/README.md](references/prompt-motion/README.md).
+
 ### 4. Roteiro e storyboard
 
 Com fala gravada ou roteiro novo, confira a estrutura contra
@@ -186,7 +205,8 @@ Os blocos do storyboard viram os `bloco` do `cortes.json` e os `id` de `cenas.js
 Cada cena de texto declara a duração; acima de 2,5 s ela precisa mudar (nova palavra,
 punch-in, troca para o orador). Com filmagem, registre no topo o parâmetro escolhido na
 fase 0 (`presença do orador: mais orador | frase e volta | mais texto`) e marque onde a
-tela volta para o orador.
+tela volta para o orador. Registre também as direções do catálogo escolhidas na fase 3
+(`direções: id1, id2`) e em quais cenas cada uma entra.
 
 ### 5. Assets
 
@@ -342,7 +362,14 @@ LUFS -14 +-1, true peak <= -1. Corrija e re-renderize até passar. Checklist com
 ### 11. Entrega e limpeza
 
 Entregue: caminho do MP4 (e da versão leve), resumo das decisões (direção escolhida e
-por quê, com os links da pesquisa), licenças usadas e pendências. Encerre **por PID** só
+por quê, com os links da pesquisa), licenças usadas e pendências. Grave no histórico do rodízio
+as direções do catálogo que o vídeo usou (fica fora do repositório da skill):
+
+```bash
+python -I <skill>/scripts/rodizio.py registrar --video <nome-do-projeto> --direcoes id1 id2
+```
+
+Encerre **por PID** só
 o que esta execução abriu (Remotion studio, Chrome headless, navegador do Playwright):
 
 ```bash
@@ -371,6 +398,8 @@ O usuário vai pedir ajustes. Tudo é parametrizado para refazer sem reescrever 
 | outra trilha, volume da música | `public/musica/` + flags do `mixar.py` | mixar -> render |
 | SFX demais/de menos, impacto fraco/forte | `src/data/sfx.json` (`categoria`, `rel_db`) | gerar_sfx -> mixar -> render |
 | carimbo, câmera, ritmo (rajada) | `src/data/cenas.json` (`carimbos`, `camera`, tipo `rajada`) | stills -> render |
+| ficou parecido com os anteriores / quer outra linguagem | `rodizio.py sugerir --ultimos 10` (ou `--familia`), troque a direção no `storyboard.md` e as cenas afetadas em `cenas.json` | stills -> render; `registrar` na entrega |
+| "vi esse no prompt-motion, puxa isso" | `prompt_motion.py ver <slug>` + `frames <slug> --completo --n 9`; ficha da direção em `references/prompt-motion/direcoes.md` | storyboard -> cenas -> stills -> render |
 | cor, fonte, variante, formato, HUD, legenda | `src/data/config.json` (`acento`, `problema`, `hud`, `legenda_estilo`, `fundo`), `src/theme.ts` | render |
 | legenda (tamanho de página, grafia) | flags e `correcoes.json` do `legendas.py` | render |
 
@@ -401,3 +430,5 @@ inteira daquela linha (marcos mudam de tempo). Rode `npx tsc --noEmit` e stills
 | `comprimir.py` | versão leve 2 passadas com +faststart |
 | `processos.py` | lista/encerra por PID só processos de automação |
 | `recortar_orador.py` | OPCIONAL: recorta o apresentador e gera vídeo com alfa (texto atrás da pessoa); `--chroma` para fundo verde/azul |
+| `prompt_motion.py` | lê o prompt-motion.com: `listar` (filtra por categoria/tipo/data), `ver` (prompt integral ao vivo), `frames` (folha de contato do vídeo), `novidades`, `coletar` |
+| `rodizio.py` | propõe direções do catálogo que casam com o vídeo e não foram usadas nos últimos vídeos; `registrar` grava o que cada vídeo usou |

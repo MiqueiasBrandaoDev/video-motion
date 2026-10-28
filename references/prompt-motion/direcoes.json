@@ -1,0 +1,1284 @@
+{
+ "fonte": "https://prompt-motion.com",
+ "coletado_em": "2026-10-28",
+ "total_itens": 234,
+ "direcoes": [
+  {
+   "id": "verbo-que-faz-o-que-diz",
+   "nome": "Verbo que faz o que diz",
+   "familia": "tipografia",
+   "categorias": [
+    "kinetic-type",
+    "shapes"
+   ],
+   "encaixe": [
+    "orador",
+    "motion",
+    "teaser",
+    "cta"
+   ],
+   "custo": "medio",
+   "forca": 5,
+   "resumo": "Cada palavra-chave executa o próprio significado (achatar achata, passar do ponto passa, construir empilha blocos): tipografia literal em tela cheia, ótima como frase de 1,5-2 s entre voltas ao orador.",
+   "componentes": [
+    "frase",
+    "letreiro",
+    "rajada"
+   ],
+   "refs": [
+    "zheke-38deff",
+    "souravbhar871-61f424",
+    "jhylee95-e1152f",
+    "hanifproduktif-54bdee",
+    "johnsavage-ai-b091c0"
+   ]
+  },
+  {
+   "id": "frase-que-vira-estrutura",
+   "nome": "Frase que vira estrutura",
+   "familia": "tipografia",
+   "categorias": [
+    "kinetic-type",
+    "shapes"
+   ],
+   "encaixe": [
+    "orador",
+    "motion",
+    "explainer",
+    "teaser"
+   ],
+   "custo": "medio",
+   "forca": 5,
+   "resumo": "As palavras ganham papel físico (viga, cabo, pilar, piso) e a frase seguinte se apoia no que as anteriores construíram; a estrutura persiste e cresce a cada volta da fala.",
+   "componentes": [
+    "frase",
+    "linha"
+   ],
+   "refs": [
+    "gdgtify-287ddf",
+    "pankajkumar-dev-0bee87"
+   ]
+  },
+  {
+   "id": "documento-editorial-fixo",
+   "nome": "Documento editorial fixo",
+   "familia": "tipografia",
+   "categorias": [
+    "kinetic-type",
+    "product-ui",
+    "code"
+   ],
+   "encaixe": [
+    "orador",
+    "produto",
+    "explainer",
+    "cta"
+   ],
+   "custo": "baixo",
+   "forca": 4,
+   "resumo": "Cabeçalho de documento fixo (marca, rótulo da seção sobre um fio) e frases enormes em peso regular trocando por corte seco, alternando quase-preto e creme; lista que acumula com o item atual aceso.",
+   "componentes": [
+    "frase",
+    "rajada",
+    "hud",
+    "terminal"
+   ],
+   "refs": [
+    "davidmarcus-a28a60",
+    "melvynx-6cde6c",
+    "henkvaness-0e06af"
+   ]
+  },
+  {
+   "id": "roleta-que-trava-na-resposta",
+   "nome": "Roleta que trava na resposta",
+   "familia": "tipografia",
+   "categorias": [
+    "kinetic-type",
+    "product-ui"
+   ],
+   "encaixe": [
+    "orador",
+    "produto",
+    "teaser",
+    "dados"
+   ],
+   "custo": "baixo",
+   "forca": 3,
+   "resumo": "Opções passam desfocadas como rolo de caça-níquel, placas split-flap ou texto embaralhado e travam na resposta no marco da fala: suspense de ~1 s que vira frase-chave.",
+   "componentes": [
+    "frase",
+    "numero",
+    "telaViva"
+   ],
+   "refs": [
+    "macrohou-33959d",
+    "tankazunori0914-0fc886",
+    "marouanegazouzi-6071d5"
+   ]
+  },
+  {
+   "id": "gramatica-de-anime",
+   "nome": "Gramática de anime",
+   "familia": "tipografia",
+   "categorias": [
+    "kinetic-type",
+    "characters"
+   ],
+   "encaixe": [
+    "orador",
+    "teaser",
+    "motion",
+    "cta"
+   ],
+   "custo": "medio",
+   "forca": 4,
+   "resumo": "Placas de nome inclinadas, letreiro gigante com contorno e sombra, linhas de velocidade radiais, onomatopeia com flash branco e pose final sobre raios: a sequência de transformação do anime como pontuação.",
+   "componentes": [
+    "carimbos",
+    "letreiro",
+    "recorte",
+    "camera"
+   ],
+   "refs": [
+    "allforbigfire-86ff3c",
+    "micheleharmonic-77628e",
+    "majin-appsheet-2d3c1a",
+    "chrisjdimarco-f068db"
+   ]
+  },
+  {
+   "id": "forma-unica-que-morfa",
+   "nome": "Forma única que morfa",
+   "familia": "interface",
+   "categorias": [
+    "product-ui",
+    "music",
+    "charts"
+   ],
+   "encaixe": [
+    "produto",
+    "motion",
+    "orador",
+    "cta"
+   ],
+   "custo": "medio",
+   "forca": 5,
+   "resumo": "Um único contêiner nunca corta: vira botão, player, slider, toggle, abas, gráfico e paleta de comando, conduzido por um cursor que clica e arrasta, um estado por batida.",
+   "componentes": [
+    "encaixe",
+    "telaViva"
+   ],
+   "refs": [
+    "twoclipping-5cba86",
+    "demonugc-4c5753",
+    "jazzen-chen-4542ae",
+    "brainextends-e19ac3"
+   ]
+  },
+  {
+   "id": "caixa-de-selecao-de-editor",
+   "nome": "Caixa de seleção de editor",
+   "familia": "interface",
+   "categorias": [
+    "product-ui",
+    "kinetic-type"
+   ],
+   "encaixe": [
+    "orador",
+    "produto",
+    "explainer",
+    "dados"
+   ],
+   "custo": "baixo",
+   "forca": 4,
+   "resumo": "O vídeo se comporta como um arquivo aberto num editor de design: caixa de seleção com alças e etiqueta de dimensão salta de elemento em elemento, painel lateral mostra a métrica, colchetes enquadram a palavra.",
+   "componentes": [
+    "orador",
+    "camera",
+    "print"
+   ],
+   "refs": [
+    "kikelopezdesign-7cc9e8",
+    "lexnlin-f9b3bd8",
+    "ajith-io-b5626e",
+    "leadnotifi-e83f94"
+   ]
+  },
+  {
+   "id": "keynote-macro-acento-unico",
+   "nome": "Keynote macro com acento único",
+   "familia": "interface",
+   "categorias": [
+    "product-ui",
+    "charts"
+   ],
+   "encaixe": [
+    "orador",
+    "produto",
+    "dados",
+    "cta"
+   ],
+   "custo": "baixo",
+   "forca": 4,
+   "resumo": "Poucas superfícies de UI escura inclinadas em perspectiva, câmera macro lenta e pesada, foco seletivo escurecendo o resto e um único acento nos números que resolvem.",
+   "componentes": [
+    "telaViva",
+    "camera",
+    "numeros",
+    "linha"
+   ],
+   "refs": [
+    "daniel-haida-8691d4",
+    "notdwd-7de38a",
+    "ceowinkz-7c776b"
+   ]
+  },
+  {
+   "id": "parede-de-clipes-verticais",
+   "nome": "Parede de clipes verticais",
+   "familia": "celular",
+   "categorias": [
+    "product-ui",
+    "phone",
+    "music"
+   ],
+   "encaixe": [
+    "orador",
+    "produto",
+    "teaser",
+    "cta"
+   ],
+   "custo": "medio",
+   "forca": 4,
+   "resumo": "O botão da UI abre um círculo que vira cena escura; clipes verticais reais formam uma parede em profundidade e depois um carrossel 3D com reflexo no chão, com corte em todo downbeat.",
+   "componentes": [
+    "telaViva",
+    "camadas",
+    "card"
+   ],
+   "refs": [
+    "twoclipping-6dd14e",
+    "amol909s-27533e",
+    "itisrazak-3ad902"
+   ]
+  },
+  {
+   "id": "contador-que-e-o-relogio-da-historia",
+   "nome": "Contador que é o relógio da história",
+   "familia": "dados",
+   "categorias": [
+    "kinetic-type",
+    "charts",
+    "particles"
+   ],
+   "encaixe": [
+    "orador",
+    "explainer",
+    "dados",
+    "teaser"
+   ],
+   "custo": "baixo",
+   "forca": 5,
+   "resumo": "Um número sobe (ou desce) o vídeo inteiro e é o próprio relógio da narrativa: um segundo esticado, idade e batimentos, telemetria de uma viagem, barra de contexto que enche.",
+   "componentes": [
+    "numero",
+    "numeros",
+    "rec",
+    "telaViva",
+    "linha"
+   ],
+   "refs": [
+    "nolkeeg-bf062e",
+    "apoorvjain25-d24184",
+    "loicrambo-ad6830",
+    "rebutonepress-810f78",
+    "kloss-xyz-15182a",
+    "thismacapital-dfba20"
+   ]
+  },
+  {
+   "id": "matriz-de-pontos",
+   "nome": "Matriz de pontos que conta e desenha",
+   "familia": "dados",
+   "categorias": [
+    "charts",
+    "product-ui",
+    "particles"
+   ],
+   "encaixe": [
+    "orador",
+    "dados",
+    "produto",
+    "explainer"
+   ],
+   "custo": "medio",
+   "forca": 4,
+   "resumo": "Tudo desenhado com a mesma grade de pontos: cada ponto é uma unidade (lugar, cliente, marcador) que se espalha em mapa, vira rosca, barra ou ícone, com a contagem visível.",
+   "componentes": [
+    "numeros",
+    "frase"
+   ],
+   "refs": [
+    "jesscaroline7-1ff7cb",
+    "manuelogomigo-f33ca9",
+    "madebyjmayala-b9204d",
+    "palashbagchi11-0a4b6b",
+    "steventey-0d20e4"
+   ]
+  },
+  {
+   "id": "total-que-se-monta-a-vista",
+   "nome": "Total que se monta à vista",
+   "familia": "dados",
+   "categorias": [
+    "product-ui",
+    "charts"
+   ],
+   "encaixe": [
+    "orador",
+    "produto",
+    "dados",
+    "cta"
+   ],
+   "custo": "baixo",
+   "forca": 4,
+   "resumo": "O número final é a soma visível do que entra: itens caem na lista e o total engorda, peças mobiliam o quarto enquanto o progresso vai de 8% a 100%, o slider arrastado faz a comissão subir ao vivo.",
+   "componentes": [
+    "telaViva",
+    "numero",
+    "carimbos"
+   ],
+   "refs": [
+    "gabrielbuzziv-4ff0c6",
+    "thayto-dev-44b911",
+    "visheshbaghell-3aba37",
+    "paulo-kombucha-96431c",
+    "0xfemyn-e114d3"
+   ]
+  },
+  {
+   "id": "anotacao-a-mao-sobre-o-movimento",
+   "nome": "Anotação à mão sobre o movimento",
+   "familia": "diagrama",
+   "categorias": [
+    "diagrams",
+    "product-ui",
+    "kinetic-type"
+   ],
+   "encaixe": [
+    "orador",
+    "explainer",
+    "produto",
+    "motion"
+   ],
+   "custo": "medio",
+   "forca": 5,
+   "resumo": "Notas manuscritas, setas e círculos desenhados por cima comentam o que acontece no exato momento: post-its e papéis inclinados, termo riscado e corrigido, teto riscado que a curva ultrapassa.",
+   "componentes": [
+    "riscado",
+    "linha",
+    "orador"
+   ],
+   "refs": [
+    "ik-builds-b8bdcf",
+    "himanshutwtxs-5f4b43",
+    "chatgptastra-0d95c7",
+    "lemomo-ai-0d9cff",
+    "itisrazak-3ad902",
+    "sudo-kiran-6609ed"
+   ]
+  },
+  {
+   "id": "janelas-neo-brutalistas",
+   "nome": "Janelas neo-brutalistas",
+   "familia": "diagrama",
+   "categorias": [
+    "product-ui",
+    "diagrams",
+    "kinetic-type"
+   ],
+   "encaixe": [
+    "orador",
+    "explainer",
+    "produto",
+    "dados"
+   ],
+   "custo": "medio",
+   "forca": 4,
+   "resumo": "Sistema explicado com cards de contorno grosso e sombra dura deslocada, pílulas de capítulo (falha, passo 1, caso de borda), barras que esvaziam como cronômetro, carimbo de expirado, adesivos e listras de alerta.",
+   "componentes": [
+    "telaViva",
+    "carimbos",
+    "passos",
+    "numeros"
+   ],
+   "refs": [
+    "0xnfrith-5be616",
+    "polydao-7a572b"
+   ]
+  },
+  {
+   "id": "fio-vermelho-linha-do-tempo",
+   "nome": "Fio vermelho da linha do tempo",
+   "familia": "diagrama",
+   "categorias": [
+    "diagrams",
+    "kinetic-type"
+   ],
+   "encaixe": [
+    "orador",
+    "explainer",
+    "dados",
+    "teaser"
+   ],
+   "custo": "medio",
+   "forca": 4,
+   "resumo": "Pranchas numeradas ligadas por um único fio que atravessa todas as cenas e vira a linha do tempo final; régua de anos fixa no topo e o ano gigante fantasma atrás de cada marco.",
+   "componentes": [
+    "linha",
+    "titulo",
+    "numero"
+   ],
+   "refs": [
+    "buildfastwithai-53234e",
+    "kloss-xyz-fe0c31",
+    "triglyceee-bd5b08"
+   ]
+  },
+  {
+   "id": "o-objeto-e-o-grafico",
+   "nome": "O objeto do assunto é o gráfico",
+   "familia": "diagrama",
+   "categorias": [
+    "diagrams",
+    "product-ui",
+    "charts"
+   ],
+   "encaixe": [
+    "orador",
+    "explainer",
+    "produto",
+    "dados"
+   ],
+   "custo": "medio",
+   "forca": 4,
+   "resumo": "O diagrama é o próprio objeto do ofício ou da receita, medido ao vivo: copo que enche até a marca de cada ingrediente, tubo com cotas e offset calculado, lupa que aproxima a curva até virar reta, balde de tokens com log.",
+   "componentes": [
+    "telaViva",
+    "linha",
+    "numeros"
+   ],
+   "refs": [
+    "adamdesgns-478d6d",
+    "ror-fly-9950f1",
+    "sarut0bisasuke-cefa43",
+    "parkerrex-1a54fe",
+    "linearuncle-5d2bae",
+    "ddryo-loos-300829"
+   ]
+  },
+  {
+   "id": "figuras-numeradas-de-livro",
+   "nome": "Figuras numeradas de livro",
+   "familia": "formas",
+   "categorias": [
+    "shapes",
+    "kinetic-type"
+   ],
+   "encaixe": [
+    "orador",
+    "explainer",
+    "motion",
+    "teaser"
+   ],
+   "custo": "medio",
+   "forca": 5,
+   "resumo": "Cada cena é uma figura impressa numa só tinta sobre papel creme, com legenda numerada em serifa itálica e o mesmo elemento evoluindo de uma figura para a outra.",
+   "componentes": [
+    "frase",
+    "linha",
+    "rajada"
+   ],
+   "refs": [
+    "hbcoop-de365c",
+    "fionntobin-97b7af",
+    "teslachartz-c58b32"
+   ]
+  },
+  {
+   "id": "bauhaus-primarias",
+   "nome": "Bauhaus em primárias",
+   "familia": "formas",
+   "categorias": [
+    "kinetic-type",
+    "shapes"
+   ],
+   "encaixe": [
+    "motion",
+    "teaser",
+    "explainer",
+    "cta"
+   ],
+   "custo": "medio",
+   "forca": 4,
+   "resumo": "Quadrado vermelho, triângulo amarelo e círculo azul como fio condutor: ponto, linha, plano e volume em progressão, grade de formas que vira barras, pôster tipográfico que arrebenta a própria moldura.",
+   "componentes": [
+    "letreiro",
+    "camadas"
+   ],
+   "refs": [
+    "lukasersil-0ed38e",
+    "samuel-spitz-974923",
+    "web3wesley-7bb108",
+    "pankajkumar-dev-0bee87"
+   ]
+  },
+  {
+   "id": "liquido-que-escorre",
+   "nome": "Líquido que escorre",
+   "familia": "formas",
+   "categorias": [
+    "kinetic-type",
+    "shapes",
+    "diagrams"
+   ],
+   "encaixe": [
+    "orador",
+    "produto",
+    "cta",
+    "teaser"
+   ],
+   "custo": "medio",
+   "forca": 4,
+   "resumo": "Tudo em uma cor líquida: sublinhado que escorre gotas, rastro de bolhas no caminho entre canais, medidor com líquido e bolhas ao lado do número, hub com braços de metaball ligando integrações.",
+   "componentes": [
+    "frase",
+    "linha"
+   ],
+   "refs": [
+    "leadnotifi-e83f94",
+    "sahildesigner23-ee3155"
+   ]
+  },
+  {
+   "id": "o-video-explica-a-propria-tecnica",
+   "nome": "O vídeo explica a própria técnica",
+   "familia": "formas",
+   "categorias": [
+    "kinetic-type",
+    "shapes",
+    "music"
+   ],
+   "encaixe": [
+    "motion",
+    "explainer"
+   ],
+   "custo": "medio",
+   "forca": 3,
+   "resumo": "Cada efeito vem com a explicação desenhada ao lado (curva de easing com a bolinha correndo, nome da curva, régua tipográfica, timeline de keyframes); repetido em ~20 reels da galeria e útil só em conteúdo sobre motion e edição.",
+   "componentes": [
+    "linha",
+    "telaViva",
+    "bento"
+   ],
+   "refs": [
+    "vanshwtfff-db0466",
+    "roundtablespace-d3a1be",
+    "levabashidze-2d713a",
+    "sahildesigner23-ee3155",
+    "blue-clarity-ef56d0",
+    "rendesr-86be44",
+    "web3wesley-7bb108",
+    "stephanlivera-df17a2"
+   ]
+  },
+  {
+   "id": "enxame-com-origem-e-destino",
+   "nome": "Enxame com origem e destino",
+   "familia": "particulas",
+   "categorias": [
+    "particles",
+    "charts",
+    "diagrams"
+   ],
+   "encaixe": [
+    "orador",
+    "dados",
+    "produto",
+    "explainer"
+   ],
+   "custo": "medio",
+   "forca": 4,
+   "resumo": "Um único sistema de milhares de traços ou páginas sai de algo e vira algo (mapa, grafo de comunidades, histograma, logo; caos de páginas sugado pelo logo e devolvido como mapa simples): partícula que conta a história pela forma.",
+   "componentes": [],
+   "refs": [
+    "ismailfahmi-557268",
+    "sudo-kiran-b055de",
+    "misbahsy-80eaec",
+    "theviableedge-9065be",
+    "robj3d3-b18fad"
+   ]
+  },
+  {
+   "id": "maquete-clara-explicativa",
+   "nome": "Maquete clara explicativa",
+   "familia": "3d",
+   "categorias": [
+    "diagrams"
+   ],
+   "encaixe": [
+    "explainer",
+    "produto",
+    "dados"
+   ],
+   "custo": "alto",
+   "forca": 5,
+   "resumo": "Diorama 3D em material branco fosco com fluxos coloridos por tipo (energia, dados, calor), vista explodida e callouts presos ao objeto; câmera contínua da escala da rede elétrica ao chip, no padrão de reportagem visual.",
+   "componentes": [
+    "camadas",
+    "titulo"
+   ],
+   "refs": [
+    "mdaman010-e7226a",
+    "sayan-shanky-f850d8",
+    "blueoctopusai-dd17bd"
+   ]
+  },
+  {
+   "id": "curta-3d-camera-de-cinema",
+   "nome": "Curta 3D com câmera de cinema",
+   "familia": "3d",
+   "categorias": [
+    "characters"
+   ],
+   "encaixe": [
+    "motion",
+    "teaser"
+   ],
+   "custo": "alto",
+   "forca": 3,
+   "resumo": "Plano-sequência 3D low-poly com sombreamento toon ou textura de pintura, câmera de perseguição com roll, luz de pôr do sol e uma frase calma fixa sobre a ação; é projeto de animação, não de motion.",
+   "componentes": [
+    "letterbox"
+   ],
+   "refs": [
+    "nft-chen-5f8bb0",
+    "axtonliu-0b861d",
+    "ryzoft-4f85bd",
+    "mandelduck-95fd08",
+    "anas0ra-e57aea"
+   ]
+  },
+  {
+   "id": "colagem-surreal-retro",
+   "nome": "Colagem surreal retrô",
+   "familia": "foto-colagem",
+   "categorias": [
+    "kinetic-type",
+    "photos"
+   ],
+   "encaixe": [
+    "orador",
+    "teaser",
+    "motion"
+   ],
+   "custo": "medio",
+   "forca": 5,
+   "resumo": "Ruminação em colagem psicodélica de recortes retrô (busto clássico, flores, grade 3D, raio arco-íris, sofá no espaço), letreiro serifado extrudado com aberração e etiqueta de fita rotuladora, terminando num respiro calmo.",
+   "componentes": [
+    "rajada",
+    "carimbos",
+    "recorte"
+   ],
+   "refs": [
+    "gizakdag-cf4ae6"
+   ]
+  },
+  {
+   "id": "palavra-com-foto-dentro",
+   "nome": "Palavra com foto dentro",
+   "familia": "foto-colagem",
+   "categorias": [
+    "photos",
+    "product-ui",
+    "kinetic-type"
+   ],
+   "encaixe": [
+    "orador",
+    "produto",
+    "teaser",
+    "cta"
+   ],
+   "custo": "medio",
+   "forca": 4,
+   "resumo": "A palavra gigante é recortada da própria mídia (foto, vídeo, o rosto do orador) e rostos entram em pílulas no meio da manchete: a tipografia vira janela para o conteúdo real.",
+   "componentes": [
+    "titulo",
+    "frase",
+    "recorte"
+   ],
+   "refs": [
+    "arjunsh1607-93005d",
+    "influencer-seo-ce8c33",
+    "samuel-yostt-891f87",
+    "blushpetal795-0c85c2"
+   ]
+  },
+  {
+   "id": "gravura-anotada",
+   "nome": "Gravura anotada",
+   "familia": "foto-colagem",
+   "categorias": [
+    "photos",
+    "kinetic-type"
+   ],
+   "encaixe": [
+    "orador",
+    "cta",
+    "teaser",
+    "explainer"
+   ],
+   "custo": "medio",
+   "forca": 4,
+   "resumo": "Gravuras antigas em preto e branco sobre fundo branco recebem traços vetoriais de uma cor (círculo, espiral, asterisco, ponto) que se desenham por cima, como caderno de estudo; palavras soltas em serifa entre as imagens.",
+   "componentes": [
+    "orador",
+    "linha",
+    "frase"
+   ],
+   "refs": [
+    "lexnlin-038035",
+    "utopyaszx-1b2f94"
+   ]
+  },
+  {
+   "id": "coisa-que-ganha-vida",
+   "nome": "Coisa que ganha vida",
+   "familia": "personagem",
+   "categorias": [
+    "characters"
+   ],
+   "encaixe": [
+    "produto",
+    "teaser",
+    "explainer"
+   ],
+   "custo": "alto",
+   "forca": 4,
+   "resumo": "O objeto do assunto ganha olhos e sobrancelhas (peça de palavra cruzada, balão de fala, doce, desenho recortado do caderno) e atua uma mini história com arco: deslocado, preocupado, decidido, no lugar.",
+   "componentes": [
+    "camadas"
+   ],
+   "refs": [
+    "anilraok-eff262",
+    "anas0ra-e57aea",
+    "abderrahmen-g-9e8ed0",
+    "davidshulmanfl-371638",
+    "thilina-a-891c09"
+   ]
+  },
+  {
+   "id": "luz-que-conta-a-historia",
+   "nome": "Luz que conta a história",
+   "familia": "personagem",
+   "categorias": [
+    "characters"
+   ],
+   "encaixe": [
+    "motion",
+    "teaser",
+    "explainer"
+   ],
+   "custo": "alto",
+   "forca": 4,
+   "resumo": "Plano quase fixo de silhuetas em camadas sob um céu que muda de hora ou estação; janela, farol ou abajur acendem como virada da narrativa, com uma frase serifada por plano numa placa pendurada.",
+   "componentes": [
+    "camadas",
+    "letterbox"
+   ],
+   "refs": [
+    "x4b47x-9cc84f",
+    "kamstudiolabs-0b0824",
+    "faroukzy-9ff23e",
+    "itsolelehmann-e47532",
+    "demitiyageekzen-7770ad"
+   ]
+  },
+  {
+   "id": "pixel-art-de-jogo",
+   "nome": "Pixel art de jogo",
+   "familia": "personagem",
+   "categorias": [
+    "characters"
+   ],
+   "encaixe": [
+    "orador",
+    "teaser",
+    "motion",
+    "explainer"
+   ],
+   "custo": "medio",
+   "forca": 4,
+   "resumo": "A carreira, o produto ou o mercado viram partida de videogame: HUD de score, vidas e timer, caixa de diálogo amarela digitando, nome do golpe no topo, números de dano subindo e subida de nível com raios.",
+   "componentes": [
+    "numero",
+    "carimbos",
+    "telaViva"
+   ],
+   "refs": [
+    "0xevinho-3777d8",
+    "ibrahimwasim240-809370",
+    "pluginplay-3d4006"
+   ]
+  },
+  {
+   "id": "codigo-que-narra-a-cena",
+   "nome": "Código que narra a cena",
+   "familia": "codigo",
+   "categorias": [
+    "code",
+    "product-ui"
+   ],
+   "encaixe": [
+    "orador",
+    "produto",
+    "explainer"
+   ],
+   "custo": "baixo",
+   "forca": 4,
+   "resumo": "O cursor de texto, o comentário de código ou o log do agente conduzem o vídeo: a frase é digitada, o cursor para e passa a dirigir as cenas, e cada passo aparece como linha de log ao lado do que acontece.",
+   "componentes": [
+    "comando",
+    "terminal",
+    "telaViva"
+   ],
+   "refs": [
+    "lexnlin-6161a6",
+    "hqmank-7c61f1",
+    "kyonax-on-tech-aabc1d",
+    "grace-sunnyy-29bc61"
+   ]
+  },
+  {
+   "id": "codigo-vira-paisagem",
+   "nome": "Código vira paisagem",
+   "familia": "codigo",
+   "categorias": [
+    "code",
+    "characters",
+    "music"
+   ],
+   "encaixe": [
+    "orador",
+    "motion",
+    "teaser",
+    "explainer"
+   ],
+   "custo": "medio",
+   "forca": 4,
+   "resumo": "O código é abstraído em pílulas arredondadas nas cores da sintaxe, sem texto legível; o bug é um personagem fugindo do cursor gigante, e a linha com erro fica vermelha e se desfaz em pixels.",
+   "componentes": [
+    "camera"
+   ],
+   "refs": [
+    "kamstudiolabs-c9bb28",
+    "rames-jusso-589f80"
+   ]
+  },
+  {
+   "id": "colisao-que-toca-a-nota",
+   "nome": "Colisão que toca a nota",
+   "familia": "ritmo-som",
+   "categorias": [
+    "music",
+    "particles",
+    "shapes"
+   ],
+   "encaixe": [
+    "motion",
+    "teaser"
+   ],
+   "custo": "medio",
+   "forca": 4,
+   "resumo": "A música é a física: bolas lançadas em parábola batem em barras de instrumento, cada colisão acende a barra e é uma nota da trilha; ou a bola quica entre anéis e cada quique toca a próxima nota.",
+   "componentes": [],
+   "refs": [
+    "kamstudiolabs-447565",
+    "kantamk-61f410",
+    "gorden-sun-041f56"
+   ]
+  },
+  {
+   "id": "canone-em-grade-pop-art",
+   "nome": "Cânone em grade pop-art",
+   "familia": "ritmo-som",
+   "categorias": [
+    "characters",
+    "music",
+    "kinetic-type"
+   ],
+   "encaixe": [
+    "orador",
+    "teaser",
+    "motion",
+    "cta"
+   ],
+   "custo": "medio",
+   "forca": 4,
+   "resumo": "A mesma figura repetida em painéis duotone de cores diferentes, cada cópia atrasada alguns frames (cânone), depois grade 3x3 estilo Warhol; tudo cravado num BPM alto, com onomatopeia e piso quadriculado.",
+   "componentes": [
+    "orador",
+    "rajada"
+   ],
+   "refs": [
+    "topi-003-b0e12c",
+    "sab8a-364a5a"
+   ]
+  },
+  {
+   "id": "legenda-que-manda-no-corte",
+   "nome": "Legenda que manda no corte",
+   "familia": "ritmo-som",
+   "categorias": [
+    "music",
+    "photos",
+    "kinetic-type"
+   ],
+   "encaixe": [
+    "orador",
+    "produto",
+    "teaser",
+    "cta"
+   ],
+   "custo": "baixo",
+   "forca": 4,
+   "resumo": "A fala é a grade: a frase é digitada palavra a palavra no centro, cada cena troca no início de uma frase, as imagens de fundo trocam na semicolcheia e a palavra de ênfase ganha gradiente; o marca-texto segue a palavra narrada.",
+   "componentes": [
+    "rajada",
+    "orador"
+   ],
+   "refs": [
+    "rossaxbt-3085b7",
+    "samaote-5e2fc2",
+    "1stnoel-c20a89",
+    "gautam-mer1-2ae354"
+   ]
+  },
+  {
+   "id": "risografia-sobreimpressa",
+   "nome": "Risografia sobreimpressa",
+   "familia": "textura",
+   "categorias": [
+    "diagrams",
+    "kinetic-type"
+   ],
+   "encaixe": [
+    "orador",
+    "explainer",
+    "motion",
+    "cta"
+   ],
+   "custo": "medio",
+   "forca": 4,
+   "resumo": "Formas, diagramas e texto em tintas chapadas com grão de risografia e registro desalinhado; onde duas cores se cruzam aparece a mistura (Venn com estrela na interseção), sobre papel creme.",
+   "componentes": [
+    "frase",
+    "telaViva"
+   ],
+   "refs": [
+    "rneayan-474bcf"
+   ]
+  },
+  {
+   "id": "feixe-de-osciloscopio",
+   "nome": "Feixe de osciloscópio",
+   "familia": "textura",
+   "categorias": [
+    "charts",
+    "kinetic-type"
+   ],
+   "encaixe": [
+    "orador",
+    "motion",
+    "dados",
+    "teaser"
+   ],
+   "custo": "medio",
+   "forca": 4,
+   "resumo": "Tudo desenhado pelo feixe verde de um osciloscópio: texto em contorno luminoso, Lissajous, senoides, varredura de radar, onda quadrada como linha do tempo e o mascote traçado pelo feixe, com persistência de fósforo.",
+   "componentes": [
+    "linha",
+    "frase"
+   ],
+   "refs": [
+    "rneayan-ea6129",
+    "eyishazyer-af035b",
+    "math-files-39c9d0"
+   ]
+  },
+  {
+   "id": "pontilhado-de-um-bit",
+   "nome": "Pontilhado de um bit",
+   "familia": "textura",
+   "categorias": [
+    "kinetic-type",
+    "particles",
+    "product-ui"
+   ],
+   "encaixe": [
+    "orador",
+    "produto",
+    "teaser",
+    "motion"
+   ],
+   "custo": "medio",
+   "forca": 4,
+   "resumo": "Imagem em dither de 1 bit com colchete de rastreamento e etiqueta de dado, ícones que se dissolvem em grão de tinta eletrônica, piscar de refresh de e-ink como transição e texto embaralhado que se decodifica.",
+   "componentes": [
+    "orador",
+    "carimbos"
+   ],
+   "refs": [
+    "reflex-cloud-72ffe5",
+    "bogdandragomir-35e024"
+   ]
+  },
+  {
+   "id": "traco-de-lapis-tremido",
+   "nome": "Traço de lápis tremido",
+   "familia": "textura",
+   "categorias": [
+    "diagrams",
+    "charts"
+   ],
+   "encaixe": [
+    "orador",
+    "explainer",
+    "produto",
+    "dados"
+   ],
+   "custo": "medio",
+   "forca": 4,
+   "resumo": "O produto narra a si mesmo num rabisco a lápis com tremor de stop-motion (boiling), fluxogramas de caixas à mão, termômetro como medidor e legendas datilografadas em tiras de papel coladas com fita.",
+   "componentes": [
+    "linha",
+    "telaViva",
+    "numero"
+   ],
+   "refs": [
+    "nikolajankovic-ce4ff4",
+    "tak3sh8-be5012"
+   ]
+  },
+  {
+   "id": "ponto-que-costura-cenas",
+   "nome": "Ponto que costura as cenas",
+   "familia": "transicao",
+   "categorias": [
+    "kinetic-type",
+    "shapes",
+    "music"
+   ],
+   "encaixe": [
+    "orador",
+    "motion",
+    "teaser",
+    "cta"
+   ],
+   "custo": "medio",
+   "forca": 5,
+   "resumo": "Um único ponto de cor (ou bola) atravessa o vídeo inteiro sem corte gratuito: vira o pingo do i, corre pela curva de mola, cresce até encher o quadro, é o núcleo do halftone e o ponto final do nome.",
+   "componentes": [
+    "frase",
+    "encaixe"
+   ],
+   "refs": [
+    "ultimaxbt-bbebf5",
+    "1littlecoder-9fef89",
+    "leonkohli-6dc01b",
+    "blushpetal795-0c85c2",
+    "rossaxbt-94583b",
+    "lexnlin-038035"
+   ]
+  },
+  {
+   "id": "cada-objeto-vira-o-proximo",
+   "nome": "Cada objeto vira o próximo",
+   "familia": "transicao",
+   "categorias": [
+    "product-ui",
+    "music",
+    "photos"
+   ],
+   "encaixe": [
+    "orador",
+    "produto",
+    "motion",
+    "cta"
+   ],
+   "custo": "medio",
+   "forca": 5,
+   "resumo": "Plano-sequência por match de forma: a íris abre na foto, a foto vira grade bento, o botão vira o próximo cenário, um flood preto cobre o quadro e contrai na cena seguinte, até o objeto físico final e de volta ao início.",
+   "componentes": [
+    "encaixe",
+    "card",
+    "camera"
+   ],
+   "refs": [
+    "twoclipping-221cab",
+    "ultimaxbt-2ddf1e",
+    "twoclipping-6dd14e",
+    "quickdesignio-dd93d0"
+   ]
+  },
+  {
+   "id": "generos-de-tv-emprestados",
+   "nome": "Gêneros de TV emprestados",
+   "familia": "transicao",
+   "categorias": [
+    "characters",
+    "code",
+    "photos"
+   ],
+   "encaixe": [
+    "orador",
+    "explainer",
+    "teaser",
+    "motion"
+   ],
+   "custo": "alto",
+   "forca": 5,
+   "resumo": "Cada nível da explicação (ou cada ideia citada) vira um gênero de TV diferente: vídeo corporativo, jogo 8-bit, documentário de natureza, programa infantil de feltro, infomercial de madrugada, trailer, man page de terminal.",
+   "componentes": [
+    "orador",
+    "recorte",
+    "terminal",
+    "teaser",
+    "volta"
+   ],
+   "refs": [
+    "emollick-8661a8",
+    "sab8a-364a5a",
+    "spearwtf-3c1fd1"
+   ]
+  },
+  {
+   "id": "potencias-de-dez",
+   "nome": "Potências de dez",
+   "familia": "camera",
+   "categorias": [
+    "product-ui",
+    "charts",
+    "diagrams"
+   ],
+   "encaixe": [
+    "produto",
+    "explainer",
+    "teaser",
+    "dados"
+   ],
+   "custo": "medio",
+   "forca": 4,
+   "resumo": "Câmera contínua em escala extrema: do pixel do gráfico ao terminal inteiro, do desktop que vira estrela no campo estelar e de volta ao celular, com indicador de escala no canto e nenhum corte.",
+   "componentes": [
+    "camera",
+    "print",
+    "motionBlur"
+   ],
+   "refs": [
+    "dale-vaz-cc612a",
+    "rebutonepress-810f78",
+    "abderrahmen-g-9e8ed0",
+    "monokern-ade5b6"
+   ]
+  },
+  {
+   "id": "o-site-e-o-cenario",
+   "nome": "O site é o cenário",
+   "familia": "camera",
+   "categorias": [
+    "product-ui",
+    "music"
+   ],
+   "encaixe": [
+    "orador",
+    "produto",
+    "cta",
+    "teaser"
+   ],
+   "custo": "medio",
+   "forca": 5,
+   "resumo": "A página real vira o mundo e só a câmera se move: o vídeo em tela cheia recua até virar card da grade e mergulha de volta; ou a landing deitada no chão é sobrevoada em foco raso, com os blocos se levantando para a lente.",
+   "componentes": [
+    "camera",
+    "print",
+    "card",
+    "encaixe"
+   ],
+   "refs": [
+    "twoclipping-d89be5",
+    "antonio-kodheli-490109",
+    "kikelopezdesign-7cc9e8",
+    "rossaxbt-94583b"
+   ]
+  },
+  {
+   "id": "chegada-exponencial-com-borrao",
+   "nome": "Chegada exponencial com borrão",
+   "familia": "camera",
+   "categorias": [
+    "product-ui",
+    "music"
+   ],
+   "encaixe": [
+    "orador",
+    "produto",
+    "teaser",
+    "cta"
+   ],
+   "custo": "baixo",
+   "forca": 4,
+   "resumo": "Nenhum plano começa parado: tudo chega em ease-out exponencial com borrão na direção do movimento, o cursor gira para onde vai, whip-tilt com flash curto e corte cravado na batida.",
+   "componentes": [
+    "camera",
+    "motionBlur",
+    "rajada"
+   ],
+   "refs": [
+    "notdwd-7de38a",
+    "polydao-7a572b",
+    "twoclipping-6dd14e"
+   ]
+  },
+  {
+   "id": "hud-camera-capitulos",
+   "nome": "Moldura de reel com timecode (clichê)",
+   "familia": "camera",
+   "categorias": [
+    "kinetic-type",
+    "shapes",
+    "music"
+   ],
+   "encaixe": [
+    "motion",
+    "teaser"
+   ],
+   "custo": "baixo",
+   "forca": 2,
+   "resumo": "AVISO: clichê da galeria (~50 vídeos, 42 deles do mesmo prompt genérico de showreel) que o blog trata como sinal de vídeo feito por IA: cantoneiras, timecode, BPM e capítulo numerado em volta de tudo. Só com dado real.",
+   "componentes": [
+    "rec",
+    "hud"
+   ],
+   "refs": [
+    "stephanlivera-df17a2",
+    "marouanegazouzi-6071d5",
+    "ajith-io-b5626e",
+    "tequilafunks-97f6c9",
+    "ayushunleashed-ece3e3",
+    "ndhabarde11-f155b4"
+   ]
+  }
+ ]
+}

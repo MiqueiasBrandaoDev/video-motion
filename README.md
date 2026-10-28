@@ -52,6 +52,10 @@ O fundo de grade continua sendo a assinatura, agora com halos de luz, vinheta, g
 
 Antes de desenhar qualquer cena, a skill pesquisa na web como os melhores criadores e marcas do nicho específico estão fazendo vídeo no ano corrente: formato, gancho, ritmo de corte, estilo de legenda, tipografia, paleta, técnicas de motion, sound design e CTA. São no mínimo ~8 fontes com link e data, gravadas em `pesquisa.md` no projeto, com 2 a 3 direções criativas derivadas dos achados. A direção escolhida e o motivo aparecem no relatório de entrega.
 
+## Catálogo de direções e rodízio
+
+`references/prompt-motion/` reúne direções visuais destiladas dos 234 vídeos do [prompt-motion.com](https://prompt-motion.com) (galeria de motion feito com Claude Opus 5.5, com o prompt de cada um), escritas com as nossas palavras e com o link de cada referência. A cada vídeo, `scripts/rodizio.py sugerir` propõe 3 direções de famílias diferentes que casam com o formato e não foram usadas nos últimos vídeos; `registrar` guarda o histórico em `VIDEO_MOTION_PASTA` (ou `~/.video-motion/`), fora do repositório. `scripts/prompt_motion.py` lê o site na hora: lista por categoria, prompt integral de um item, folha de contato do vídeo e itens novos desde a última coleta.
+
 ## Requisitos
 
 | Ferramenta | Uso | Checagem |
@@ -96,7 +100,7 @@ Basta pedir em linguagem natural. Exemplos:
 | 0. Entrada | detecta o insumo e o objetivo (plataforma, formato, duração, marca, CTA); pergunta só o que não dá para inferir |
 | 1. Conteúdo | transcreve com tempo por palavra e separa locução, instrução falada para o agente e descarte; ou lê o projeto; ou escreve o roteiro numa estrutura medida (resultado no 1º segundo) |
 | 2. Pesquisa do nicho | pesquisa web obrigatória, `pesquisa.md` com fontes e direções criativas |
-| 3. Direção visual | estilo padrão (UI viva, carimbo, 3D, luz, tipografia em papéis, HUD), acento com significado, paleta da marca ou da pesquisa |
+| 3. Direção visual | estilo padrão (UI viva, carimbo, 3D, luz, tipografia em papéis, HUD), acento com significado, paleta da marca ou da pesquisa; rodízio de direções do catálogo para não repetir linguagem |
 | 4. Storyboard | blocos com tempo, qual palavra dispara qual animação |
 | 5. Assets | prints reais via Playwright, com dados sensíveis borrados antes do uso |
 | 6. Voz (e vídeo) | cortes a partir do original, aceleração com tom preservado, loudnorm, retranscrição para legendas e marcos; com rosto filmado, vídeo e voz cortados juntos com sincronia conferida |
@@ -115,9 +119,10 @@ SKILL.md          instruções que o Claude Code segue
 references/       guias por fase (áudio, pesquisa, roteiros e ganchos, direção visual, Remotion,
                   sound design, formatos, QA, licenças)
 references/estilos/  fichas de estilo medidas em referências (dossiê, onda sonora)
+references/prompt-motion/  catálogo de direções do prompt-motion.com (direções, índice, blog)
 scripts/          Python: transcrever, trechos, cortar, cortar_video, legendas, tts, borrar,
                   analisa_musica, gerar_sfx, mixar, frames_check, comprimir, novo_projeto,
-                  processos, cenas_check, recortar_orador (opcional)
+                  processos, cenas_check, prompt_motion, rodizio, recortar_orador (opcional)
 template/         projeto Remotion base copiado para cada vídeo (componentes, cenas, dados de exemplo)
 ```
 
